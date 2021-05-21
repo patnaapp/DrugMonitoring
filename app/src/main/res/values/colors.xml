@@ -3,9 +3,11 @@
     <color name="colorPrimary">#B15605</color>
     <color name="colorPrimaryDark">#883000</color>
     <color name="colorAccent">#FC6600</color>
+    <color name="color_footer">#FC6600</color>
 
     <color name="colorGrey">#a9a9a9</color>
     <color name="colorGreyDark">#6E6A6A</color>
+
 
     <color name="themeBlue">#2e5883</color>
     <color name="holo_blue_light">#ff33b5e5</color>
