@@ -42,160 +42,278 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Form for Admitting New Patient in"
+                android:text="Drug Request Form"
                 android:textColor="@color/colorPrimary"
                 android:layout_marginBottom="4dp"/>
-
-<!--            <LinearLayout-->
-<!--                android:layout_marginTop="4dp"-->
-<!--                android:visibility="gone"-->
-<!--                android:layout_marginBottom="16dp"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:weightSum="4">-->
-
-<!--                <RelativeLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_centerVertical="true"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="1dp"-->
-<!--                        android:background="@color/colorPrimary"/>-->
-
-<!--                    <ImageView-->
-<!--                        android:padding="6dp"-->
-<!--                        android:layout_width="36dp"-->
-<!--                        android:layout_height="36dp"-->
-<!--                        android:src="@drawable/ic_person_black_60dp"-->
-<!--                        android:tint="@color/color_white"-->
-<!--                        android:layout_centerInParent="true"-->
-<!--                        android:background="@drawable/circuler_shape_primary"/>-->
-<!--                </RelativeLayout>-->
-
-<!--                <RelativeLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_centerVertical="true"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="1dp"-->
-<!--                        android:background="@color/colorPrimary"/>-->
-
-<!--                    <ImageView-->
-<!--                        android:padding="8dp"-->
-<!--                        android:layout_width="36dp"-->
-<!--                        android:layout_height="36dp"-->
-<!--                        android:src="@drawable/ic_univesity_head"-->
-<!--                        android:tint="@color/color_white"-->
-<!--                        android:layout_centerInParent="true"-->
-<!--                        android:background="@drawable/circuler_shape_primary"/>-->
-<!--                </RelativeLayout>-->
-
-<!--                <RelativeLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_centerVertical="true"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="1dp"-->
-<!--                        android:background="@color/colorPrimary"/>-->
-
-<!--                    <ImageView-->
-<!--                        android:padding="8dp"-->
-<!--                        android:layout_width="36dp"-->
-<!--                        android:layout_height="36dp"-->
-<!--                        android:src="@drawable/ic_university"-->
-<!--                        android:tint="@color/color_white"-->
-<!--                        android:layout_centerInParent="true"-->
-<!--                        android:background="@drawable/circuler_shape_primary"/>-->
-<!--                </RelativeLayout>-->
-
-<!--                <RelativeLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_centerVertical="true"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="1dp"-->
-<!--                        android:background="@color/colorPrimary"/>-->
-
-<!--                    <ImageView-->
-<!--                        android:padding="6dp"-->
-<!--                        android:layout_width="36dp"-->
-<!--                        android:layout_height="36dp"-->
-<!--                        android:src="@drawable/ic_complete"-->
-<!--                        android:tint="@color/color_white"-->
-<!--                        android:layout_centerInParent="true"-->
-<!--                        android:background="@drawable/circuler_shape_primary"/>-->
-<!--                </RelativeLayout>-->
-
-<!--            </LinearLayout>-->
-
-            <RelativeLayout
-                android:background="@drawable/shape_adapter_cell"
-                android:padding="8dp"
-                android:visibility="gone"
-                android:layout_marginBottom="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Institution Bank Details"
-                    android:textColor="@color/color_footer"
-                    android:textStyle="bold"
-                    android:textSize="17sp"/>
-
-                <TextView
-                    android:layout_marginRight="4dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Step 4-4"
-                    android:textColor="@color/colorGreyDark"
-                    android:textStyle="bold"
-                    android:textSize="13sp"/>
-
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_asha"
-                android:visibility="gone"
-                android:layout_marginBottom="12dp"
-                android:layout_width="match_parent"
+            <androidx.cardview.widget.CardView
+                app:cardElevation="8dp"
+                app:cardCornerRadius="4dp"
+                android:id="@+id/rl_user_info"
+                android:layout_below="@+id/header"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp">
 
-                <TextView
-                    android:id="@+id/tv_asha_title"
+                <RelativeLayout
+                    android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="आशा : [*]"
-                    android:textColor="@color/color_black"
-                    android:textSize="12sp"/>
+                    android:background="@drawable/shape_adapter_cell">
+                    <LinearLayout
+                        android:id="@+id/ll_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Patient Details"
+                            android:textAlignment="center"
+                            android:layout_gravity="center_horizontal"
+                            android:id="@+id/tv1"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginBottom="4dp"/>
+                    </LinearLayout>
 
-                <Spinner
-                    android:background="@drawable/spinner_bg1"
-                    android:layout_marginTop="4dp"
-                    android:id="@+id/sp_asha"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_username"
+                        android:layout_below="@+id/ll_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Center Name"
+                            android:textColor="@color/colorGreyDark"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/tv_centrename"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TEST"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+
+
+
+
+                    <LinearLayout
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ll_dist_role"
+                        android:layout_below="@+id/ll_username"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:id="@+id/ll_district"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ICMR ID"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_icmr_id"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ICMR ID"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:visibility="visible"
+                            android:layout_weight="1"
+                            android:id="@+id/ll_thela_datail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Patient ID"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_patient_id"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="43"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ll_div_zone"
+                        android:layout_below="@+id/ll_dist_role"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:id="@+id/ll_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Name of Citizen/Patient"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_patientName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TEST"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:id="@+id/ll_zone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Age"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_patientage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="test"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ll_div_zone1"
+                        android:layout_below="@+id/ll_div_zone"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:id="@+id/ll_phone1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Date And Time of Admission"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_adm_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TEST"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:id="@+id/ll_zone1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Age"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_patientage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="test"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ll_dist_role"
+                        android:orientation="horizontal"
+                        android:clickable="true"
+                        android:weightSum="2">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_sync_panchayat"
+                            android:layout_marginRight="4dp"
+                            android:padding="6dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_white">
+
+                            <ImageView
+                                android:id="@+id/iv_sync"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_toLeftOf="@+id/tv_sync"
+                                android:clickable="true"
+                                android:src="@drawable/synmain"/>
+
+                            <TextView
+                                android:id="@+id/tv_sync"
+                                android:layout_centerInParent="true"
+                                android:layout_marginLeft="4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Sync Schemes"/>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
 
             <LinearLayout
                 android:layout_marginTop="12dp"
@@ -245,7 +363,7 @@
             </LinearLayout>
 
             <LinearLayout
-android:layout_marginTop="12dp"
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -353,64 +471,64 @@ android:layout_marginTop="12dp"
 
 
             <LinearLayout
-            android:layout_marginTop="12dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-            <LinearLayout
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_gender"
+                android:layout_weight="2"
+                android:orientation="horizontal">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Gender : [*]"
-                    android:textColor="@color/color_black"
-                    android:textSize="12sp"/>
 
-                <Spinner
-                    android:background="@drawable/spinner_bg1"
-                    android:layout_marginTop="4dp"
-                    android:id="@+id/sp_gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp" />
-            </LinearLayout>
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Gender : [*]"
+                        android:textColor="@color/color_black"
+                        android:textSize="12sp"/>
 
-                <TextView
-                    android:id="@+id/tv_Mob"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Mobile No. : [*]"
-                    android:textColor="@color/color_black"
-                    android:textSize="12sp"/>
-                <EditText
+                    <Spinner
+                        android:background="@drawable/spinner_bg1"
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/sp_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp" />
+                </LinearLayout>
 
-                    android:layout_marginRight="8dp"
-                    android:id="@+id/edt_mobile"
-
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/textboxshape"
-                    android:hint="Mobile Number  "
-                    android:padding="10dp"
-                    android:maxLength="10"
-                    android:inputType="number"
-                    android:singleLine="true"
-                    android:textColor="#222222"
-                    android:focusableInTouchMode="true"
-                    android:textSize="15sp" />
-            </LinearLayout>
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_Mob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mobile No. : [*]"
+                        android:textColor="@color/color_black"
+                        android:textSize="12sp"/>
+                    <EditText
+
+                        android:layout_marginRight="8dp"
+                        android:id="@+id/edt_mobile"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/textboxshape"
+                        android:hint="Mobile Number  "
+                        android:padding="10dp"
+                        android:maxLength="10"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:textColor="#222222"
+                        android:focusableInTouchMode="true"
+                        android:textSize="15sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -493,7 +611,7 @@ android:layout_marginTop="12dp"
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-android:layout_marginTop="12dp"
+                android:layout_marginTop="12dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
