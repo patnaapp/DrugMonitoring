@@ -48,16 +48,16 @@
             <androidx.cardview.widget.CardView
                 app:cardElevation="8dp"
                 app:cardCornerRadius="4dp"
-                android:id="@+id/rl_user_info"
+                android:id="@+id/rl_user_info1"
                 android:layout_below="@+id/header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp">
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
 
                 <RelativeLayout
-                    android:padding="10dp"
+                    android:padding="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_adapter_cell">
@@ -260,19 +260,348 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Age"
+                                android:text="Present Residential Address"
                                 android:textColor="@color/colorGreyDark"
-                                android:textSize="12sp"/>
+                                android:textSize="12sp" />
 
                             <TextView
-                                android:id="@+id/tv_patientage"
+                                android:id="@+id/tv_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="test"
                                 android:textColor="@android:color/black"
                                 android:textSize="15sp"/>
                         </LinearLayout>
+
+
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:orientation="horizontal"
+                        android:layout_below="@+id/ll_div_zone1"
+                        android:id="@+id/ll_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#1B1919"/>
+
+                    <LinearLayout
+                        android:id="@+id/ll_tv1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/ll_view"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Attendant Details"
+                            android:textAlignment="center"
+                            android:layout_gravity="center_horizontal"
+                            android:id="@+id/tv2"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginBottom="4dp"/>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ll_div_zone2"
+                        android:layout_below="@+id/ll_tv1"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:id="@+id/ll_requestdae"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Request Date"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_request_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Request Date"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:id="@+id/ll_attn_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Attendant Name"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_attendant_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="test"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ll_div_zone3"
+                        android:layout_below="@+id/ll_div_zone2"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:id="@+id/ll_atttendat_cntct"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Contact No. of Attendent"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_attndnt_cntct"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="NA"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:id="@+id/ll_attndnt_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Identity Document No."
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_attndnt_id"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="NA"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_below="@+id/ll_div_zone3"
+                        android:id="@+id/ll_criticality"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Critical Status"
+                            android:textColor="@color/colorGreyDark"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/tv_critical_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="status"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+
+
+
+            <androidx.cardview.widget.CardView
+                app:cardElevation="8dp"
+                app:cardCornerRadius="4dp"
+                android:id="@+id/rl_user_info"
+                android:layout_below="@+id/header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
+
+                <RelativeLayout
+                    android:padding="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape11">
+                    <LinearLayout
+                        android:id="@+id/ll_tvdrug"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Drug Details"
+                            android:textAlignment="center"
+                            android:layout_gravity="center_horizontal"
+                            android:id="@+id/tv_drug"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginBottom="4dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_drug"
+                        android:layout_below="@+id/ll_tvdrug"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="S.No"
+                            android:textColor="@color/colorGreyDark"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/tv_slno"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1."
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+
+
+
+
+                    <LinearLayout
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ll_dist_role_drug"
+                        android:layout_below="@+id/ll_drug"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:id="@+id/ll_drugname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Drug Name"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_drugname"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="REMDESIVIR"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:visibility="visible"
+                            android:layout_weight="1"
+                            android:id="@+id/ll_max_qty"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Max Qty Allowed"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_max_qty"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="6"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ll_div_zone_drug"
+                        android:layout_below="@+id/ll_dist_role_drug"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:id="@+id/ll_qty_request"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Qty to be requisitioned"
+                                android:textColor="@color/colorGreyDark"
+                                android:textSize="12sp"/>
+
+                            <Spinner
+                                android:background="@drawable/spinner_bg1"
+                                android:layout_marginTop="4dp"
+                                android:id="@+id/sp_qty_to_request"
+                                android:layout_width="match_parent"
+                                android:layout_height="36dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
 
                     <LinearLayout
                         android:visibility="gone"
@@ -314,634 +643,6 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-
-            <LinearLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date of Test / Covid Positive Date (DD/MM/YYYY)*  : [*]"
-                    android:textColor="@color/color_black"
-                    android:textSize="12sp"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:layout_marginTop="4dp"
-                        android:layout_marginRight="8dp"
-                        android:id="@+id/edt_admission_date"
-                        android:layout_toLeftOf="@+id/img_admdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/textboxshape"
-                        android:hint="Covid Positive Date"
-                        android:padding="10dp"
-                        android:enabled="false"
-                        android:singleLine="true"
-                        android:textColor="#222222"
-                        android:focusableInTouchMode="true"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:id="@+id/img_admdate"
-                        android:layout_marginTop="4dp"
-                        android:layout_width="60dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/cal_iconblue"
-                        />
-
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_hour"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Hours : [*]"
-                        android:textColor="@color/color_black"
-                        android:textSize="12sp"/>
-
-                    <Spinner
-                        android:background="@drawable/spinner_bg1"
-                        android:layout_marginTop="4dp"
-                        android:id="@+id/sp_hour"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_minutes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Minutes : [*]"
-                        android:textColor="@color/color_black"
-                        android:textSize="12sp"/>
-
-                    <Spinner
-                        android:background="@drawable/spinner_bg1"
-                        android:layout_marginTop="4dp"
-                        android:id="@+id/sp_minutes"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_bank_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="AM/PM : [*]"
-                        android:textColor="@color/color_black"
-                        android:textSize="12sp"/>
-
-                    <Spinner
-                        android:background="@drawable/spinner_bg1"
-                        android:layout_marginTop="4dp"
-                        android:id="@+id/sp_am_pm"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="12dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Name of the Patient Being Admitted: [*]"
-                    android:textColor="@color/color_black"
-                    android:textSize="12sp"/>
-
-                <EditText
-                    android:layout_marginTop="4dp"
-                    android:id="@+id/edt_patient_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/textboxshape"
-                    android:hint="IFSC"
-                    android:padding="10dp"
-                    android:inputType="textCapCharacters"
-                    android:singleLine="true"
-                    android:textColor="#222222"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-
-
-
-            <LinearLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_gender"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Gender : [*]"
-                        android:textColor="@color/color_black"
-                        android:textSize="12sp"/>
-
-                    <Spinner
-                        android:background="@drawable/spinner_bg1"
-                        android:layout_marginTop="4dp"
-                        android:id="@+id/sp_gender"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_Mob"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mobile No. : [*]"
-                        android:textColor="@color/color_black"
-                        android:textSize="12sp"/>
-                    <EditText
-
-                        android:layout_marginRight="8dp"
-                        android:id="@+id/edt_mobile"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/textboxshape"
-                        android:hint="Mobile Number  "
-                        android:padding="10dp"
-                        android:maxLength="10"
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textColor="#222222"
-                        android:focusableInTouchMode="true"
-                        android:textSize="15sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_age"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Age in Year : [*]"
-                        android:textColor="@color/color_black"
-                        android:textSize="12sp"/>
-
-                    <Spinner
-                        android:background="@drawable/spinner_bg1"
-                        android:layout_marginTop="4dp"
-                        android:id="@+id/sp_age"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_month"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Age in Months : [*]"
-                        android:textColor="@color/color_black"
-                        android:textSize="12sp"/>
-
-                    <Spinner
-                        android:background="@drawable/spinner_bg1"
-                        android:layout_marginTop="4dp"
-                        android:id="@+id/sp_month"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_days"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Age in Days: [*]"
-                        android:textColor="@color/color_black"
-                        android:textSize="12sp"/>
-
-                    <Spinner
-                        android:background="@drawable/spinner_bg1"
-                        android:layout_marginTop="4dp"
-                        android:id="@+id/sp_day"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_positive"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Whether Positive : [*]"
-                    android:textColor="@color/color_black"
-                    android:textSize="12sp"/>
-
-                <Spinner
-                    android:background="@drawable/spinner_bg1"
-                    android:layout_marginTop="4dp"
-                    android:id="@+id/sp_whether_positive"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-                <LinearLayout
-                    android:layout_marginTop="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ICMR ID "
-                        android:textColor="@color/color_black"
-                        android:textSize="12sp"/>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <EditText
-
-                            android:layout_marginTop="4dp"
-                            android:layout_marginRight="8dp"
-                            android:id="@+id/edt_icmr_id"
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/textboxshape"
-                            android:hint="ICMR ID "
-                            android:padding="10dp"
-                            android:inputType="text"
-                            android:singleLine="true"
-                            android:textColor="#222222"
-                            android:focusableInTouchMode="true"
-                            android:textSize="15sp" />
-
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date of Test / Covid Positive Date (DD/MM/YYYY)*  : [*]"
-                    android:textColor="@color/color_black"
-                    android:textSize="12sp"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-                        android:layout_marginTop="4dp"
-                        android:layout_marginRight="8dp"
-                        android:id="@+id/edt_testDate"
-                        android:layout_toLeftOf="@+id/img_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/textboxshape"
-                        android:hint="Covid Positive Date"
-                        android:padding="10dp"
-                        android:enabled="false"
-                        android:singleLine="true"
-                        android:textColor="#222222"
-                        android:focusableInTouchMode="true"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:id="@+id/img_date"
-                        android:layout_marginTop="4dp"
-                        android:layout_width="60dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/cal_iconblue"
-                        />
-
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SRF ID No."
-                    android:textColor="@color/color_black"
-                    android:textSize="12sp"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-
-                        android:layout_marginTop="4dp"
-                        android:layout_marginRight="8dp"
-                        android:id="@+id/edt_srf_id"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/textboxshape"
-                        android:hint="SRF ID No."
-                        android:padding="10dp"
-                        android:inputType="text"
-                        android:singleLine="true"
-                        android:textColor="#222222"
-                        android:focusableInTouchMode="true"
-                        android:textSize="15sp" />
-
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Name of Attendent"
-                    android:textColor="@color/color_black"
-                    android:textSize="12sp"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <EditText
-
-                        android:layout_marginTop="4dp"
-                        android:layout_marginRight="8dp"
-                        android:id="@+id/edt_attendant_name"
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/textboxshape"
-                        android:hint="Name of Attendent"
-                        android:padding="10dp"
-                        android:inputType="text"
-                        android:singleLine="true"
-                        android:textColor="#222222"
-                        android:focusableInTouchMode="true"
-                        android:textSize="15sp" />
-
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_contact_attendant"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Contact No. : [*]"
-                    android:textColor="@color/color_black"
-                    android:textSize="12sp"/>
-                <EditText
-
-                    android:layout_marginRight="8dp"
-                    android:id="@+id/edt_att_contact"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/textboxshape"
-                    android:hint="Contact Number  "
-                    android:padding="10dp"
-                    android:maxLength="10"
-                    android:inputType="number"
-                    android:singleLine="true"
-                    android:textColor="#222222"
-                    android:focusableInTouchMode="true"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Present Residential Address: [*]"
-                    android:textColor="@color/color_black"
-                    android:textSize="12sp"/>
-
-                <EditText
-                    android:id="@+id/edt_residnt_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/textboxshape"
-                    android:gravity="top|left"
-                    android:hint="Present Residential Address "
-                    android:inputType="textMultiLine"
-                    android:lines="8"
-                    android:maxLines="10"
-                    android:minLines="3"
-                    android:padding="10dp"
-                    android:singleLine="true"
-                    android:textColor="#222222"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_state"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="State of Residence: [*]"
-                        android:textColor="@color/color_black"
-                        android:textSize="12sp"/>
-
-                    <Spinner
-                        android:background="@drawable/spinner_bg1"
-                        android:layout_marginTop="4dp"
-                        android:id="@+id/sp_state"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_dist"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Residential District : [*]"
-                        android:textColor="@color/color_black"
-                        android:textSize="12sp"/>
-                    <Spinner
-                        android:background="@drawable/spinner_bg1"
-                        android:layout_marginTop="4dp"
-                        android:id="@+id/sp_dist"
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp" />
-                </LinearLayout>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_criticality"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Patient Criticality: [*]"
-                    android:textColor="@color/color_black"
-                    android:textSize="12sp"/>
-                <Spinner
-                    android:background="@drawable/spinner_bg1"
-                    android:layout_marginTop="4dp"
-                    android:id="@+id/sp_criticality"
-                    android:layout_width="match_parent"
-                    android:layout_height="36dp" />
-            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>
@@ -957,9 +658,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/buttonshape"
-        android:text="    SUBMIT  "
+        android:text="    SAVE REQUEST  "
         android:textColor="#ffff"
-        android:textSize="17sp"
+        android:textSize="15sp"
         android:onClick="onSaveData"/>
 
 
