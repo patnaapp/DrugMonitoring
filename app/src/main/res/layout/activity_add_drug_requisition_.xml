@@ -277,10 +277,33 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_below="@+id/ll_div_zone1"
+                        android:id="@+id/ll_criticality"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Critical Status"
+                            android:textColor="@color/colorGreyDark"
+                            android:textSize="12sp"/>
+
+                        <TextView
+                            android:id="@+id/tv_critical_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="status"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
                         android:orientation="horizontal"
-                        android:layout_below="@+id/ll_div_zone1"
+                        android:layout_below="@+id/ll_criticality"
                         android:id="@+id/ll_view"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -422,29 +445,7 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_below="@+id/ll_div_zone3"
-                        android:id="@+id/ll_criticality"
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Critical Status"
-                            android:textColor="@color/colorGreyDark"
-                            android:textSize="12sp"/>
-
-                        <TextView
-                            android:id="@+id/tv_critical_status"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="status"
-                            android:textColor="@android:color/black"
-                            android:textSize="15sp"/>
-                    </LinearLayout>
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
