@@ -3,6 +3,7 @@ package bih.in.drugmonitor.ui;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,8 +23,10 @@ import android.widget.Toast;
 
 import bih.in.drugmonitor.R;
 
+import bih.in.drugmonitor.RandomString;
 import bih.in.drugmonitor.database.DataBaseHelper;
 import bih.in.drugmonitor.entity.UserDetails;
+import bih.in.drugmonitor.security.Encriptor;
 import bih.in.drugmonitor.utility.CommonPref;
 import bih.in.drugmonitor.utility.GlobalVariables;
 import bih.in.drugmonitor.utility.Utiilties;
@@ -47,32 +51,43 @@ public class LoginActivity extends Activity {
     DataBaseHelper localDBHelper;
 
     UserDetails userInfo;
+    Encriptor _encrptor;
+    String CapId="";
+    private SharedPreferences prefs;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        prefs = getSharedPreferences("file", Context.MODE_PRIVATE);
+        _encrptor=new Encriptor();
 
         Button loginBtn = (Button) findViewById(R.id.btn_login);
         TextView signUpBtn = (TextView) findViewById(R.id.tv_signup);
 
+        CapId= RandomString.randomAlphaNumeric(8);
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userName = (EditText) findViewById(R.id.et_username);
-                userPass = (EditText) findViewById(R.id.et_password);
-                param = new String[2];
-                param[0] = userName.getText().toString();
-                param[1] = userPass.getText().toString();
-
-                if (param[0].length() < 1){
-                    Toast.makeText(LoginActivity.this, "Enter Valid User Id", Toast.LENGTH_SHORT).show();
-                }else if (param[1].length() < 1){
-                    Toast.makeText(LoginActivity.this, "Enter Valid Password", Toast.LENGTH_SHORT).show();
-                }else{
-                    new LoginTask(param[0], param[1]).execute(param);
-                }
+                Intent i=new Intent(LoginActivity.this,AdcHome_Acitivity.class);
+                startActivity(i);
+//                userName = (EditText) findViewById(R.id.et_username);
+//                userPass = (EditText) findViewById(R.id.et_password);
+//                param = new String[2];
+//                param[0] = userName.getText().toString();
+//                param[1] = userPass.getText().toString();
+//
+//                if (param[0].length() < 1){
+//                    Toast.makeText(LoginActivity.this, "Enter Valid User Id", Toast.LENGTH_SHORT).show();
+//                }else if (param[1].length() < 1){
+//                    Toast.makeText(LoginActivity.this, "Enter Valid Password", Toast.LENGTH_SHORT).show();
+//                }else{
+//                    new LoginTask(param[0], param[1]).execute(param);
+//                }
 
             }
         });
@@ -139,7 +154,25 @@ public class LoginActivity extends Activity {
                 userDetails.setAuthenticated(true);
                 return userDetails;
             } else {
-                return WebServiceHelper.Login(username, password,"");
+
+                String _encptuid = Utiilties.cleanStringForVulnerability(username);
+                String _encptpwd = Utiilties.cleanStringForVulnerability(password);
+                String _capId = Utiilties.cleanStringForVulnerability(CapId);
+                // PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("CAPID", RandomString.randomAlphaNumeric(8)).commit();
+                String randomnum = Utiilties.getTimeStamp();
+
+                try
+                {
+                    _encptuid = _encrptor.Encrypt(_encptuid, randomnum);
+                    _encptpwd = _encrptor.Encrypt(_encptpwd, randomnum);
+                    _capId = _encrptor.Encrypt(_capId, randomnum);
+                }
+                catch (Exception e)
+                {
+                    Log.e("EXCEPTION", "EXCEP while Encription on Login");
+                }
+
+                return WebServiceHelper.Login(_encptuid, _encptpwd,_capId,randomnum);
             }
 
         }
@@ -149,114 +182,90 @@ public class LoginActivity extends Activity {
 
             if (this.dialog.isShowing()) this.dialog.dismiss();
 
-            if (result != null && result.isAuthenticated() == false) {
+            if (result != null)
+            {
+                if (result.getIsAuth().equalsIgnoreCase("true"))
+                {
+                    if(result.getCapId().equalsIgnoreCase(CapId))
+                    {
 
-                alertDialog.setTitle(getResources().getString(R.string.failed));
-                alertDialog.setMessage(getResources().getString(R.string.authentication_failed));
-                alertDialog.show();
-
-            } else if (!(result != null)) {
-                AlertDialog.Builder ab = new AlertDialog.Builder(context);
-                ab.setTitle(getResources().getString(R.string.server_down_title));
-                ab.setMessage(getResources().getString(R.string.server_down_text));
-                ab.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int whichButton) {
-
-                        dialog.dismiss();
-
-                    }
-                });
-
-
-                ab.create().getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
-                ab.show();
-
-            } else {
-
-                //-----------------------------------------Online-------------------------------------
-                if (Utiilties.isOnline(LoginActivity.this)) {
-
-
-                    uid = param[0];
-                    pass = param[1];
-
-                    if (result != null && result.isAuthenticated() == true) {
-                        uid=result.getUserID();
-                        pass = param[1];
-
-                        try {
-
+                        DataBaseHelper dataBaseHelper = new DataBaseHelper(getApplicationContext());
+                        try
+                        {
+                            // dataBaseHelper.insertUserDetails(result, _encrptor.Encrypt(email.getText().toString().toLowerCase(), CommonPref.CIPER_KEY), _encrptor.Encrypt(password.getText().toString().toLowerCase(), CommonPref.CIPER_KEY));
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        try
+                        {
                             GlobalVariables.LoggedUser = result;
-                            GlobalVariables.LoggedUser.setUserID(userName
-                                    .getText().toString().trim().toLowerCase());
+                            GlobalVariables.LoggedUser.setUserID(_encrptor.Encrypt(username, CommonPref.CIPER_KEY));
 
-                            GlobalVariables.LoggedUser.setPassword(userPass
-                                    .getText().toString().trim());
-
-
-                            CommonPref.setUserDetails(getApplicationContext(),
-                                    GlobalVariables.LoggedUser);
-
-
-                            long c = setLoginStatus(GlobalVariables.LoggedUser);
-
-                            if (c > 0) {
-                                start();
-                            }
-                            else {
-                                Toast.makeText(LoginActivity.this, getResources().getString(R.string.authentication_failed),
-                                        Toast.LENGTH_SHORT).show();
-                            }
-
+                            GlobalVariables.LoggedUser.setPassword(_encrptor.Encrypt(password, CommonPref.CIPER_KEY));
+                            GlobalVariables.LoggedUser.set_TOKEN(result.get_TOKEN());
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("Role", (_encrptor.Encrypt("CSC", CommonPref.CIPER_KEY))).commit();
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("UserId", (_encrptor.Encrypt(username, CommonPref.CIPER_KEY))).commit();
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("password", (_encrptor.Encrypt(password, CommonPref.CIPER_KEY))).commit();
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("TOKENNO", result.get_TOKEN().toLowerCase()).commit();
 
                         }
-                        catch (Exception ex) {
-                            ex.printStackTrace();
-                            Toast.makeText(LoginActivity.this, getResources().getString(R.string.authentication_failed),
-                                    Toast.LENGTH_SHORT).show();
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        try
+                        {
+                            if (result.getRole().equals("CSC"))
+                            {
+
+                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("Block", _encrptor.Encrypt(result.getBlockCode(), CommonPref.CIPER_KEY)).commit();
+                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("BlockName", _encrptor.Encrypt(result.getBlockName(), CommonPref.CIPER_KEY)).commit();
+                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("DistrictName", _encrptor.Encrypt(result.getDistName(), CommonPref.CIPER_KEY)).commit();
+                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("District", _encrptor.Encrypt(result.getDistrictCode(), CommonPref.CIPER_KEY)).commit();
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        String panchyatcode = "";
+                        panchyatcode = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("PanchayatCode", "");
+                        if (!panchyatcode.equals(""))
+                        {
+                            Intent i = new Intent();
+                            i.setComponent(new ComponentName("com.example.nic.aadhar1", "com.example.nic.aadhar1.HomeActivity"));
+                            startActivity(i);
+
+                        }
+                        else
+                        {
+                            Intent i = new Intent();
+                            i.setComponent(new ComponentName("com.example.nic.aadhar1", "com.example.nic.aadhar1.ChooseCenter"));
+                            startActivity(i);
+
+                            finish();
+
                         }
 
                     }
-
-                    // offline -------------------------------------------------------------------------
-
-                } else {
-
-                    if (localDBHelper.getUserCount() > 0) {
-
-                        //GlobalVariables.LoggedUser = localDBHelper.getUserDetails(userName.getText().toString().trim().toLowerCase(),userPass.getText().toString());
-
-                        if (GlobalVariables.LoggedUser != null) {
-
-                            CommonPref.setUserDetails(
-                                    getApplicationContext(),
-                                    GlobalVariables.LoggedUser);
-
-                            SharedPreferences.Editor editor = SplashActivity.prefs.edit();
-                            editor.putBoolean("username", true);
-                            editor.putBoolean("password", true);
-                            editor.putString("uid", uid);
-                            editor.putString("pass", pass);
-                            editor.commit();
-                            start();
-
-                        } else {
-
-                            Toast.makeText(
-                                    getApplicationContext(),
-                                    getResources().getString(R.string.username_password_notmatched),
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        Toast.makeText(
-                                getApplicationContext(),
-                                getResources().getString(R.string.enable_internet_for_firsttime),
-                                Toast.LENGTH_LONG).show();
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "Invalid User Id and Password ", Toast.LENGTH_LONG).show();
                     }
                 }
-            }
+                else if (result.getIsAuth().equalsIgnoreCase("locked"))
+                {
+                    Toast.makeText(getApplicationContext(), "Your Account has been locked for 5 Minutes .Please Try Again Later", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Invalid User Id and Password ", Toast.LENGTH_LONG).show();
+                }
 
+            }
         }
     }
 

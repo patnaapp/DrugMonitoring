@@ -3,11 +3,13 @@ package bih.in.drugmonitor.web_services;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+import org.kxml2.kdom.Node;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -29,6 +31,10 @@ import bih.in.drugmonitor.entity.UserDetails;
 import bih.in.drugmonitor.entity.Versioninfo;
 import bih.in.drugmonitor.entity.VillageListEntity;
 import bih.in.drugmonitor.entity.ward;
+import bih.in.drugmonitor.security.Encriptor;
+import bih.in.drugmonitor.utility.CommonPref;
+
+import static bih.in.drugmonitor.utility.CommonPref.SERVICEURL;
 
 public class WebServiceHelper {
 
@@ -143,20 +149,66 @@ public class WebServiceHelper {
 
     }
 
-    public static UserDetails Login(String User_ID, String Pwd, String userType) {
+//    public static UserDetails Login(String Enc_User_ID, String Enc_Pwd, String capId ,String randomenum) {
+//        try {
+//            SoapObject res1;
+//            res1=getServerData(AUTHENTICATE_METHOD, UserDetails.getUserClass(),"user_ID","Password",Enc_User_ID,Enc_Pwd);
+//            if (res1 != null) {
+//                return new UserDetails(res1);
+//            } else
+//                return null;
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+
+    public static UserDetails Login(String EncUser_ID, String EncPwd, String capId ,String randomenum) {
+
+        Encriptor _encrptor = new Encriptor();
         try {
-            SoapObject res1;
-            res1=getServerData(AUTHENTICATE_METHOD, UserDetails.getUserClass(),"user_ID","Password","user_type",User_ID,Pwd, userType);
-            if (res1 != null) {
-                return new UserDetails(res1);
+            SoapObject request = new SoapObject(SERVICENAMESPACE, AUTHENTICATE_METHOD);
+
+
+            request.addProperty("skey", _encrptor.Encrypt(randomenum, CommonPref.CIPER_KEY));
+            // Log.d("ffhgeyhbhbe",Login.appid+"%%"+_encrptor.Encrypt(randomenum, CommonPref.CIPER_KEY));
+            request.addProperty("cap", capId);
+
+            org.kxml2.kdom.Element[] header = new org.kxml2.kdom.Element[1];
+            header[0] = new org.kxml2.kdom.Element().createElement(SERVICENAMESPACE, "SecuredTokenWebservice");
+            org.kxml2.kdom.Element uid = new org.kxml2.kdom.Element().createElement(SERVICENAMESPACE, "UserId");
+            uid.addChild(Node.TEXT, EncUser_ID);
+            header[0].addChild(Node.ELEMENT, uid);
+
+            org.kxml2.kdom.Element pwd = new org.kxml2.kdom.Element().createElement(SERVICENAMESPACE, "pwd");
+            pwd.addChild(Node.TEXT, EncPwd);
+            header[0].addChild(Node.ELEMENT, pwd);
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet = true;
+            envelope.headerOut = header;
+            envelope.setOutputSoapObject(request);
+            envelope.addMapping(SERVICENAMESPACE, UserDetails.USER_CLASS.getSimpleName(), UserDetails.USER_CLASS);
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(SERVICEURL);
+            androidHttpTransport.call(SERVICENAMESPACE + AUTHENTICATE_METHOD, envelope);
+
+            Object result = envelope.getResponse();
+
+            if (result != null) {
+                return new UserDetails((SoapObject) result);
             } else
                 return null;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            Log.d("TAG", "Error while Login");
+
             return null;
         }
+
     }
+
 
     public static ArrayList<FilterOptionEntity> getFilterOptionData(String optiontype) {
 

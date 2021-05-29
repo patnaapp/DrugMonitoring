@@ -8,13 +8,16 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Hashtable;
 
+import bih.in.drugmonitor.security.Encriptor;
+
 public class UserDetails implements KvmSerializable, Serializable {
-    private static Class<UserDetails> USER_CLASS = UserDetails.class;
+    public static Class<UserDetails> USER_CLASS = UserDetails.class;
 
     private boolean isAuthenticated = true;
-
+    private String IsAuth="";
     private String Password = "";
     private String UserID = "";
+    private String Role="";
 
     private String LastVisitedOn = "";
     private String MobileNo = "";
@@ -31,9 +34,19 @@ public class UserDetails implements KvmSerializable, Serializable {
     private String UserroleId = "";
     private String Name = "";
 
+    private String _TOKEN = "";
+
+    Encriptor _encrptor;
+    private String skey="";
+    private String CapId="";
 
     public UserDetails() {
+        _encrptor=new Encriptor();
     }
+
+//
+//    public UserDetails() {
+//    }
 
     @SuppressWarnings("deprecation")
     public UserDetails(SoapObject obj) {
@@ -431,6 +444,46 @@ public class UserDetails implements KvmSerializable, Serializable {
 
     public void setName(String name) {
         Name = name;
+    }
+
+    public String getIsAuth() {
+        return IsAuth;
+    }
+
+    public void setIsAuth(String isAuth) {
+        IsAuth = isAuth;
+    }
+
+    public String getSkey() {
+        return skey;
+    }
+
+    public void setSkey(String skey) {
+        this.skey = skey;
+    }
+
+    public String getCapId() {
+        return CapId;
+    }
+
+    public void setCapId(String capId) {
+        CapId = capId;
+    }
+
+    public String get_TOKEN() {
+        return _TOKEN;
+    }
+
+    public void set_TOKEN(String _TOKEN) {
+        this._TOKEN = _TOKEN;
+    }
+
+    public String getRole() {
+        return Role;
+    }
+
+    public void setRole(String role) {
+        Role = role;
     }
 }
 

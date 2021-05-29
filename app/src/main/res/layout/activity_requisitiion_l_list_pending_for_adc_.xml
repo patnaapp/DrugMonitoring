@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/holo_gray_light">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/header_main"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <include
+        android:id="@+id/footer"
+        layout="@layout/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+    <LinearLayout
+        android:id="@+id/ll_skill"
+        android:layout_below="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listviewshow"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_skill"
+        android:layout_above="@+id/footer"/>
+
+    <TextView
+        android:id="@+id/tv_Norecord"
+        android:layout_margin="8dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FF4B4B"
+        android:text="No Record Found"
+        android:visibility="visible"
+        android:layout_below="@+id/ll_skill"
+        android:layout_above="@+id/footer"/>
+</RelativeLayout>

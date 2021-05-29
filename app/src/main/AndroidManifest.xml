@@ -46,13 +46,17 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.AddDrugRequisition_Activity"></activity>
-        <activity android:name=".ui.SplashActivity" />
-        <activity android:name=".ui.AddPatient_Activity">
+        <activity android:name=".ui.ApproveDrugByAdc_Activity"></activity>
+        <activity android:name=".ui.RequisitiionLListPendingForAdc_Activity" />
+        <activity android:name=".ui.AdcHome_Acitivity" />
+        <activity android:name=".ui.AddPatient_Activity" />
+        <activity android:name=".ui.AddDrugRequisition_Activity" />
+        <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
