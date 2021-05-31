@@ -59,8 +59,6 @@ public class IssuedDrugsListByDistributor_adaptor extends BaseAdapter {
         holder.tv_batch=(TextView)convertView.findViewById(R.id.tv_batch);
         holder.tv_issued_qty=(TextView)convertView.findViewById(R.id.tv_issued_qty);
 
-
-
         convertView.setTag(holder);
 
         holder.tv_distributor_name.setText(ThrList.get(position).getSCHEME_NAME());

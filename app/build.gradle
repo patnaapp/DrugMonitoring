@@ -16,10 +16,23 @@ android {
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+        debug
+                {
+                    minifyEnabled false
+
+                }
+        release
+                {
+                    minifyEnabled false
+                    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                }
+        repositories
+                {
+                    maven
+                            {
+                                url 'https://oss.sonatype.org/content/repositories/ksoap2-android-releases'
+                            }
+                }
     }
 
 }
@@ -45,4 +58,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.2.0'
     implementation 'androidx.navigation:navigation-ui:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+//    implementation group: 'commons-codec:commons-codec:1.10'
 }

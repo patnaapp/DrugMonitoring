@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Hashtable;
 
 import bih.in.drugmonitor.security.Encriptor;
+import bih.in.drugmonitor.utility.CommonPref;
 
 public class UserDetails implements KvmSerializable, Serializable {
     public static Class<UserDetails> USER_CLASS = UserDetails.class;
@@ -50,13 +51,24 @@ public class UserDetails implements KvmSerializable, Serializable {
 
     @SuppressWarnings("deprecation")
     public UserDetails(SoapObject obj) {
-        this.setAuthenticated(Boolean.parseBoolean(obj.getProperty("IS_authenticate").toString()));
-        this.setUserID(obj.getProperty("ID").toString());
-        //this.setPassword(obj.getProperty("Password").toString());
 
-        this.setName(obj.getProperty("Name").toString());
-        this.setMobileNo(obj.getProperty("Phone").toString());
-        this.setEmail(obj.getProperty("Email").toString());
+        _encrptor = new Encriptor();
+        try {
+
+            this.skey = _encrptor.Decrypt(obj.getProperty("skey").toString(), CommonPref.CIPER_KEY);
+            this.IsAuth = _encrptor.Decrypt(obj.getProperty("isAuthenticated").toString(), skey);
+
+            if(obj.getProperty("Cap").toString()!=null)
+            {
+                this.CapId = _encrptor.Decrypt(obj.getProperty("Cap").toString(), skey);
+            }
+          //  this.setAuthenticated(Boolean.parseBoolean(obj.getProperty("IS_authenticate").toString()));
+            this.setUserID(obj.getProperty("ID").toString());
+            //this.setPassword(obj.getProperty("Password").toString());
+
+            this.setName(obj.getProperty("Name").toString());
+            this.setMobileNo(obj.getProperty("Phone").toString());
+            this.setEmail(obj.getProperty("Email").toString());
 //        this.setDistrictCode(obj.getProperty("DistrictCode").toString());
 //        this.setDistName(obj.getProperty("DistName").toString());
 //        this.setBlockCode(obj.getProperty("BlockCode").toString());
@@ -66,424 +78,428 @@ public class UserDetails implements KvmSerializable, Serializable {
 //        //this.setDegignation(obj.getProperty("Degignation").toString());
 //        this.setUserrole(obj.getProperty("Userrole").toString());
 //        this.setName(obj.getProperty("Name").toString());
-    }
 
-    public static Class<UserDetails> getUserClass() {
-        return USER_CLASS;
-    }
-
-    public static void setUserClass(Class<UserDetails> userClass) {
-        USER_CLASS = userClass;
-    }
-
-
-    @Override
-    public int getPropertyCount() {
-        // TODO Auto-generated method stub
-        return 8;
-    }
-
-    @Override
-    public Object getProperty(int index) {
-        Object object = null;
-        switch (index) {
-            case 0: {
-                object = this.isAuthenticated;
-                break;
-            }
-            case 1: {
-                object = this.Password;
-                break;
-            }
-            case 2: {
-                object = this.UserID;
-                break;
-            }
-            case 3: {
-                object = this.LastVisitedOn;
-                break;
-            }
-            case 4: {
-                object = this.MobileNo;
-                break;
-            }
-
-            case 5: {
-                object = this.Address;
-                break;
-            }
-
-            case 6: {
-                object = this.Email;
-                break;
-
-            }
-            case 7: {
-                object = this.DistrictCode;
-                break;
-            }
-            case 8: {
-                object = this.DistName;
-                break;
-            }
-            case 9: {
-                object = this.BlockCode;
-                break;
-            }
-            case 10: {
-                object = this.BlockName;
-                break;
-            }
-
-            case 11: {
-                object = this.Degignation;
-                break;
-            }
-
-            case 12: {
-                object = this.Userrole;
-                break;
-
-            }
-            case 13: {
-                object = this.Name;
-                break;
-
-            }
-        }
-        return object;
-    }
-
-    @Override
-    public void getPropertyInfo(int index, Hashtable arg1,
-                                PropertyInfo propertyInfo) {
-        switch (index) {
-            case 0: {
-                propertyInfo.name = "isAuthenticated";
-                propertyInfo.type = PropertyInfo.BOOLEAN_CLASS;
-                break;
-            }
-            case 1: {
-                propertyInfo.name = "Password";
-                propertyInfo.type = PropertyInfo.STRING_CLASS;
-                break;
-            }
-            case 2: {
-                propertyInfo.name = "UserID";
-                propertyInfo.type = PropertyInfo.STRING_CLASS;
-                break;
-            }
-            case 3: {
-                propertyInfo.name = "LastVisitedOn";
-                propertyInfo.type = Integer.class;
-                break;
-            }
-            case 4: {
-                propertyInfo.name = "MobileNo";
-                propertyInfo.type = Date.class;
-                break;
-            }
-
-            case 5: {
-                propertyInfo.name = "Address";
-                propertyInfo.type = PropertyInfo.STRING_CLASS;
-                break;
-            }
-
-            case 6: {
-                propertyInfo.name = "Email";
-                propertyInfo.type = PropertyInfo.STRING_CLASS;
-                break;
-            }
-            case 7: {
-                propertyInfo.name = "DistrictCode";
-                propertyInfo.type = PropertyInfo.STRING_CLASS;
-                break;
-            }
-            case 8: {
-                propertyInfo.name = "DistName";
-                propertyInfo.type = PropertyInfo.STRING_CLASS;
-                break;
-            }
-            case 9: {
-                propertyInfo.name = "BlockCode";
-                propertyInfo.type = PropertyInfo.STRING_CLASS;
-                break;
-            }
-            case 10: {
-                propertyInfo.name = "BlockName";
-                propertyInfo.type = Integer.class;
-                break;
-            }
-            case 11: {
-                propertyInfo.name = "Degignation";
-                propertyInfo.type = Date.class;
-                break;
-            }
-
-            case 12: {
-                propertyInfo.name = "Userrole";
-                propertyInfo.type = PropertyInfo.STRING_CLASS;
-                break;
-            }
-
-            case 13: {
-                propertyInfo.name = "Name";
-                propertyInfo.type = PropertyInfo.STRING_CLASS;
-                break;
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    @Override
-    public void setProperty(int index, Object obj) {
-        switch (index) {
-            case 0: {
-                this.isAuthenticated = Boolean.parseBoolean(obj.toString());
-                break;
-            }
-            case 1: {
-                this.Password = obj.toString();
-                break;
-            }
-            case 2: {
-                this.UserID = obj.toString();
-                break;
-            }
-            case 3: {
-                this.LastVisitedOn = obj.toString();
-                break;
-            }
-            case 4: {
-                this.MobileNo = obj.toString();
-                break;
-            }
+        public static Class<UserDetails> getUserClass() {
+            return USER_CLASS;
+        }
 
-            case 5: {
-                this.Address = obj.toString();
-                break;
-            }
+        public static void setUserClass(Class<UserDetails> userClass) {
+            USER_CLASS = userClass;
+        }
 
-            case 6: {
-                this.Email = obj.toString();
-                break;
-            }
-            case 7: {
-                this.DistrictCode = obj.toString();
-                break;
-            }
-            case 8: {
-                this.DistName = obj.toString();
-                break;
-            }
-            case 9: {
-                this.BlockCode = obj.toString();
-                break;
-            }
-            case 10: {
-                this.BlockName = obj.toString();
-                break;
-            }
 
-            case 11: {
-                this.Degignation = obj.toString();
-                break;
-            }
+        @Override
+        public int getPropertyCount() {
+            // TODO Auto-generated method stub
+            return 8;
+        }
 
-            case 12: {
-                this.Userrole = obj.toString();
-                break;
-            }
+        @Override
+        public Object getProperty(int index) {
+            Object object = null;
+            switch (index) {
+                case 0: {
+                    object = this.isAuthenticated;
+                    break;
+                }
+                case 1: {
+                    object = this.Password;
+                    break;
+                }
+                case 2: {
+                    object = this.UserID;
+                    break;
+                }
+                case 3: {
+                    object = this.LastVisitedOn;
+                    break;
+                }
+                case 4: {
+                    object = this.MobileNo;
+                    break;
+                }
 
-            case 13: {
-                this.Name = obj.toString();
-                break;
+                case 5: {
+                    object = this.Address;
+                    break;
+                }
+
+                case 6: {
+                    object = this.Email;
+                    break;
+
+                }
+                case 7: {
+                    object = this.DistrictCode;
+                    break;
+                }
+                case 8: {
+                    object = this.DistName;
+                    break;
+                }
+                case 9: {
+                    object = this.BlockCode;
+                    break;
+                }
+                case 10: {
+                    object = this.BlockName;
+                    break;
+                }
+
+                case 11: {
+                    object = this.Degignation;
+                    break;
+                }
+
+                case 12: {
+                    object = this.Userrole;
+                    break;
+
+                }
+                case 13: {
+                    object = this.Name;
+                    break;
+
+                }
+            }
+            return object;
+        }
+
+        @Override
+        public void getPropertyInfo(int index, Hashtable arg1,
+                PropertyInfo propertyInfo) {
+            switch (index) {
+                case 0: {
+                    propertyInfo.name = "isAuthenticated";
+                    propertyInfo.type = PropertyInfo.BOOLEAN_CLASS;
+                    break;
+                }
+                case 1: {
+                    propertyInfo.name = "Password";
+                    propertyInfo.type = PropertyInfo.STRING_CLASS;
+                    break;
+                }
+                case 2: {
+                    propertyInfo.name = "UserID";
+                    propertyInfo.type = PropertyInfo.STRING_CLASS;
+                    break;
+                }
+                case 3: {
+                    propertyInfo.name = "LastVisitedOn";
+                    propertyInfo.type = Integer.class;
+                    break;
+                }
+                case 4: {
+                    propertyInfo.name = "MobileNo";
+                    propertyInfo.type = Date.class;
+                    break;
+                }
+
+                case 5: {
+                    propertyInfo.name = "Address";
+                    propertyInfo.type = PropertyInfo.STRING_CLASS;
+                    break;
+                }
+
+                case 6: {
+                    propertyInfo.name = "Email";
+                    propertyInfo.type = PropertyInfo.STRING_CLASS;
+                    break;
+                }
+                case 7: {
+                    propertyInfo.name = "DistrictCode";
+                    propertyInfo.type = PropertyInfo.STRING_CLASS;
+                    break;
+                }
+                case 8: {
+                    propertyInfo.name = "DistName";
+                    propertyInfo.type = PropertyInfo.STRING_CLASS;
+                    break;
+                }
+                case 9: {
+                    propertyInfo.name = "BlockCode";
+                    propertyInfo.type = PropertyInfo.STRING_CLASS;
+                    break;
+                }
+                case 10: {
+                    propertyInfo.name = "BlockName";
+                    propertyInfo.type = Integer.class;
+                    break;
+                }
+                case 11: {
+                    propertyInfo.name = "Degignation";
+                    propertyInfo.type = Date.class;
+                    break;
+                }
+
+                case 12: {
+                    propertyInfo.name = "Userrole";
+                    propertyInfo.type = PropertyInfo.STRING_CLASS;
+                    break;
+                }
+
+                case 13: {
+                    propertyInfo.name = "Name";
+                    propertyInfo.type = PropertyInfo.STRING_CLASS;
+                    break;
+                }
             }
         }
-    }
 
-    public String getUserroleId() {
-        return UserroleId;
-    }
+        @Override
+        public void setProperty(int index, Object obj) {
+            switch (index) {
+                case 0: {
+                    this.isAuthenticated = Boolean.parseBoolean(obj.toString());
+                    break;
+                }
+                case 1: {
+                    this.Password = obj.toString();
+                    break;
+                }
+                case 2: {
+                    this.UserID = obj.toString();
+                    break;
+                }
+                case 3: {
+                    this.LastVisitedOn = obj.toString();
+                    break;
+                }
+                case 4: {
+                    this.MobileNo = obj.toString();
+                    break;
+                }
 
-    public void setUserroleId(String userroleId) {
-        UserroleId = userroleId;
-    }
+                case 5: {
+                    this.Address = obj.toString();
+                    break;
+                }
 
-    public String getPanchayatName() {
-        return PanchayatName;
-    }
+                case 6: {
+                    this.Email = obj.toString();
+                    break;
+                }
+                case 7: {
+                    this.DistrictCode = obj.toString();
+                    break;
+                }
+                case 8: {
+                    this.DistName = obj.toString();
+                    break;
+                }
+                case 9: {
+                    this.BlockCode = obj.toString();
+                    break;
+                }
+                case 10: {
+                    this.BlockName = obj.toString();
+                    break;
+                }
 
-    public void setPanchayatName(String panchayatName) {
-        PanchayatName = panchayatName;
-    }
+                case 11: {
+                    this.Degignation = obj.toString();
+                    break;
+                }
 
-    public String getPanchayatCode() {
-        return PanchayatCode;
-    }
+                case 12: {
+                    this.Userrole = obj.toString();
+                    break;
+                }
 
-    public void setPanchayatCode(String panchayatCode) {
-        PanchayatCode = panchayatCode;
-    }
+                case 13: {
+                    this.Name = obj.toString();
+                    break;
+                }
+            }
+        }
 
-    public boolean isAuthenticated() {
-        return isAuthenticated;
-    }
+        public String getUserroleId() {
+            return UserroleId;
+        }
 
-    public void setAuthenticated(boolean authenticated) {
-        isAuthenticated = authenticated;
-    }
+        public void setUserroleId(String userroleId) {
+            UserroleId = userroleId;
+        }
 
-    public String getPassword() {
-        return Password;
-    }
+        public String getPanchayatName() {
+            return PanchayatName;
+        }
 
-    public void setPassword(String password) {
-        Password = password;
-    }
+        public void setPanchayatName(String panchayatName) {
+            PanchayatName = panchayatName;
+        }
 
-    public String getUserID() {
-        return UserID;
-    }
+        public String getPanchayatCode() {
+            return PanchayatCode;
+        }
 
-    public void setUserID(String userID) {
-        UserID = userID;
-    }
+        public void setPanchayatCode(String panchayatCode) {
+            PanchayatCode = panchayatCode;
+        }
 
-    public Boolean getIsAuthenticated() {
-        return isAuthenticated;
-    }
+        public boolean isAuthenticated() {
+            return isAuthenticated;
+        }
 
-    public void setIsAuthenticated(Boolean isAuthenticated) {
-        this.isAuthenticated = isAuthenticated;
-    }
+        public void setAuthenticated(boolean authenticated) {
+            isAuthenticated = authenticated;
+        }
 
-    public String getLastVisitedOn() {
-        return LastVisitedOn;
-    }
+        public String getPassword() {
+            return Password;
+        }
 
-    public void setLastVisitedOn(String lastVisitedOn) {
-        LastVisitedOn = lastVisitedOn;
-    }
+        public void setPassword(String password) {
+            Password = password;
+        }
 
-    public String getMobileNo() {
-        return MobileNo;
-    }
+        public String getUserID() {
+            return UserID;
+        }
 
-    public void setMobileNo(String mobileNo) {
-        MobileNo = mobileNo;
-    }
+        public void setUserID(String userID) {
+            UserID = userID;
+        }
 
-    public String getAddress() {
-        return Address;
-    }
+        public Boolean getIsAuthenticated() {
+            return isAuthenticated;
+        }
 
-    public void setAddress(String address) {
-        Address = address;
-    }
+        public void setIsAuthenticated(Boolean isAuthenticated) {
+            this.isAuthenticated = isAuthenticated;
+        }
 
-    public String getEmail() {
-        return Email;
-    }
+        public String getLastVisitedOn() {
+            return LastVisitedOn;
+        }
 
-    public void setEmail(String email) {
-        Email = email;
-    }
+        public void setLastVisitedOn(String lastVisitedOn) {
+            LastVisitedOn = lastVisitedOn;
+        }
 
-    public String getDistrictCode() {
-        return DistrictCode;
-    }
+        public String getMobileNo() {
+            return MobileNo;
+        }
 
-    public void setDistrictCode(String districtCode) {
-        DistrictCode = districtCode;
-    }
+        public void setMobileNo(String mobileNo) {
+            MobileNo = mobileNo;
+        }
 
-    public String getDistName() {
-        return DistName;
-    }
+        public String getAddress() {
+            return Address;
+        }
 
-    public void setDistName(String distName) {
-        DistName = distName;
-    }
+        public void setAddress(String address) {
+            Address = address;
+        }
 
-    public String getBlockCode() {
-        return BlockCode;
-    }
+        public String getEmail() {
+            return Email;
+        }
 
-    public void setBlockCode(String blockCode) {
-        BlockCode = blockCode;
-    }
+        public void setEmail(String email) {
+            Email = email;
+        }
 
-    public String getBlockName() {
-        return BlockName;
-    }
+        public String getDistrictCode() {
+            return DistrictCode;
+        }
 
-    public void setBlockName(String blockName) {
-        BlockName = blockName;
-    }
+        public void setDistrictCode(String districtCode) {
+            DistrictCode = districtCode;
+        }
 
-    public String getDegignation() {
-        return Degignation;
-    }
+        public String getDistName() {
+            return DistName;
+        }
 
-    public void setDegignation(String degignation) {
-        Degignation = degignation;
-    }
+        public void setDistName(String distName) {
+            DistName = distName;
+        }
 
-    public String getUserrole() {
-        return Userrole;
-    }
+        public String getBlockCode() {
+            return BlockCode;
+        }
 
-    public void setUserrole(String userrole) {
-        Userrole = userrole;
-    }
+        public void setBlockCode(String blockCode) {
+            BlockCode = blockCode;
+        }
 
-    public String getName() {
-        return Name;
-    }
+        public String getBlockName() {
+            return BlockName;
+        }
 
-    public void setName(String name) {
-        Name = name;
-    }
+        public void setBlockName(String blockName) {
+            BlockName = blockName;
+        }
 
-    public String getIsAuth() {
-        return IsAuth;
-    }
+        public String getDegignation() {
+            return Degignation;
+        }
 
-    public void setIsAuth(String isAuth) {
-        IsAuth = isAuth;
-    }
+        public void setDegignation(String degignation) {
+            Degignation = degignation;
+        }
 
-    public String getSkey() {
-        return skey;
-    }
+        public String getUserrole() {
+            return Userrole;
+        }
 
-    public void setSkey(String skey) {
-        this.skey = skey;
-    }
+        public void setUserrole(String userrole) {
+            Userrole = userrole;
+        }
 
-    public String getCapId() {
-        return CapId;
-    }
+        public String getName() {
+            return Name;
+        }
 
-    public void setCapId(String capId) {
-        CapId = capId;
-    }
+        public void setName(String name) {
+            Name = name;
+        }
 
-    public String get_TOKEN() {
-        return _TOKEN;
-    }
+        public String getIsAuth() {
+            return IsAuth;
+        }
 
-    public void set_TOKEN(String _TOKEN) {
-        this._TOKEN = _TOKEN;
-    }
+        public void setIsAuth(String isAuth) {
+            IsAuth = isAuth;
+        }
 
-    public String getRole() {
-        return Role;
-    }
+        public String getSkey() {
+            return skey;
+        }
 
-    public void setRole(String role) {
-        Role = role;
+        public void setSkey(String skey) {
+            this.skey = skey;
+        }
+
+        public String getCapId() {
+            return CapId;
+        }
+
+        public void setCapId(String capId) {
+            CapId = capId;
+        }
+
+        public String get_TOKEN() {
+            return _TOKEN;
+        }
+
+        public void set_TOKEN(String _TOKEN) {
+            this._TOKEN = _TOKEN;
+        }
+
+        public String getRole() {
+            return Role;
+        }
+
+        public void setRole(String role) {
+            Role = role;
+        }
     }
-}
 

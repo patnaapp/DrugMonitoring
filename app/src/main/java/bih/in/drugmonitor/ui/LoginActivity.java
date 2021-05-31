@@ -73,21 +73,21 @@ public class LoginActivity extends Activity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(LoginActivity.this,AdcHome_Acitivity.class);
-                startActivity(i);
-//                userName = (EditText) findViewById(R.id.et_username);
-//                userPass = (EditText) findViewById(R.id.et_password);
-//                param = new String[2];
-//                param[0] = userName.getText().toString();
-//                param[1] = userPass.getText().toString();
-//
-//                if (param[0].length() < 1){
-//                    Toast.makeText(LoginActivity.this, "Enter Valid User Id", Toast.LENGTH_SHORT).show();
-//                }else if (param[1].length() < 1){
-//                    Toast.makeText(LoginActivity.this, "Enter Valid Password", Toast.LENGTH_SHORT).show();
-//                }else{
-//                    new LoginTask(param[0], param[1]).execute(param);
-//                }
+//                Intent i=new Intent(LoginActivity.this,AdcHome_Acitivity.class);
+//                startActivity(i);
+                userName = (EditText) findViewById(R.id.et_username);
+                userPass = (EditText) findViewById(R.id.et_password);
+                param = new String[2];
+                param[0] = userName.getText().toString();
+                param[1] = userPass.getText().toString();
+
+                if (param[0].length() < 1){
+                    Toast.makeText(LoginActivity.this, "Enter Valid User Id", Toast.LENGTH_SHORT).show();
+                }else if (param[1].length() < 1){
+                    Toast.makeText(LoginActivity.this, "Enter Valid Password", Toast.LENGTH_SHORT).show();
+                }else{
+                    new LoginTask(param[0], param[1]).execute(param);
+                }
 
             }
         });
@@ -158,7 +158,7 @@ public class LoginActivity extends Activity {
                 String _encptuid = Utiilties.cleanStringForVulnerability(username);
                 String _encptpwd = Utiilties.cleanStringForVulnerability(password);
                 String _capId = Utiilties.cleanStringForVulnerability(CapId);
-                // PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("CAPID", RandomString.randomAlphaNumeric(8)).commit();
+                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("CAPID", RandomString.randomAlphaNumeric(8)).commit();
                 String randomnum = Utiilties.getTimeStamp();
 
                 try

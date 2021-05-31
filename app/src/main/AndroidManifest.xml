@@ -65,6 +65,10 @@
         </activity>
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.MainActivity" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>
