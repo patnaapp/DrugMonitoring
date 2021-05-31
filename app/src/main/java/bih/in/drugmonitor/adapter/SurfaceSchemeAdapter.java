@@ -64,15 +64,15 @@ public class SurfaceSchemeAdapter extends BaseAdapter {
 
         holder = new ViewHolder();
         holder.tv_scheme_name=(TextView)convertView.findViewById(R.id.tv_scheme_name);
-        holder.tv_scheme_id=(TextView)convertView.findViewById(R.id.tv_scheme_id);
-        holder.tv_scheme_type=(TextView)convertView.findViewById(R.id.tv_scheme_type);
-        holder.tv_water_source=(TextView)convertView.findViewById(R.id.tv_water_source);
-        holder.tv_fin_yr=(TextView)convertView.findViewById(R.id.tv_fin_yr);
-        holder.tv_fund_type=(TextView)convertView.findViewById(R.id.tv_fund_type);
-        holder.tv_nit_no=(TextView)convertView.findViewById(R.id.tv_nit_no);
-        holder.tv_district=(TextView)convertView.findViewById(R.id.tv_district);
-        holder.tv_block=(TextView)convertView.findViewById(R.id.tv_block);
-        holder.tv_panchayat=(TextView)convertView.findViewById(R.id.tv_panchayat);
+//        holder.tv_scheme_id=(TextView)convertView.findViewById(R.id.tv_scheme_id);
+//        holder.tv_scheme_type=(TextView)convertView.findViewById(R.id.tv_scheme_type);
+//        holder.tv_water_source=(TextView)convertView.findViewById(R.id.tv_water_source);
+//        holder.tv_fin_yr=(TextView)convertView.findViewById(R.id.tv_fin_yr);
+//        holder.tv_fund_type=(TextView)convertView.findViewById(R.id.tv_fund_type);
+//        holder.tv_nit_no=(TextView)convertView.findViewById(R.id.tv_nit_no);
+//        holder.tv_district=(TextView)convertView.findViewById(R.id.tv_district);
+//        holder.tv_block=(TextView)convertView.findViewById(R.id.tv_block);
+//        holder.tv_panchayat=(TextView)convertView.findViewById(R.id.tv_panchayat);
 
         holder.btn_view=(Button) convertView.findViewById(R.id.btn_view);
         holder.btn_inspect=(Button) convertView.findViewById(R.id.btn_inspect);
