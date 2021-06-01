@@ -1,5 +1,6 @@
 package bih.in.drugmonitor.web_services;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -21,6 +22,7 @@ import bih.in.drugmonitor.entity.PlantationDetail;
 import bih.in.drugmonitor.entity.PlantationReportEntity;
 import bih.in.drugmonitor.entity.PlantationSiteEntity;
 import bih.in.drugmonitor.entity.PondEncroachmentEntity;
+import bih.in.drugmonitor.entity.RequisitionListForAdc_Entity;
 import bih.in.drugmonitor.entity.SanrachnaTypeEntity;
 import bih.in.drugmonitor.entity.SignUp;
 import bih.in.drugmonitor.entity.SurfaceInspectionDetailEntity;
@@ -39,13 +41,14 @@ import static bih.in.drugmonitor.utility.CommonPref.SERVICEURL;
 public class WebServiceHelper {
 
     //public static final String SERVICENAMESPACE = "http://minorirrigation.bihar.gov.in/";
-    public static final String SERVICENAMESPACE = "http://tempuri.org/";
+    public static final String SERVICENAMESPACE = CommonPref.SERVICENAMESPACE;
 
-    public static final String SERVICEURL1 = "http://minorirrigation.bihar.gov.in/tubewell/webservice.asmx";
+    public static final String SERVICEURL1 = CommonPref.SERVICEURL;
 
 
     public static final String APPVERSION_METHOD = "getAppLatest";
     public static final String AUTHENTICATE_METHOD = "Login";
+    public static final String GetReqList_Adc = "getDDCPendingList";
 
 
 
@@ -817,4 +820,70 @@ public class WebServiceHelper {
         return res1;
     }
 
+
+    public static SoapObject getServerData(String methodName, Class bindClass, String param1, String param2, String param3, String param4, String param5, String param6, String param7, String value1, String value2, String value3, String value4, String value5, String value6, String value7)
+    {
+        SoapObject res1;
+        try {
+            SoapObject request = new SoapObject(SERVICENAMESPACE,methodName);
+            request.addProperty(param1,value1);
+            request.addProperty(param2,value2);
+            request.addProperty(param3,value3);
+            request.addProperty(param4,value4);
+            request.addProperty(param5,value5);
+            request.addProperty(param6,value6);
+            request.addProperty(param7,value7);
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(request);
+            envelope.addMapping(SERVICENAMESPACE,bindClass.getSimpleName(),bindClass);
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(SERVICEURL1);
+            androidHttpTransport.call(SERVICENAMESPACE + methodName,envelope);
+            res1 = (SoapObject) envelope.getResponse();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return res1;
+    }
+    public static ArrayList<RequisitionListForAdc_Entity> GetReqListForADcApproval(Context context,String date,String hospid,String drugid, String distCode,String usertypeid, String randomNo, String capId)
+    {
+        Encriptor _encrptor = new Encriptor();
+        SoapObject res1 = null;
+        try {
+          //  res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey", "District_Code", "cap", _encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY), distCode, capId);
+           // res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap", "T/0e2rl0kHIvBtEas5Dv4g==",date,hospid,drugid, distCode,usertypeid, "wZWV8HB10WGccFXPUJIyRw==");
+            res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap", "T/0e2rl0kHIvBtEas5Dv4g==","","597","2", "208","6", "wZWV8HB10WGccFXPUJIyRw==");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        int TotalProperty=0;
+        if(res1!=null) TotalProperty= res1.getPropertyCount();
+
+        ArrayList<RequisitionListForAdc_Entity> fieldList = new ArrayList<RequisitionListForAdc_Entity>();
+
+        for (int i = 0; i < TotalProperty; i++)
+        {
+            if (res1.getProperty(i) != null)
+            {
+                Object property = res1.getProperty(i);
+                if (property instanceof SoapObject)
+                {
+                    SoapObject final_object = (SoapObject) property;
+                    RequisitionListForAdc_Entity block= new RequisitionListForAdc_Entity(context,final_object);
+                    fieldList.add(block);
+                }
+            }
+            else
+            {
+                return fieldList;
+            }
+
+        }
+
+        return fieldList;
+    }
 }
