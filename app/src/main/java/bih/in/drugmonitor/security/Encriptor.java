@@ -2,13 +2,15 @@ package bih.in.drugmonitor.security;
 
 import org.apache.commons.codec.binary.Base64;
 
+import java.io.Serializable;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import bih.in.drugmonitor.utility.CommonPref;
 
-public class Encriptor {
+public class Encriptor implements Serializable {
 
    public String Decrypt(String text, String key) throws Exception {
         Cipher cipher = Cipher.getInstance(CommonPref.CIPHER_TRANSFORMATION);

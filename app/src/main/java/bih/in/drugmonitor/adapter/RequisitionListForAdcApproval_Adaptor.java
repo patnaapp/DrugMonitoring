@@ -37,7 +37,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 import bih.in.drugmonitor.R;
+import bih.in.drugmonitor.entity.RequisitionListForAdcCopy_Entity;
 import bih.in.drugmonitor.entity.RequisitionListForAdc_Entity;
+import bih.in.drugmonitor.ui.ApproveDrugByAdc_Activity;
 import bih.in.drugmonitor.utility.MarshmallowPermission;
 
 
@@ -50,6 +52,7 @@ public class RequisitionListForAdcApproval_Adaptor extends RecyclerView.Adapter<
     Boolean isShowDetail = false;
     String regNo;
     RequisitionListForAdc_Entity complianceinfo;
+
     MarshmallowPermission permission;
     String str_compliance="";
 
@@ -73,7 +76,7 @@ public class RequisitionListForAdcApproval_Adaptor extends RecyclerView.Adapter<
         final RequisitionListForAdc_Entity info = ThrList.get(position);
         complianceinfo = ThrList.get(position);
 
-        holder.tv_slno.setText(String.valueOf(position + 1));
+        holder.tv_slno.setText(String.valueOf(position + 1)+").");
 
         holder.tv_req_id.setText(ThrList.get(position).getReq_Id());
         holder.tv_req_date.setText(ThrList.get(position).getReq_date());
@@ -89,6 +92,16 @@ public class RequisitionListForAdcApproval_Adaptor extends RecyclerView.Adapter<
             @Override
             public void onClick(View v) {
 
+                Intent i=new Intent(activity, ApproveDrugByAdc_Activity.class);
+                i.putExtra("reqid",ThrList.get(position).getReq_Id());
+                i.putExtra("req_date",ThrList.get(position).getReq_date());
+                i.putExtra("hospname",ThrList.get(position).getHosp_Name());
+                i.putExtra("hosp_id",ThrList.get(position).getHosp_Id());
+                i.putExtra("drugname",ThrList.get(position).getDrug_Name());
+                i.putExtra("reqqty",ThrList.get(position).getReq_qty());
+                i.putExtra("approve_qty",ThrList.get(position).getAlready_approved_qty());
+                i.putExtra("pending_qty",ThrList.get(position).getPending_approval_qty());
+                activity.startActivity(i);
 
             }
         });
@@ -109,13 +122,13 @@ public class RequisitionListForAdcApproval_Adaptor extends RecyclerView.Adapter<
             super(itemView);
 
             tv_slno=(TextView)itemView.findViewById(R.id.tv_slno);
-         tv_req_id=(TextView)itemView.findViewById(R.id.tv_req_id);
-         tv_req_date=(TextView)itemView.findViewById(R.id.tv_req_date);
-         tv_hosp_name=(TextView)itemView.findViewById(R.id.tv_hosp_name);
-         tv_drug_name=(TextView)itemView.findViewById(R.id.tv_drug_name);
-         tv_req_qty=(TextView)itemView.findViewById(R.id.tv_req_qty);
-         tv_approve_qty=(TextView)itemView.findViewById(R.id.tv_approve_qty);
-         tv_pending_approval=(TextView)itemView.findViewById(R.id.tv_pending_approval);
+            tv_req_id=(TextView)itemView.findViewById(R.id.tv_req_id);
+            tv_req_date=(TextView)itemView.findViewById(R.id.tv_req_date);
+            tv_hosp_name=(TextView)itemView.findViewById(R.id.tv_hosp_name);
+            tv_drug_name=(TextView)itemView.findViewById(R.id.tv_drug_name);
+            tv_req_qty=(TextView)itemView.findViewById(R.id.tv_req_qty);
+            tv_approve_qty=(TextView)itemView.findViewById(R.id.tv_approve_qty);
+            tv_pending_approval=(TextView)itemView.findViewById(R.id.tv_pending_approval);
             btn_approve=(Button) itemView.findViewById(R.id.btn_approve);
 
 

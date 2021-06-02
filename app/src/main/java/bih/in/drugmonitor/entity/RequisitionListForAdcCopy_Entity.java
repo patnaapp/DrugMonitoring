@@ -17,11 +17,11 @@ import bih.in.drugmonitor.security.Encriptor;
 import bih.in.drugmonitor.ui.LoginActivity;
 import bih.in.drugmonitor.utility.CommonPref;
 
-public class RequisitionListForAdc_Entity implements KvmSerializable, Serializable {
+public class RequisitionListForAdcCopy_Entity implements KvmSerializable, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static Class<RequisitionListForAdc_Entity> REQ_CLASS = RequisitionListForAdc_Entity.class;
+	public static Class<RequisitionListForAdcCopy_Entity> REQCopy_CLASS = RequisitionListForAdcCopy_Entity.class;
 
 	private  String Req_Id = "";
 	private String Req_date = "";
@@ -32,46 +32,46 @@ public class RequisitionListForAdc_Entity implements KvmSerializable, Serializab
 	private String Req_qty;
 	private String Already_approved_qty;
 	private String Pending_approval_qty;
-	 Encriptor _encrptor;
+	// Encriptor _encrptor;
 	private String _Skey="";
 	private String CapId="";
 	Context context;
 
-	public RequisitionListForAdc_Entity() {
+	public RequisitionListForAdcCopy_Entity() {
 		super();
 	}
 
-	public RequisitionListForAdc_Entity(Context context1,SoapObject obj) {
+	public RequisitionListForAdcCopy_Entity(Context context1, SoapObject obj) {
 		this.context=context1;
-		_encrptor=new Encriptor();
+	//	_encrptor=new Encriptor();
 		try
 		{
-			Log.d("commonpref",CommonPref.CIPER_KEY);
-			this._Skey=_encrptor.Decrypt(obj.getProperty("skey").toString(), CommonPref.CIPER_KEY);
-			//this._Skey=_encrptor.Decrypt("T/0e2rl0kHIvBtEas5Dv4g==", CommonPref.CIPER_KEY);
-			Log.d("skey",this.get_Skey());
-			 this.CapId=_encrptor.Decrypt(obj.getProperty("Cap").toString(),_Skey);
-			//this.CapId=_encrptor.Decrypt("wZWV8HB10WGccFXPUJIyRw==",_Skey);
-
-			if(CapId.equalsIgnoreCase(PreferenceManager.getDefaultSharedPreferences(context).getString("CAPID", ""))) {
-				this.Req_Id = _encrptor.Decrypt(obj.getProperty("ReqId").toString(), _Skey);
-				this.Req_date = _encrptor.Decrypt(obj.getProperty("RequestDate").toString(), _Skey);
-				this.Hosp_Name = _encrptor.Decrypt(obj.getProperty("HospitalName").toString(), _Skey);
-				this.Drug_Name = _encrptor.Decrypt(obj.getProperty("DrugName").toString(), _Skey);
-				this.Req_qty = _encrptor.Decrypt(obj.getProperty("ReqQty").toString(), _Skey);
-				this.Already_approved_qty = _encrptor.Decrypt(obj.getProperty("AlreadyApprovedQty").toString(), _Skey);
-				this.Pending_approval_qty = _encrptor.Decrypt(obj.getProperty("PendingForApproval").toString(), _Skey);
-			}
-			else {
-				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("UserId","").commit();
-				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("password","").commit();
-				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("Role","").commit();
-				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("District","").commit();
-
-				Intent intent=new Intent(context, LoginActivity.class);
-				context.startActivity(intent);
-				((Activity) context).finish();
-			}
+//			Log.d("commonpref",CommonPref.CIPER_KEY);
+//			this._Skey=_encrptor.Decrypt(obj.getProperty("skey").toString(), CommonPref.CIPER_KEY);
+//			//this._Skey=_encrptor.Decrypt("T/0e2rl0kHIvBtEas5Dv4g==", CommonPref.CIPER_KEY);
+//			Log.d("skey",this.get_Skey());
+//			 this.CapId=_encrptor.Decrypt(obj.getProperty("Cap").toString(),_Skey);
+//			//this.CapId=_encrptor.Decrypt("wZWV8HB10WGccFXPUJIyRw==",_Skey);
+//
+//			if(CapId.equalsIgnoreCase(PreferenceManager.getDefaultSharedPreferences(context).getString("CAPID", ""))) {
+//				this.Req_Id = _encrptor.Decrypt(obj.getProperty("ReqId").toString(), _Skey);
+//				this.Req_date = _encrptor.Decrypt(obj.getProperty("RequestDate").toString(), _Skey);
+//				this.Hosp_Name = _encrptor.Decrypt(obj.getProperty("HospitalName").toString(), _Skey);
+//				this.Drug_Name = _encrptor.Decrypt(obj.getProperty("DrugName").toString(), _Skey);
+//				this.Req_qty = _encrptor.Decrypt(obj.getProperty("ReqQty").toString(), _Skey);
+//				this.Already_approved_qty = _encrptor.Decrypt(obj.getProperty("AlreadyApprovedQty").toString(), _Skey);
+//				this.Pending_approval_qty = _encrptor.Decrypt(obj.getProperty("PendingForApproval").toString(), _Skey);
+//			}
+//			else {
+//				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("UserId","").commit();
+//				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("password","").commit();
+//				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("Role","").commit();
+//				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("District","").commit();
+//
+//				Intent intent=new Intent(context, LoginActivity.class);
+//				context.startActivity(intent);
+//				((Activity) context).finish();
+//			}
 
 
 
@@ -178,13 +178,13 @@ public class RequisitionListForAdc_Entity implements KvmSerializable, Serializab
 		Pending_approval_qty = pending_approval_qty;
 	}
 
-	public Encriptor get_encrptor() {
-		return _encrptor;
-	}
-
-	public void set_encrptor(Encriptor _encrptor) {
-		this._encrptor = _encrptor;
-	}
+//	public Encriptor get_encrptor() {
+//		return _encrptor;
+//	}
+//
+//	public void set_encrptor(Encriptor _encrptor) {
+//		this._encrptor = _encrptor;
+//	}
 
 	public String get_Skey() {
 		return _Skey;

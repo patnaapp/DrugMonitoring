@@ -15,7 +15,9 @@ import org.kxml2.kdom.Node;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+import bih.in.drugmonitor.entity.DistributorsListForAdc_Entity;
 import bih.in.drugmonitor.entity.District;
+import bih.in.drugmonitor.entity.DrugIssuedDetailsList_Entity;
 import bih.in.drugmonitor.entity.FilterOptionEntity;
 import bih.in.drugmonitor.entity.PanchayatEntity;
 import bih.in.drugmonitor.entity.PlantationDetail;
@@ -49,6 +51,8 @@ public class WebServiceHelper {
     public static final String APPVERSION_METHOD = "getAppLatest";
     public static final String AUTHENTICATE_METHOD = "Login";
     public static final String GetReqList_Adc = "getDDCPendingList";
+    public static final String GetDistributorsMapped_Adc = "gethospitalfortheissuanceofmedicineList";
+    public static final String GetIssuedDrugsDetails = "getDrugissuedHospitalByDistributorList";
 
 
 
@@ -792,6 +796,31 @@ public class WebServiceHelper {
         }
         return res1;
     }
+
+    public static SoapObject getServerData(String methodName, Class bindClass, String param1, String param2, String param3, String param4,String param5, String value1, String value2, String value3, String value4, String value5)
+    {
+        SoapObject res1;
+        try {
+            SoapObject request = new SoapObject(SERVICENAMESPACE,methodName);
+            request.addProperty(param1,value1);
+            request.addProperty(param2,value2);
+            request.addProperty(param3,value3);
+            request.addProperty(param4,value4);
+            request.addProperty(param5,value5);
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.dotNet = true;
+            envelope.setOutputSoapObject(request);
+            envelope.addMapping(SERVICENAMESPACE,bindClass.getSimpleName(),bindClass);
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(SERVICEURL1);
+            androidHttpTransport.call(SERVICENAMESPACE + methodName,envelope);
+            res1 = (SoapObject) envelope.getResponse();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return res1;
+    }
     public static SoapObject getServerData(String methodName, Class bindClass, String param1, String param2, String param3, String param4, String param5, String param6, String param7, String param8, String value1, String value2, String value3, String value4, String value5, String value6, String value7, String value8)
     {
         SoapObject res1;
@@ -853,8 +882,8 @@ public class WebServiceHelper {
         SoapObject res1 = null;
         try {
           //  res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey", "District_Code", "cap", _encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY), distCode, capId);
-           // res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap", "T/0e2rl0kHIvBtEas5Dv4g==",date,hospid,drugid, distCode,usertypeid, "wZWV8HB10WGccFXPUJIyRw==");
-            res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap", "T/0e2rl0kHIvBtEas5Dv4g==","","597","2", "208","6", "wZWV8HB10WGccFXPUJIyRw==");
+            res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap", "T/0e2rl0kHIvBtEas5Dv4g==","",hospid,drugid, distCode,usertypeid, "wZWV8HB10WGccFXPUJIyRw==");
+           // res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap", "T/0e2rl0kHIvBtEas5Dv4g==","","597","2", "208","6", "wZWV8HB10WGccFXPUJIyRw==");
         }
         catch (Exception e)
         {
@@ -874,6 +903,88 @@ public class WebServiceHelper {
                 {
                     SoapObject final_object = (SoapObject) property;
                     RequisitionListForAdc_Entity block= new RequisitionListForAdc_Entity(context,final_object);
+                    fieldList.add(block);
+                }
+            }
+            else
+            {
+                return fieldList;
+            }
+
+        }
+
+        return fieldList;
+    }
+
+
+    public static ArrayList<DistributorsListForAdc_Entity> GetDistributorsMappedWithAdc(Context context, String distCode, String stateid, String drugid,String randomNo, String capId)
+    {
+        Encriptor _encrptor = new Encriptor();
+        SoapObject res1 = null;
+        try {
+            //  res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey", "District_Code", "cap", _encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY), distCode, capId);
+            res1 = getServerData(GetDistributorsMapped_Adc, DistributorsListForAdc_Entity.DISTRIBUTOR_CLASS, "skey","_DistCode","_StateCode","_drugid", "cap", "T/0e2rl0kHIvBtEas5Dv4g==",distCode,stateid,drugid,"wZWV8HB10WGccFXPUJIyRw==");
+            // res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap", "T/0e2rl0kHIvBtEas5Dv4g==","","597","2", "208","6", "wZWV8HB10WGccFXPUJIyRw==");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        int TotalProperty=0;
+        if(res1!=null) TotalProperty= res1.getPropertyCount();
+
+        ArrayList<DistributorsListForAdc_Entity> fieldList = new ArrayList<DistributorsListForAdc_Entity>();
+
+        for (int i = 0; i < TotalProperty; i++)
+        {
+            if (res1.getProperty(i) != null)
+            {
+                Object property = res1.getProperty(i);
+                if (property instanceof SoapObject)
+                {
+                    SoapObject final_object = (SoapObject) property;
+                    DistributorsListForAdc_Entity block= new DistributorsListForAdc_Entity(context,final_object);
+                    fieldList.add(block);
+                }
+            }
+            else
+            {
+                return fieldList;
+            }
+
+        }
+
+        return fieldList;
+    }
+
+
+    public static ArrayList<DrugIssuedDetailsList_Entity> GetIssuedDrugDetails(Context context, String hosp_id, String randomNo, String capId)
+    {
+        Encriptor _encrptor = new Encriptor();
+        SoapObject res1 = null;
+        try {
+            //  res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey", "District_Code", "cap", _encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY), distCode, capId);
+            res1 = getServerData(GetIssuedDrugsDetails, DrugIssuedDetailsList_Entity.DRUG_ISSUED_CLASS, "skey","_HospitalID", "cap", "T/0e2rl0kHIvBtEas5Dv4g==",hosp_id,"wZWV8HB10WGccFXPUJIyRw==");
+            // res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap", "T/0e2rl0kHIvBtEas5Dv4g==","","597","2", "208","6", "wZWV8HB10WGccFXPUJIyRw==");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        int TotalProperty=0;
+        if(res1!=null) TotalProperty= res1.getPropertyCount();
+
+        ArrayList<DrugIssuedDetailsList_Entity> fieldList = new ArrayList<DrugIssuedDetailsList_Entity>();
+
+        for (int i = 0; i < TotalProperty; i++)
+        {
+            if (res1.getProperty(i) != null)
+            {
+                Object property = res1.getProperty(i);
+                if (property instanceof SoapObject)
+                {
+                    SoapObject final_object = (SoapObject) property;
+                    DrugIssuedDetailsList_Entity block= new DrugIssuedDetailsList_Entity(context,final_object);
                     fieldList.add(block);
                 }
             }

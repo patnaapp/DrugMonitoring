@@ -81,15 +81,18 @@ public class RequisitiionLListPendingForAdc_Activity extends AppCompatActivity
             String _capId = Utiilties.cleanStringForVulnerability(CapId);
             String _date = Utiilties.getCurrentDate();
             String _hosp_id = "597";
-            String _userttype = "6";
-            String _drug_id = "2";
+            String _userttype = "2";
+            String _drug_id = "1";
 
-            String randomnum = Utiilties.getTimeStamp();
+          //  String randomnum = Utiilties.getTimeStamp();
+            String randomnum ="-1049096725";
             try {
                 _encptdist = _encrptor.Encrypt(_encptdist, randomnum);
                 _capId = _encrptor.Encrypt(_capId, randomnum);
                 _date = _encrptor.Encrypt(_date, randomnum);
                 _drug_id = _encrptor.Encrypt(_drug_id, randomnum);
+                _hosp_id = _encrptor.Encrypt(_hosp_id, randomnum);
+                _userttype = _encrptor.Encrypt(_userttype, randomnum);
 
             } catch (Exception e) {
                 Log.e("EXCEPTION", "EXCEP while Encription on Login");
@@ -122,7 +125,7 @@ public class RequisitiionLListPendingForAdc_Activity extends AppCompatActivity
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(), "NO ORDWERS FOUND",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "No Pending Requisition Found",Toast.LENGTH_LONG).show();
 
                 }
             }

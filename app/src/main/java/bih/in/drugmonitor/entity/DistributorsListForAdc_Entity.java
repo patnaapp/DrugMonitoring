@@ -17,31 +17,28 @@ import bih.in.drugmonitor.security.Encriptor;
 import bih.in.drugmonitor.ui.LoginActivity;
 import bih.in.drugmonitor.utility.CommonPref;
 
-public class RequisitionListForAdc_Entity implements KvmSerializable, Serializable {
+public class DistributorsListForAdc_Entity implements KvmSerializable, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static Class<RequisitionListForAdc_Entity> REQ_CLASS = RequisitionListForAdc_Entity.class;
+	public static Class<DistributorsListForAdc_Entity> DISTRIBUTOR_CLASS = DistributorsListForAdc_Entity.class;
 
-	private  String Req_Id = "";
-	private String Req_date = "";
-	private String Hosp_Name= "";
-	private String Hosp_Id = "";
-	private String Drug_Name;
-	private String Drug_Id;
-	private String Req_qty;
-	private String Already_approved_qty;
-	private String Pending_approval_qty;
-	 Encriptor _encrptor;
+	private String _DistrubutorName = "";
+	private String _ContactPerson = "";
+	private String _ContactNo= "";
+	private String _PendingforIssue = "";
+	private String _AvailableQtyinStock;
+
+	Encriptor _encrptor;
 	private String _Skey="";
 	private String CapId="";
 	Context context;
 
-	public RequisitionListForAdc_Entity() {
+	public DistributorsListForAdc_Entity() {
 		super();
 	}
 
-	public RequisitionListForAdc_Entity(Context context1,SoapObject obj) {
+	public DistributorsListForAdc_Entity(Context context1, SoapObject obj) {
 		this.context=context1;
 		_encrptor=new Encriptor();
 		try
@@ -54,13 +51,12 @@ public class RequisitionListForAdc_Entity implements KvmSerializable, Serializab
 			//this.CapId=_encrptor.Decrypt("wZWV8HB10WGccFXPUJIyRw==",_Skey);
 
 			if(CapId.equalsIgnoreCase(PreferenceManager.getDefaultSharedPreferences(context).getString("CAPID", ""))) {
-				this.Req_Id = _encrptor.Decrypt(obj.getProperty("ReqId").toString(), _Skey);
-				this.Req_date = _encrptor.Decrypt(obj.getProperty("RequestDate").toString(), _Skey);
-				this.Hosp_Name = _encrptor.Decrypt(obj.getProperty("HospitalName").toString(), _Skey);
-				this.Drug_Name = _encrptor.Decrypt(obj.getProperty("DrugName").toString(), _Skey);
-				this.Req_qty = _encrptor.Decrypt(obj.getProperty("ReqQty").toString(), _Skey);
-				this.Already_approved_qty = _encrptor.Decrypt(obj.getProperty("AlreadyApprovedQty").toString(), _Skey);
-				this.Pending_approval_qty = _encrptor.Decrypt(obj.getProperty("PendingForApproval").toString(), _Skey);
+				this._DistrubutorName = _encrptor.Decrypt(obj.getProperty("DistrubutorName").toString(), _Skey);
+				this._ContactPerson = _encrptor.Decrypt(obj.getProperty("ContactPerson").toString(), _Skey);
+				this._ContactNo = _encrptor.Decrypt(obj.getProperty("ContactNo").toString(), _Skey);
+				this._PendingforIssue = _encrptor.Decrypt(obj.getProperty("PendingforIssue").toString(), _Skey);
+				this._AvailableQtyinStock = _encrptor.Decrypt(obj.getProperty("AvailableQtyinStock").toString(), _Skey);
+
 			}
 			else {
 				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("UserId","").commit();
@@ -106,76 +102,44 @@ public class RequisitionListForAdc_Entity implements KvmSerializable, Serializab
 
 	}
 
-	public String getReq_Id() {
-		return Req_Id;
+	public String get_DistrubutorName() {
+		return _DistrubutorName;
 	}
 
-	public void setReq_Id(String req_Id) {
-		Req_Id = req_Id;
+	public void set_DistrubutorName(String _DistrubutorName) {
+		this._DistrubutorName = _DistrubutorName;
 	}
 
-	public String getReq_date() {
-		return Req_date;
+	public String get_ContactPerson() {
+		return _ContactPerson;
 	}
 
-	public void setReq_date(String req_date) {
-		Req_date = req_date;
+	public void set_ContactPerson(String _ContactPerson) {
+		this._ContactPerson = _ContactPerson;
 	}
 
-	public String getHosp_Name() {
-		return Hosp_Name;
+	public String get_ContactNo() {
+		return _ContactNo;
 	}
 
-	public void setHosp_Name(String hosp_Name) {
-		Hosp_Name = hosp_Name;
+	public void set_ContactNo(String _ContactNo) {
+		this._ContactNo = _ContactNo;
 	}
 
-	public String getHosp_Id() {
-		return Hosp_Id;
+	public String get_PendingforIssue() {
+		return _PendingforIssue;
 	}
 
-	public void setHosp_Id(String hosp_Id) {
-		Hosp_Id = hosp_Id;
+	public void set_PendingforIssue(String _PendingforIssue) {
+		this._PendingforIssue = _PendingforIssue;
 	}
 
-	public String getDrug_Name() {
-		return Drug_Name;
+	public String get_AvailableQtyinStock() {
+		return _AvailableQtyinStock;
 	}
 
-	public void setDrug_Name(String drug_Name) {
-		Drug_Name = drug_Name;
-	}
-
-	public String getDrug_Id() {
-		return Drug_Id;
-	}
-
-	public void setDrug_Id(String drug_Id) {
-		Drug_Id = drug_Id;
-	}
-
-	public String getReq_qty() {
-		return Req_qty;
-	}
-
-	public void setReq_qty(String req_qty) {
-		Req_qty = req_qty;
-	}
-
-	public String getAlready_approved_qty() {
-		return Already_approved_qty;
-	}
-
-	public void setAlready_approved_qty(String already_approved_qty) {
-		Already_approved_qty = already_approved_qty;
-	}
-
-	public String getPending_approval_qty() {
-		return Pending_approval_qty;
-	}
-
-	public void setPending_approval_qty(String pending_approval_qty) {
-		Pending_approval_qty = pending_approval_qty;
+	public void set_AvailableQtyinStock(String _AvailableQtyinStock) {
+		this._AvailableQtyinStock = _AvailableQtyinStock;
 	}
 
 	public Encriptor get_encrptor() {

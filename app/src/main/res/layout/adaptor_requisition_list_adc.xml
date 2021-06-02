@@ -39,20 +39,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rl1">
                 <LinearLayout
                     android:id="@+id/ll_sl"
-                    android:layout_width="45dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="13sp"
-                        android:text="Sl No."
-                        android:textStyle="normal"
-                        android:textColor="@color/colorGreyDark"/>
+
 
                     <TextView
                         android:id="@+id/tv_slno"
@@ -68,6 +65,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_toRightOf="@+id/ll_sl"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="3dp">
@@ -93,7 +91,7 @@
                         android:text="New Text"
                         android:textColor="@color/color_black" />
                 </LinearLayout>
-
+</RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
