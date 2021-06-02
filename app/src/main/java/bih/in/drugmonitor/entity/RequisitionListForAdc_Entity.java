@@ -32,6 +32,14 @@ public class RequisitionListForAdc_Entity implements KvmSerializable, Serializab
 	private String Req_qty;
 	private String Already_approved_qty;
 	private String Pending_approval_qty;
+
+	private String hreqid;
+	private String hospitalid;
+	private String address;
+	private String nodalofficername;
+	private String contactno;
+	private String htype;
+	private String totalbeds;
 	 Encriptor _encrptor;
 	private String _Skey="";
 	private String CapId="";
@@ -61,6 +69,14 @@ public class RequisitionListForAdc_Entity implements KvmSerializable, Serializab
 				this.Req_qty = _encrptor.Decrypt(obj.getProperty("ReqQty").toString(), _Skey);
 				this.Already_approved_qty = _encrptor.Decrypt(obj.getProperty("AlreadyApprovedQty").toString(), _Skey);
 				this.Pending_approval_qty = _encrptor.Decrypt(obj.getProperty("PendingForApproval").toString(), _Skey);
+
+				this.hreqid = _encrptor.Decrypt(obj.getProperty("hreqid").toString(), _Skey);
+				this.hospitalid = _encrptor.Decrypt(obj.getProperty("hospitalid").toString(), _Skey);
+				this.address = _encrptor.Decrypt(obj.getProperty("address").toString(), _Skey);
+				this.nodalofficername = _encrptor.Decrypt(obj.getProperty("nodalofficername").toString(), _Skey);
+				this.contactno = _encrptor.Decrypt(obj.getProperty("contactno").toString(), _Skey);
+				this.htype = _encrptor.Decrypt(obj.getProperty("htype").toString(), _Skey);
+				this.totalbeds = _encrptor.Decrypt(obj.getProperty("totalbeds").toString(), _Skey);
 			}
 			else {
 				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("UserId","").commit();
@@ -176,6 +192,62 @@ public class RequisitionListForAdc_Entity implements KvmSerializable, Serializab
 
 	public void setPending_approval_qty(String pending_approval_qty) {
 		Pending_approval_qty = pending_approval_qty;
+	}
+
+	public String getHreqid() {
+		return hreqid;
+	}
+
+	public void setHreqid(String hreqid) {
+		this.hreqid = hreqid;
+	}
+
+	public String getHospitalid() {
+		return hospitalid;
+	}
+
+	public void setHospitalid(String hospitalid) {
+		this.hospitalid = hospitalid;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getNodalofficername() {
+		return nodalofficername;
+	}
+
+	public void setNodalofficername(String nodalofficername) {
+		this.nodalofficername = nodalofficername;
+	}
+
+	public String getContactno() {
+		return contactno;
+	}
+
+	public void setContactno(String contactno) {
+		this.contactno = contactno;
+	}
+
+	public String getHtype() {
+		return htype;
+	}
+
+	public void setHtype(String htype) {
+		this.htype = htype;
+	}
+
+	public String getTotalbeds() {
+		return totalbeds;
+	}
+
+	public void setTotalbeds(String totalbeds) {
+		this.totalbeds = totalbeds;
 	}
 
 	public Encriptor get_encrptor() {

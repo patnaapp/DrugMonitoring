@@ -27,7 +27,8 @@ public class DistributorsListForAdc_Entity implements KvmSerializable, Serializa
 	private String _ContactPerson = "";
 	private String _ContactNo= "";
 	private String _PendingforIssue = "";
-	private String _AvailableQtyinStock;
+	private String _AvailableQtyinStock="";
+	private String _AvailableQtyToApprove="";
 
 	Encriptor _encrptor;
 	private String _Skey="";
@@ -56,6 +57,7 @@ public class DistributorsListForAdc_Entity implements KvmSerializable, Serializa
 				this._ContactNo = _encrptor.Decrypt(obj.getProperty("ContactNo").toString(), _Skey);
 				this._PendingforIssue = _encrptor.Decrypt(obj.getProperty("PendingforIssue").toString(), _Skey);
 				this._AvailableQtyinStock = _encrptor.Decrypt(obj.getProperty("AvailableQtyinStock").toString(), _Skey);
+				this._AvailableQtyToApprove = _encrptor.Decrypt(obj.getProperty("AvailableQtyToApprove").toString(), _Skey);
 
 			}
 			else {
@@ -172,5 +174,13 @@ public class DistributorsListForAdc_Entity implements KvmSerializable, Serializa
 
 	public void setContext(Context context) {
 		this.context = context;
+	}
+
+	public String get_AvailableQtyToApprove() {
+		return _AvailableQtyToApprove;
+	}
+
+	public void set_AvailableQtyToApprove(String _AvailableQtyToApprove) {
+		this._AvailableQtyToApprove = _AvailableQtyToApprove;
 	}
 }

@@ -96,11 +96,18 @@ public class RequisitionListForAdcApproval_Adaptor extends RecyclerView.Adapter<
                 i.putExtra("reqid",ThrList.get(position).getReq_Id());
                 i.putExtra("req_date",ThrList.get(position).getReq_date());
                 i.putExtra("hospname",ThrList.get(position).getHosp_Name());
-                i.putExtra("hosp_id",ThrList.get(position).getHosp_Id());
+             //   i.putExtra("hosp_id",ThrList.get(position).getHosp_Id());
                 i.putExtra("drugname",ThrList.get(position).getDrug_Name());
                 i.putExtra("reqqty",ThrList.get(position).getReq_qty());
                 i.putExtra("approve_qty",ThrList.get(position).getAlready_approved_qty());
                 i.putExtra("pending_qty",ThrList.get(position).getPending_approval_qty());
+
+                i.putExtra("hosp_id",ThrList.get(position).getHospitalid());
+                i.putExtra("hosp_address",ThrList.get(position).getAddress());
+                i.putExtra("nodal_name",ThrList.get(position).getNodalofficername());
+                i.putExtra("nodal_cntct",ThrList.get(position).getContactno());
+                i.putExtra("hosp_type",ThrList.get(position).getHtype());
+                i.putExtra("noofbeds",ThrList.get(position).getTotalbeds());
                 activity.startActivity(i);
 
             }

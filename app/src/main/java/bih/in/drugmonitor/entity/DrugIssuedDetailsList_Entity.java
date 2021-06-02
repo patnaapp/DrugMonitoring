@@ -54,7 +54,7 @@ public class DrugIssuedDetailsList_Entity implements KvmSerializable, Serializab
 			if(CapId.equalsIgnoreCase(PreferenceManager.getDefaultSharedPreferences(context).getString("CAPID", ""))) {
 				this._IssuedDate = _encrptor.Decrypt(obj.getProperty("IssuedDate").toString(), _Skey);
 				this._DistributorName = _encrptor.Decrypt(obj.getProperty("DistributorName").toString(), _Skey);
-				this._HospitalName = _encrptor.Decrypt(obj.getProperty("HospitalName").toString(), _Skey);
+				//this._HospitalName = _encrptor.Decrypt(obj.getProperty("HospitalName").toString(), _Skey);
 				this._DrugName = _encrptor.Decrypt(obj.getProperty("DrugName").toString(), _Skey);
 				this._BatchNo = _encrptor.Decrypt(obj.getProperty("BatchNo").toString(), _Skey);
 				this._IssuedQty = _encrptor.Decrypt(obj.getProperty("IssuedQty").toString(), _Skey);

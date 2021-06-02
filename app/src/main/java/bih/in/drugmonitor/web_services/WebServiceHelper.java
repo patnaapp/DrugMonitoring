@@ -53,6 +53,7 @@ public class WebServiceHelper {
     public static final String GetReqList_Adc = "getDDCPendingList";
     public static final String GetDistributorsMapped_Adc = "gethospitalfortheissuanceofmedicineList";
     public static final String GetIssuedDrugsDetails = "getDrugissuedHospitalByDistributorList";
+    public static final String ApproveDrugReq = "getDrugissuedHospitalByDistributorList";
 
 
 
@@ -997,4 +998,40 @@ public class WebServiceHelper {
 
         return fieldList;
     }
+
+    public static String ApproveDrugReq(String distibutor_id,String approved_qty,String randomNo,String Token,String userid) {
+        try {
+            SoapObject request = new SoapObject(SERVICENAMESPACE,ApproveDrugReq);
+            Encriptor _encrptor = new Encriptor();
+          //  request.addProperty("skey", _encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY));
+            request.addProperty("skey","T/0e2rl0kHIvBtEas5Dv4g==");
+//            request.addProperty("_BenId",id);
+//            request.addProperty("_JeevanPramanStatus",status);
+
+            org.kxml2.kdom.Element[] header = new org.kxml2.kdom.Element[1];
+            header[0] = new org.kxml2.kdom.Element().createElement(SERVICENAMESPACE, "SecuredTokenWebservice");
+            org.kxml2.kdom.Element uid = new org.kxml2.kdom.Element().createElement(SERVICENAMESPACE, "AuthenticationToken");
+            uid.addChild(Node.TEXT, Token);
+            header[0].addChild(Node.ELEMENT, uid);
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                    SoapEnvelope.VER11);
+            envelope.dotNet = true;
+            envelope.headerOut=header;
+            envelope.setOutputSoapObject(request);
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(SERVICEURL);
+            androidHttpTransport.call(SERVICENAMESPACE + ApproveDrugReq, envelope);
+            Object result = envelope.getResponse();
+            if (result != null) {
+                return result.toString();
+            } else
+                return null;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
 }

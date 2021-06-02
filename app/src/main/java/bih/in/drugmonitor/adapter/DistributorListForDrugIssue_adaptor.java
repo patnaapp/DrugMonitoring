@@ -86,7 +86,7 @@ public class DistributorListForDrugIssue_adaptor extends RecyclerView.Adapter<Di
         holder.tv_cntct_no.setText(ThrList.get(position).get_ContactNo());
         holder.tv_pending_issue.setText(ThrList.get(position).get_PendingforIssue());
         holder.tv_avlbl_qty.setText(ThrList.get(position).get_AvailableQtyinStock());
-       // holder.tv_avlvl_qty_to_approve.setText(ThrList.get(position).get());
+        holder.tv_avlvl_qty_to_approve.setText(ThrList.get(position).get_AvailableQtyToApprove());
 
         holder.chk1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
