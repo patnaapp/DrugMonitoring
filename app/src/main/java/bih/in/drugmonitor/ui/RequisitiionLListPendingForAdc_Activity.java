@@ -33,7 +33,7 @@ public class RequisitiionLListPendingForAdc_Activity extends AppCompatActivity
 
     Encriptor _encrptor;
     String CapId="";
-    String distcode="208";
+    String distcode="212";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -80,7 +80,7 @@ public class RequisitiionLListPendingForAdc_Activity extends AppCompatActivity
             String _encptdist = Utiilties.cleanStringForVulnerability(distcode);
             String _capId = Utiilties.cleanStringForVulnerability(CapId);
             String _date = Utiilties.getCurrentDate();
-            String _hosp_id = "597";
+            String _hosp_id = "509";
             String _userttype = "2";
             String _drug_id = "1";
 

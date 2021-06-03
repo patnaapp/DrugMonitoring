@@ -17,30 +17,33 @@ import bih.in.drugmonitor.security.Encriptor;
 import bih.in.drugmonitor.ui.LoginActivity;
 import bih.in.drugmonitor.utility.CommonPref;
 
-public class DistributorsListForAdc_Entity implements KvmSerializable, Serializable {
+public class PatientDetailsList_Entity implements KvmSerializable, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static Class<DistributorsListForAdc_Entity> DISTRIBUTOR_CLASS = DistributorsListForAdc_Entity.class;
+	public static Class<PatientDetailsList_Entity> PATIENT_CLASS = PatientDetailsList_Entity.class;
 
-	private String _DistrubutorName = "";
-	private String _distributorcode = "";
-	private String _ContactPerson = "";
-	private String _ContactNo= "";
-	private String _PendingforIssue = "";
-	private String _AvailableQtyinStock="";
-	private String _AvailableQtyToApprove="";
+	private String rowid = "";
+	private String pdrid = "";
+	private String patientname= "";
+	private String age = "";
+	private String gender;
+	private String RequstedQty;
+	private String AllreadyApproved;
+	private String issuedqty;
+	private String PenddingQty;
+	private String recdqty;
 
 	Encriptor _encrptor;
 	private String _Skey="";
 	private String CapId="";
 	Context context;
 
-	public DistributorsListForAdc_Entity() {
+	public PatientDetailsList_Entity() {
 		super();
 	}
 
-	public DistributorsListForAdc_Entity(Context context1, SoapObject obj) {
+	public PatientDetailsList_Entity(Context context1, SoapObject obj) {
 		this.context=context1;
 		_encrptor=new Encriptor();
 		try
@@ -53,13 +56,16 @@ public class DistributorsListForAdc_Entity implements KvmSerializable, Serializa
 			//this.CapId=_encrptor.Decrypt("wZWV8HB10WGccFXPUJIyRw==",_Skey);
 
 			if(CapId.equalsIgnoreCase(PreferenceManager.getDefaultSharedPreferences(context).getString("CAPID", ""))) {
-				this._DistrubutorName = _encrptor.Decrypt(obj.getProperty("DistrubutorName").toString(), _Skey);
-				this._distributorcode = _encrptor.Decrypt(obj.getProperty("distributorcode").toString(), _Skey);
-				this._ContactPerson = _encrptor.Decrypt(obj.getProperty("ContactPerson").toString(), _Skey);
-				this._ContactNo = _encrptor.Decrypt(obj.getProperty("ContactNo").toString(), _Skey);
-				this._PendingforIssue = _encrptor.Decrypt(obj.getProperty("PendingforIssue").toString(), _Skey);
-				this._AvailableQtyinStock = _encrptor.Decrypt(obj.getProperty("AvailableQtyinStock").toString(), _Skey);
-				this._AvailableQtyToApprove = _encrptor.Decrypt(obj.getProperty("AvailableQtyToApprove").toString(), _Skey);
+			//	this.rowid = _encrptor.Decrypt(obj.getProperty("rowid").toString(), _Skey);
+				this.pdrid = _encrptor.Decrypt(obj.getProperty("pdrid").toString(), _Skey);
+				this.patientname = _encrptor.Decrypt(obj.getProperty("patientname").toString(), _Skey);
+				this.age = _encrptor.Decrypt(obj.getProperty("age").toString(), _Skey);
+				this.gender = _encrptor.Decrypt(obj.getProperty("gender").toString(), _Skey);
+				this.RequstedQty = _encrptor.Decrypt(obj.getProperty("RequstedQty").toString(), _Skey);
+				this.AllreadyApproved = _encrptor.Decrypt(obj.getProperty("AllreadyApproved").toString(), _Skey);
+				this.issuedqty = _encrptor.Decrypt(obj.getProperty("issuedqty").toString(), _Skey);
+				this.PenddingQty = _encrptor.Decrypt(obj.getProperty("PenddingQty").toString(), _Skey);
+				this.recdqty = _encrptor.Decrypt(obj.getProperty("recdqty").toString(), _Skey);
 
 			}
 			else {
@@ -106,44 +112,84 @@ public class DistributorsListForAdc_Entity implements KvmSerializable, Serializa
 
 	}
 
-	public String get_DistrubutorName() {
-		return _DistrubutorName;
+	public String getRowid() {
+		return rowid;
 	}
 
-	public void set_DistrubutorName(String _DistrubutorName) {
-		this._DistrubutorName = _DistrubutorName;
+	public void setRowid(String rowid) {
+		this.rowid = rowid;
 	}
 
-	public String get_ContactPerson() {
-		return _ContactPerson;
+	public String getPdrid() {
+		return pdrid;
 	}
 
-	public void set_ContactPerson(String _ContactPerson) {
-		this._ContactPerson = _ContactPerson;
+	public void setPdrid(String pdrid) {
+		this.pdrid = pdrid;
 	}
 
-	public String get_ContactNo() {
-		return _ContactNo;
+	public String getPatientname() {
+		return patientname;
 	}
 
-	public void set_ContactNo(String _ContactNo) {
-		this._ContactNo = _ContactNo;
+	public void setPatientname(String patientname) {
+		this.patientname = patientname;
 	}
 
-	public String get_PendingforIssue() {
-		return _PendingforIssue;
+	public String getAge() {
+		return age;
 	}
 
-	public void set_PendingforIssue(String _PendingforIssue) {
-		this._PendingforIssue = _PendingforIssue;
+	public void setAge(String age) {
+		this.age = age;
 	}
 
-	public String get_AvailableQtyinStock() {
-		return _AvailableQtyinStock;
+	public String getGender() {
+		return gender;
 	}
 
-	public void set_AvailableQtyinStock(String _AvailableQtyinStock) {
-		this._AvailableQtyinStock = _AvailableQtyinStock;
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getRequstedQty() {
+		return RequstedQty;
+	}
+
+	public void setRequstedQty(String requstedQty) {
+		RequstedQty = requstedQty;
+	}
+
+	public String getAllreadyApproved() {
+		return AllreadyApproved;
+	}
+
+	public void setAllreadyApproved(String allreadyApproved) {
+		AllreadyApproved = allreadyApproved;
+	}
+
+	public String getIssuedqty() {
+		return issuedqty;
+	}
+
+	public void setIssuedqty(String issuedqty) {
+		this.issuedqty = issuedqty;
+	}
+
+	public String getPenddingQty() {
+		return PenddingQty;
+	}
+
+	public void setPenddingQty(String penddingQty) {
+		PenddingQty = penddingQty;
+	}
+
+	public String getRecdqty() {
+		return recdqty;
+	}
+
+	public void setRecdqty(String recdqty) {
+		this.recdqty = recdqty;
 	}
 
 	public Encriptor get_encrptor() {
@@ -176,21 +222,5 @@ public class DistributorsListForAdc_Entity implements KvmSerializable, Serializa
 
 	public void setContext(Context context) {
 		this.context = context;
-	}
-
-	public String get_AvailableQtyToApprove() {
-		return _AvailableQtyToApprove;
-	}
-
-	public void set_AvailableQtyToApprove(String _AvailableQtyToApprove) {
-		this._AvailableQtyToApprove = _AvailableQtyToApprove;
-	}
-
-	public String get_distributorcode() {
-		return _distributorcode;
-	}
-
-	public void set_distributorcode(String _distributorcode) {
-		this._distributorcode = _distributorcode;
 	}
 }

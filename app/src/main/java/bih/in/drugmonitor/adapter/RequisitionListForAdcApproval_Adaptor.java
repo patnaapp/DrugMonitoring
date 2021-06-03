@@ -102,6 +102,7 @@ public class RequisitionListForAdcApproval_Adaptor extends RecyclerView.Adapter<
                 i.putExtra("approve_qty",ThrList.get(position).getAlready_approved_qty());
                 i.putExtra("pending_qty",ThrList.get(position).getPending_approval_qty());
 
+                i.putExtra("hreqid",ThrList.get(position).getHreqid());
                 i.putExtra("hosp_id",ThrList.get(position).getHospitalid());
                 i.putExtra("hosp_address",ThrList.get(position).getAddress());
                 i.putExtra("nodal_name",ThrList.get(position).getNodalofficername());

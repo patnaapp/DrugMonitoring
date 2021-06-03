@@ -20,6 +20,7 @@ import bih.in.drugmonitor.entity.District;
 import bih.in.drugmonitor.entity.DrugIssuedDetailsList_Entity;
 import bih.in.drugmonitor.entity.FilterOptionEntity;
 import bih.in.drugmonitor.entity.PanchayatEntity;
+import bih.in.drugmonitor.entity.PatientDetailsList_Entity;
 import bih.in.drugmonitor.entity.PlantationDetail;
 import bih.in.drugmonitor.entity.PlantationReportEntity;
 import bih.in.drugmonitor.entity.PlantationSiteEntity;
@@ -53,7 +54,8 @@ public class WebServiceHelper {
     public static final String GetReqList_Adc = "getDDCPendingList";
     public static final String GetDistributorsMapped_Adc = "gethospitalfortheissuanceofmedicineList";
     public static final String GetIssuedDrugsDetails = "getDrugissuedHospitalByDistributorList";
-    public static final String ApproveDrugReq = "getDrugissuedHospitalByDistributorList";
+    public static final String ApproveDrugReq = "DDCApprovalForm";
+    public static final String GetPatientDetails_List = "getPopupList";
 
 
 
@@ -959,13 +961,13 @@ public class WebServiceHelper {
     }
 
 
-    public static ArrayList<DrugIssuedDetailsList_Entity> GetIssuedDrugDetails(Context context, String hosp_id, String randomNo, String capId)
+    public static ArrayList<DrugIssuedDetailsList_Entity> GetIssuedDrugDetails(Context context, String hosp_id, String randomNo, String capId,String hreqid)
     {
         Encriptor _encrptor = new Encriptor();
         SoapObject res1 = null;
         try {
             //  res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey", "District_Code", "cap", _encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY), distCode, capId);
-            res1 = getServerData(GetIssuedDrugsDetails, DrugIssuedDetailsList_Entity.DRUG_ISSUED_CLASS, "skey","_HospitalID", "cap", "T/0e2rl0kHIvBtEas5Dv4g==",hosp_id,"wZWV8HB10WGccFXPUJIyRw==");
+            res1 = getServerData(GetIssuedDrugsDetails, DrugIssuedDetailsList_Entity.DRUG_ISSUED_CLASS, "skey","_HospitalID","_hreqid", "cap", "T/0e2rl0kHIvBtEas5Dv4g==",hosp_id,hreqid,"wZWV8HB10WGccFXPUJIyRw==");
             // res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap", "T/0e2rl0kHIvBtEas5Dv4g==","","597","2", "208","6", "wZWV8HB10WGccFXPUJIyRw==");
         }
         catch (Exception e)
@@ -999,20 +1001,79 @@ public class WebServiceHelper {
         return fieldList;
     }
 
-    public static String ApproveDrugReq(String distibutor_id,String approved_qty,String randomNo,String Token,String userid) {
+
+    public static ArrayList<PatientDetailsList_Entity> GetPatientDetails(Context context, String hosp_id, String randomNo, String capId, String hreqid)
+    {
+        Encriptor _encrptor = new Encriptor();
+        SoapObject res1 = null;
+        try {
+            res1 = getServerData(GetPatientDetails_List, PatientDetailsList_Entity.PATIENT_CLASS, "skey","_HospitalID","_hreqid", "cap", "T/0e2rl0kHIvBtEas5Dv4g==",hosp_id,hreqid,"wZWV8HB10WGccFXPUJIyRw==");
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        int TotalProperty=0;
+        if(res1!=null) TotalProperty= res1.getPropertyCount();
+
+        ArrayList<PatientDetailsList_Entity> fieldList = new ArrayList<PatientDetailsList_Entity>();
+
+        for (int i = 0; i < TotalProperty; i++)
+        {
+            if (res1.getProperty(i) != null)
+            {
+                Object property = res1.getProperty(i);
+                if (property instanceof SoapObject)
+                {
+                    SoapObject final_object = (SoapObject) property;
+                    PatientDetailsList_Entity block= new PatientDetailsList_Entity(context,final_object);
+                    fieldList.add(block);
+                }
+            }
+            else
+            {
+                return fieldList;
+            }
+
+        }
+
+        return fieldList;
+    }
+
+
+    public static String ApproveDrugReq(String distibutor_id,String approved_qty,String randomNo,String Token,String userid,String hosp_id,String drug_id,String distcode,String statecode,String hreqid,String enc_pwd) {
         try {
             SoapObject request = new SoapObject(SERVICENAMESPACE,ApproveDrugReq);
             Encriptor _encrptor = new Encriptor();
           //  request.addProperty("skey", _encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY));
             request.addProperty("skey","T/0e2rl0kHIvBtEas5Dv4g==");
-//            request.addProperty("_BenId",id);
-//            request.addProperty("_JeevanPramanStatus",status);
+            request.addProperty("_DistCode",distcode);
+            request.addProperty("_statecode",statecode);
+            request.addProperty("_drugid",drug_id);
+            request.addProperty("_HospitalID",hosp_id);
+            request.addProperty("_hreqid",hreqid);
+            request.addProperty("_pdrid",hreqid);
+            request.addProperty("_UserId",userid);
+            request.addProperty("_distributorcode",distibutor_id);
+            request.addProperty("_actionqty",approved_qty);
+            request.addProperty("_approvedqty",approved_qty);
+            request.addProperty("_issuedqty",approved_qty);
 
             org.kxml2.kdom.Element[] header = new org.kxml2.kdom.Element[1];
             header[0] = new org.kxml2.kdom.Element().createElement(SERVICENAMESPACE, "SecuredTokenWebservice");
-            org.kxml2.kdom.Element uid = new org.kxml2.kdom.Element().createElement(SERVICENAMESPACE, "AuthenticationToken");
-            uid.addChild(Node.TEXT, Token);
+            org.kxml2.kdom.Element token = new org.kxml2.kdom.Element().createElement(SERVICENAMESPACE, "AuthenticationToken");
+            token.addChild(Node.TEXT, Token);
+            header[0].addChild(Node.ELEMENT, token);
+
+            org.kxml2.kdom.Element uid = new org.kxml2.kdom.Element().createElement(SERVICENAMESPACE, "UserId");
+            uid.addChild(Node.TEXT, userid);
             header[0].addChild(Node.ELEMENT, uid);
+
+            org.kxml2.kdom.Element pwd = new org.kxml2.kdom.Element().createElement(SERVICENAMESPACE, "pwd");
+            pwd.addChild(Node.TEXT, enc_pwd);
+            header[0].addChild(Node.ELEMENT, pwd);
+
 
             SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                     SoapEnvelope.VER11);
@@ -1027,7 +1088,8 @@ public class WebServiceHelper {
             } else
                 return null;
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             return null;
         }

@@ -9,11 +9,18 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +30,11 @@ import bih.in.drugmonitor.R;
 import bih.in.drugmonitor.adapter.DistributorListForDrugIssue_adaptor;
 import bih.in.drugmonitor.adapter.IssuedDrugsListByDistributor_adaptor;
 import bih.in.drugmonitor.adapter.MyInterface;
+import bih.in.drugmonitor.adapter.PatientListForApproval_adaptor;
 import bih.in.drugmonitor.adapter.RequisitionListForAdcApproval_Adaptor;
 import bih.in.drugmonitor.entity.DistributorsListForAdc_Entity;
 import bih.in.drugmonitor.entity.DrugIssuedDetailsList_Entity;
+import bih.in.drugmonitor.entity.PatientDetailsList_Entity;
 import bih.in.drugmonitor.entity.RequisitionListForAdc_Entity;
 import bih.in.drugmonitor.security.Encriptor;
 import bih.in.drugmonitor.utility.Utiilties;
@@ -40,16 +49,20 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
     String _req_id="",req_date="",hosp_name="",Hosp_ID="",drug_name="",_req_qty="",_already_approved="",pendinng_approvfed="";
     ArrayList<DistributorsListForAdc_Entity> data;
     ArrayList<DrugIssuedDetailsList_Entity> data1;
+    ArrayList<PatientDetailsList_Entity> patientdata;
 
     DistributorListForDrugIssue_adaptor distributorAdaptor;
     IssuedDrugsListByDistributor_adaptor drugIssuedAdaptor;
+    PatientListForApproval_adaptor patientAdaptor;
 
     Encriptor _encrptor;
     String CapId="";
-    String distcode="208";
+    String distcode="212";
     String _distributor_id="",User_Id="";
     Boolean isDistributor_selected=false;
-    String hosp_add="",nodal_off_name="",nodal_cntct="",hosp_type="",total_beds="";
+    String hosp_add="",nodal_off_name="",nodal_cntct="",hosp_type="",total_beds="",_h_req_id="";
+    private PopupWindow mPopupWindow;
+    RecyclerView rv_recycler_view2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +84,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         nodal_cntct=getIntent().getExtras().getString("nodal_cntct");
         hosp_type=getIntent().getExtras().getString("hosp_type");
         total_beds=getIntent().getExtras().getString("noofbeds");
+        _h_req_id=getIntent().getExtras().getString("hreqid");
 
         initialise();
         new LoadDistributorMappedWithAdc().execute();
@@ -82,33 +96,37 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
     public void on_Approve(View view)
     {
+
+       // openpatient_popup();
         if (isDistributor_selected && edt_qty_tobe_approved.getText().length()>0)
         {
             if(Integer.parseInt(edt_qty_tobe_approved.getText().toString())<=Integer.parseInt(tv_pending_approve_qty.getText().toString()))
             {
 
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(ApproveDrugByAdc_Activity.this);
-                builder1.setTitle("Message");
-                builder1 .setMessage("Are you sure to approve this requisition ?");
-                builder1.setCancelable(true);
+                new LoadPatientList().execute();
 
-                builder1.setPositiveButton(
-                        "Yes",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                new ApproveDrugRequisition().execute();
-                            }
-                        });
-
-                builder1.setNegativeButton(
-                        "No",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert11 = builder1.create();
-                alert11.show();
+//                AlertDialog.Builder builder1 = new AlertDialog.Builder(ApproveDrugByAdc_Activity.this);
+//                builder1.setTitle("Message");
+//                builder1 .setMessage("Are you sure to approve this requisition ?");
+//                builder1.setCancelable(true);
+//
+//                builder1.setPositiveButton(
+//                        "Yes",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                               // new ApproveDrugRequisition().execute();
+//                            }
+//                        });
+//
+//                builder1.setNegativeButton(
+//                        "No",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                dialog.cancel();
+//                            }
+//                        });
+//                AlertDialog alert11 = builder1.create();
+//                alert11.show();
                 Toast.makeText(getApplicationContext(),"Distributor Name-"+_distributor_id,Toast.LENGTH_SHORT).show();
             }
             else {
@@ -287,6 +305,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             String _encptdist = Utiilties.cleanStringForVulnerability(distcode);
             String _capId = Utiilties.cleanStringForVulnerability(CapId);
             String _hosp_id = Utiilties.cleanStringForVulnerability(Hosp_ID);
+            String _hreq_id = Utiilties.cleanStringForVulnerability(_h_req_id);
 
 //            String _date = Utiilties.getCurrentDate();
           //  String _hosp_id = "597";
@@ -299,11 +318,12 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             try {
                 _capId = _encrptor.Encrypt(_capId, randomnum);
                 _hosp_id = _encrptor.Encrypt(_hosp_id, randomnum);
+                _hreq_id = _encrptor.Encrypt(_hreq_id, randomnum);
 
             } catch (Exception e) {
                 Log.e("EXCEPTION", "EXCEP while Encription on Login");
             }
-            this.blocklist = WebServiceHelper.GetIssuedDrugDetails(ApproveDrugByAdc_Activity.this,_hosp_id,randomnum,_capId);
+            this.blocklist = WebServiceHelper.GetIssuedDrugDetails(ApproveDrugByAdc_Activity.this,_hosp_id,randomnum,_capId,_hreq_id);
 
             return this.blocklist;
         }
@@ -359,6 +379,108 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
     }
 
 
+    private class LoadPatientList extends AsyncTask<String, Void, ArrayList<PatientDetailsList_Entity>>
+    {
+        ArrayList<PatientDetailsList_Entity> blocklist = new ArrayList<>();
+        private final ProgressDialog dialog = new ProgressDialog(ApproveDrugByAdc_Activity.this);
+
+        @Override
+        protected void onPreExecute() {
+
+            this.dialog.setCanceledOnTouchOutside(false);
+            this.dialog.setMessage("Loading Issued Drugs Details...");
+            this.dialog.show();
+        }
+
+        @Override
+        protected ArrayList<PatientDetailsList_Entity> doInBackground(String... param)
+        {
+            // CapId= RandomString.randomAlphaNumeric(8);
+            // CapId= "wZWV8HB10WGccFXPUJIyRw==";
+            CapId= "FNX4XDEG";
+            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("CAPID", CapId).commit();
+
+            String _encptdist = Utiilties.cleanStringForVulnerability(distcode);
+            String _capId = Utiilties.cleanStringForVulnerability(CapId);
+            String _hosp_id = Utiilties.cleanStringForVulnerability(Hosp_ID);
+           // String _hosp_id = "509";
+            String _hreq_id = Utiilties.cleanStringForVulnerability(_h_req_id);
+
+//            String _date = Utiilties.getCurrentDate();
+            //  String _hosp_id = "597";
+//            String _userttype = "6";
+            String _drug_id = "1";
+            String _state_id = "5";
+
+            //  String randomnum = Utiilties.getTimeStamp();
+            String randomnum ="-1049096725";
+            try {
+                _capId = _encrptor.Encrypt(_capId, randomnum);
+                _hosp_id = _encrptor.Encrypt(_hosp_id, randomnum);
+                _hreq_id = _encrptor.Encrypt(_hreq_id, randomnum);
+
+            } catch (Exception e) {
+                Log.e("EXCEPTION", "EXCEP while Encription on Login");
+            }
+            this.blocklist = WebServiceHelper.GetPatientDetails(ApproveDrugByAdc_Activity.this,_hosp_id,randomnum,_capId,_hreq_id);
+
+            return this.blocklist;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<PatientDetailsList_Entity> result)
+        {
+            if (this.dialog.isShowing())
+            {
+                this.dialog.dismiss();
+
+            }
+
+            if (result != null)
+            {
+                if (result.size() > 0)
+                {
+                    patientdata=result;
+
+                    if (result.size() > 0)
+                    {
+
+                        openpatient_popup();
+
+
+                    }
+
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "No Issued Drug Details",Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+        }
+
+    }
+
+    public void populatePatientData()
+    {
+        if (patientdata != null && patientdata.size() > 0) {
+            Log.e("data", "" + patientdata.size());
+
+            // tv_Norecord.setVisibility(View.GONE);
+            rv_issued_medicines.setVisibility(View.VISIBLE);
+
+            patientAdaptor = new PatientListForApproval_adaptor(this, patientdata);
+            rv_recycler_view2.setLayoutManager(new LinearLayoutManager(this));
+            rv_recycler_view2.setAdapter(patientAdaptor);
+
+        } else {
+            rv_recycler_view2.setVisibility(View.GONE);
+            // tv_Norecord.setVisibility(View.VISIBLE);
+        }
+    }
+
+
 
     private class ApproveDrugRequisition extends AsyncTask<String, Void, String> {
 
@@ -380,21 +502,37 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             //   String _status = Utiilties.cleanStringForVulnerability("Y");
             String _distibutor_id = Utiilties.cleanStringForVulnerability(_distributor_id);
             String _approved_qty = Utiilties.cleanStringForVulnerability(edt_qty_tobe_approved.getText().toString());
-            String _user_id = Utiilties.cleanStringForVulnerability(User_Id);
-            String randomnum = Utiilties.getTimeStamp();
+      //      String _issued_qty = Utiilties.cleanStringForVulnerability(iss);
+           // String _user_id = Utiilties.cleanStringForVulnerability(User_Id);
+            String _user_id = Utiilties.cleanStringForVulnerability("ADCPATNA");
+            String _pass ="Test@1234";
+            String _hosp_id = Utiilties.cleanStringForVulnerability(Hosp_ID);
+            String _hreq_id = Utiilties.cleanStringForVulnerability(_h_req_id);
+           // String _drug_id = Utiilties.cleanStringForVulnerability(dr);
+            String _drug_id = "1";
+            String _dist_code = "212";
+            String _state_code = "5";
+        //    String randomnum = Utiilties.getTimeStamp();
+            String randomnum ="-1049096725";
             String token= PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("TOKENNO", "");
             try {
                 // _status = _encrptor.Encrypt(_status, randomnum);
                 _distibutor_id = _encrptor.Encrypt(_distibutor_id, randomnum);
                 _approved_qty = _encrptor.Encrypt(_approved_qty, randomnum);
                 _user_id = _encrptor.Encrypt(_user_id, randomnum);
+                _hosp_id = _encrptor.Encrypt(_hosp_id, randomnum);
+                _drug_id = _encrptor.Encrypt(_drug_id, randomnum);
+                _dist_code = _encrptor.Encrypt(_dist_code, randomnum);
+                _state_code = _encrptor.Encrypt(_state_code, randomnum);
+                _pass = _encrptor.Encrypt(_pass, randomnum);
+                _hreq_id = _encrptor.Encrypt(_hreq_id, randomnum);
 
                 token=_encrptor.Encrypt(token,randomnum);
             } catch (Exception e) {
                 Log.e("EXCEPTION", "EXCEP while Encription on Login");
             }
 
-            return  WebServiceHelper.ApproveDrugReq(_distibutor_id,_approved_qty,randomnum,token,_user_id);
+            return  WebServiceHelper.ApproveDrugReq(_distibutor_id,_approved_qty,randomnum,token,_user_id,_hosp_id,_drug_id,_dist_code,_state_code,_hreq_id,_pass);
         }
 
         @Override
@@ -438,5 +576,36 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             }
 
         }
+    }
+
+    public void openpatient_popup()
+    {
+        LayoutInflater inflater = (LayoutInflater) ApproveDrugByAdc_Activity.this.getSystemService(LAYOUT_INFLATER_SERVICE);
+
+        // Inflate the custom layout/view
+        View customView = inflater.inflate(R.layout.dialog_details, null);
+
+        // Initialize a new instance of popup window
+        mPopupWindow = new PopupWindow(customView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        // Set an elevation value for popup window
+        // Call requires API level 21
+        if (Build.VERSION.SDK_INT >= 21) { mPopupWindow.setElevation(5.0f); }
+
+
+         rv_recycler_view2 = (RecyclerView) customView.findViewById(R.id.rv_recycler_view2);
+        Button button_approve = (Button) customView.findViewById(R.id.button_approve);
+
+        try {
+
+            populatePatientData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        mPopupWindow.setFocusable(true);
+        mPopupWindow.update();
+        mPopupWindow.showAtLocation(rv_recycler_view2, Gravity.CENTER, 0, 0);
+
     }
 }

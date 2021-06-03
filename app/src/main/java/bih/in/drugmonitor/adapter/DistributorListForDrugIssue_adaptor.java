@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,7 @@ public class DistributorListForDrugIssue_adaptor extends RecyclerView.Adapter<Di
 
     MarshmallowPermission permission;
     String str_compliance="";
+    private int mCheckedPosition = -1;
 
     public DistributorListForDrugIssue_adaptor(Activity listViewshowedit, ArrayList<DistributorsListForAdc_Entity> rlist) {
         this.activity = listViewshowedit;
@@ -65,6 +67,7 @@ public class DistributorListForDrugIssue_adaptor extends RecyclerView.Adapter<Di
         mInflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         //this.str_compliance = comply;
         // this.regNo = regNo;
+
     }
 
     @Override
@@ -75,7 +78,7 @@ public class DistributorListForDrugIssue_adaptor extends RecyclerView.Adapter<Di
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final DistributorsListForAdc_Entity info = ThrList.get(position);
         complianceinfo = ThrList.get(position);
 
@@ -88,14 +91,19 @@ public class DistributorListForDrugIssue_adaptor extends RecyclerView.Adapter<Di
         holder.tv_avlbl_qty.setText(ThrList.get(position).get_AvailableQtyinStock());
         holder.tv_avlvl_qty_to_approve.setText(ThrList.get(position).get_AvailableQtyToApprove());
 
+        holder.chk1.setOnCheckedChangeListener(null);
+        holder.chk1.setChecked(position == mCheckedPosition);
+
         holder.chk1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                int getPosition = (Integer) buttonView.getTag();
+               // int getPosition = (Integer) buttonView.getTag();
                // if (!isFromView) {
-                   // check_gouan_tola_model.setSelected(isChecked);
-                    ((MyInterface) activity).onCheckedDistributor(position,ThrList.get(position).get_DistrubutorName(),isChecked);
+                mCheckedPosition = position;
+                notifyDataSetChanged();
+                    ((MyInterface) activity).onCheckedDistributor(position,ThrList.get(position).get_distributorcode(),isChecked);
+
 
              //   }
             }
@@ -108,6 +116,7 @@ public class DistributorListForDrugIssue_adaptor extends RecyclerView.Adapter<Di
     public int getItemCount() {
         return ThrList.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tv_slno,tv_distributor_name,tv_cntct_perrson,tv_cntct_no,tv_pending_issue,tv_avlbl_qty,tv_avlvl_qty_to_approve;
