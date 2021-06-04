@@ -285,18 +285,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
             ContentValues values = new ContentValues();
 
-            values.put("UserID", result.getUserID());
-            values.put("UserName", result.getName());
-            values.put("UserPassword", result.getPassword());
-            //values.put("IMEI", result.getIMEI());
-            values.put("RoleId", result.getUserroleId());
-            values.put("Role", result.getUserrole());
+//           // values.put("UserID", result.getUserID());
+//            values.put("UserName", result.getName());
+//            values.put("UserPassword", result.getPassword());
+//            //values.put("IMEI", result.getIMEI());
+//            values.put("RoleId", result.getUserroleId());
+//            values.put("Role", result.getUserrole());
+//
+//            values.put("MobileNo", result.getMobileNo());
+//            values.put("Email", result.getEmail());
 
-            values.put("MobileNo", result.getMobileNo());
-            values.put("Email", result.getEmail());
 
-
-            String[] whereArgs = new String[]{result.getUserID()};
+            String[] whereArgs = new String[]{"result.getUserID()"};
 
             c = db.update("UserDetail", values, "UserID=? ", whereArgs);
 
@@ -334,15 +334,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
                 userInfo = new UserDetails();
-                userInfo.setUserID(cur.getString(cur.getColumnIndex("UserID")));
-                userInfo.setName(cur.getString(cur.getColumnIndex("UserName")));
-                userInfo.setPassword(cur.getString(cur.getColumnIndex("UserPassword")));
-
-                userInfo.setMobileNo(cur.getString(cur.getColumnIndex("MobileNo")));
-                userInfo.setEmail(cur.getString(cur.getColumnIndex("Email")));
-
-                userInfo.setUserroleId(cur.getString(cur.getColumnIndex("RoleId")));
-                userInfo.setUserrole(cur.getString(cur.getColumnIndex("Role")));
+//                userInfo.setUserID(cur.getString(cur.getColumnIndex("UserID")));
+//                userInfo.setName(cur.getString(cur.getColumnIndex("UserName")));
+//                userInfo.setPassword(cur.getString(cur.getColumnIndex("UserPassword")));
+//
+//                userInfo.setMobileNo(cur.getString(cur.getColumnIndex("MobileNo")));
+//                userInfo.setEmail(cur.getString(cur.getColumnIndex("Email")));
+//
+//                userInfo.setUserroleId(cur.getString(cur.getColumnIndex("RoleId")));
+//                userInfo.setUserrole(cur.getString(cur.getColumnIndex("Role")));
                 userInfo.setAuthenticated(true);
 //                userInfo.setDistrictCode(cur.getString(cur.getColumnIndex("DistCode")));
 //                userInfo.setDistName(cur.getString(cur.getColumnIndex("DistName")));
@@ -1263,10 +1263,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     values.put("PanchayatName", info.get(i).getPname());
                     values.put("PACName", info.get(i).getAreaType());
 
-                    values.put("BlockCode", userInfo.getBlockCode());
+                  //  values.put("BlockCode", userInfo.getBlockCode());
                     //values.put("Block Name", userInfo.getBlockName());
-                    values.put("DistrictCode", userInfo.getDistrictCode());
-                    values.put("DistrictName", userInfo.getDistName());
+                   // values.put("DistrictCode", userInfo.getDistrictCode());
+                   // values.put("DistrictName", userInfo.getDistName());
                     values.put("PartNo", "2");
 
                     String[] whereArgs = new String[]{String.valueOf(info.get(i).getPcode())};

@@ -169,7 +169,7 @@ public class PatientRequisition_Adapter extends BaseAdapter
         protected ArrayList<SurfaceInspectionDetailEntity> doInBackground(String...arg)
         {
 
-            return WebServiceHelper.getSurfaceSchemeInspectionData(userInfo.getUserrole(), userInfo.getUserID(), userInfo.getPassword(),scheme.getSCHEME_ID(),"","","","");
+            return WebServiceHelper.getSurfaceSchemeInspectionData("userInfo.getUserrole()", userInfo.getUserid(), userInfo.getPassword(),scheme.getSCHEME_ID(),"","","","");
 
         }
 

@@ -73,21 +73,21 @@ public class LoginActivity extends Activity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(LoginActivity.this,AdcHome_Acitivity.class);
-                startActivity(i);
-//                userName = (EditText) findViewById(R.id.et_username);
-//                userPass = (EditText) findViewById(R.id.et_password);
-//                param = new String[2];
-//                param[0] = userName.getText().toString();
-//                param[1] = userPass.getText().toString();
-//
-//                if (param[0].length() < 1){
-//                    Toast.makeText(LoginActivity.this, "Enter Valid User Id", Toast.LENGTH_SHORT).show();
-//                }else if (param[1].length() < 1){
-//                    Toast.makeText(LoginActivity.this, "Enter Valid Password", Toast.LENGTH_SHORT).show();
-//                }else{
-//                    new LoginTask(param[0], param[1]).execute(param);
-//                }
+//                Intent i=new Intent(LoginActivity.this,AdcHome_Acitivity.class);
+//                startActivity(i);
+                userName = (EditText) findViewById(R.id.et_username);
+                userPass = (EditText) findViewById(R.id.et_password);
+                param = new String[2];
+                param[0] = userName.getText().toString();
+                param[1] = userPass.getText().toString();
+
+                if (param[0].length() < 1){
+                    Toast.makeText(LoginActivity.this, "Enter Valid User Id", Toast.LENGTH_SHORT).show();
+                }else if (param[1].length() < 1){
+                    Toast.makeText(LoginActivity.this, "Enter Valid Password", Toast.LENGTH_SHORT).show();
+                }else{
+                    new LoginTask(param[0], param[1]).execute(param);
+                }
 
             }
         });
@@ -124,39 +124,42 @@ public class LoginActivity extends Activity {
     }
 
 
-    private class LoginTask extends AsyncTask<String, Void, UserDetails> {
+    private class LoginTask extends AsyncTask<String, Void, UserDetails>
+    {
         String username,password;
 
-        LoginTask(String username, String password){
+        LoginTask(String username, String password)
+        {
             this.username = username;
             this.password = password;
         }
 
-        private final ProgressDialog dialog = new ProgressDialog(
-                LoginActivity.this);
+        private final ProgressDialog dialog = new ProgressDialog(LoginActivity.this);
 
-        private final AlertDialog alertDialog = new AlertDialog.Builder(
-                LoginActivity.this).create();
+        private final AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
 
         @Override
-        protected void onPreExecute() {
-
+        protected void onPreExecute()
+        {
             this.dialog.setCanceledOnTouchOutside(false);
             this.dialog.setMessage(getResources().getString(R.string.authenticating));
             this.dialog.show();
         }
 
         @Override
-        protected UserDetails doInBackground(String... param) {
-
-            if (!Utiilties.isOnline(LoginActivity.this)) {
+        protected UserDetails doInBackground(String... param)
+        {
+            if (!Utiilties.isOnline(LoginActivity.this))
+            {
                 UserDetails userDetails = new UserDetails();
                 userDetails.setAuthenticated(true);
                 return userDetails;
-            } else {
-
+            }
+            else
+            {
                 String _encptuid = Utiilties.cleanStringForVulnerability(username);
-                String _encptpwd = Utiilties.cleanStringForVulnerability(password);
+               // String _encptpwd = Utiilties.cleanStringForVulnerability(password);
+                String _encptpwd =password;
                 String _capId = Utiilties.cleanStringForVulnerability(CapId);
                 // PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("CAPID", RandomString.randomAlphaNumeric(8)).commit();
                 String randomnum = Utiilties.getTimeStamp();
@@ -201,54 +204,29 @@ public class LoginActivity extends Activity {
                         try
                         {
                             GlobalVariables.LoggedUser = result;
-                            GlobalVariables.LoggedUser.setUserID(_encrptor.Encrypt(username, CommonPref.CIPER_KEY));
+                            GlobalVariables.LoggedUser.setUserid(_encrptor.Encrypt(username, CommonPref.CIPER_KEY));
 
                             GlobalVariables.LoggedUser.setPassword(_encrptor.Encrypt(password, CommonPref.CIPER_KEY));
                             GlobalVariables.LoggedUser.set_TOKEN(result.get_TOKEN());
-                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("Role", (_encrptor.Encrypt("CSC", CommonPref.CIPER_KEY))).commit();
+                           // PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("Role", (_encrptor.Encrypt("CSC", CommonPref.CIPER_KEY))).commit();
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("UserId", (_encrptor.Encrypt(username, CommonPref.CIPER_KEY))).commit();
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("password", (_encrptor.Encrypt(password, CommonPref.CIPER_KEY))).commit();
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("TOKENNO", result.get_TOKEN().toLowerCase()).commit();
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("Dist_Code", result.getDistcode().toLowerCase()).commit();
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("state_Code", result.getStatecode().toLowerCase()).commit();
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("mob", result.getMobileno().toLowerCase()).commit();
 
                         }
                         catch (Exception e)
                         {
                             e.printStackTrace();
                         }
-                        try
-                        {
-                            if (result.getRole().equals("CSC"))
-                            {
 
-                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("Block", _encrptor.Encrypt(result.getBlockCode(), CommonPref.CIPER_KEY)).commit();
-                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("BlockName", _encrptor.Encrypt(result.getBlockName(), CommonPref.CIPER_KEY)).commit();
-                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("DistrictName", _encrptor.Encrypt(result.getDistName(), CommonPref.CIPER_KEY)).commit();
-                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("District", _encrptor.Encrypt(result.getDistrictCode(), CommonPref.CIPER_KEY)).commit();
-                            }
-
-                        }
-                        catch (Exception e)
-                        {
-                            e.printStackTrace();
-                        }
-                        String panchyatcode = "";
-                        panchyatcode = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("PanchayatCode", "");
-                        if (!panchyatcode.equals(""))
-                        {
                             Intent i = new Intent();
-                            i.setComponent(new ComponentName("com.example.nic.aadhar1", "com.example.nic.aadhar1.HomeActivity"));
+                            i.setComponent(new ComponentName("bih.in.drugmonitor", "bih.in.drugmonitor.ui.AdcHome_Acitivity"));
                             startActivity(i);
 
-                        }
-                        else
-                        {
-                            Intent i = new Intent();
-                            i.setComponent(new ComponentName("com.example.nic.aadhar1", "com.example.nic.aadhar1.ChooseCenter"));
-                            startActivity(i);
 
-                            finish();
-
-                        }
 
                     }
                     else
@@ -276,7 +254,7 @@ public class LoginActivity extends Activity {
         editor.putBoolean("password", true);
         editor.putString("uid", uid.toLowerCase());
         editor.putString("pass", pass);
-        editor.putString("role", details.getUserrole());
+       // editor.putString("role", details.getUserrole());
         editor.commit();
         //PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("USER_ID", uid).commit();
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("uid", uid).commit();

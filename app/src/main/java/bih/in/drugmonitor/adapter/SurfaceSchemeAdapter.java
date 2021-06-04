@@ -161,7 +161,7 @@ public class SurfaceSchemeAdapter extends BaseAdapter {
         @Override
         protected ArrayList<SurfaceInspectionDetailEntity> doInBackground(String...arg) {
 
-            return WebServiceHelper.getSurfaceSchemeInspectionData(userInfo.getUserrole(), userInfo.getUserID(), userInfo.getPassword(),scheme.getSCHEME_ID(),"","","","");
+            return WebServiceHelper.getSurfaceSchemeInspectionData("userInfo.getUserrole()", "userInfo.getUserID()", userInfo.getPassword(),scheme.getSCHEME_ID(),"","","","");
 
         }
 

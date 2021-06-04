@@ -33,6 +33,7 @@ import bih.in.drugmonitor.adapter.MyInterface;
 import bih.in.drugmonitor.adapter.PatientListForApproval_adaptor;
 import bih.in.drugmonitor.adapter.RequisitionListForAdcApproval_Adaptor;
 import bih.in.drugmonitor.entity.DistributorsListForAdc_Entity;
+import bih.in.drugmonitor.entity.DrugApproval_Entity;
 import bih.in.drugmonitor.entity.DrugIssuedDetailsList_Entity;
 import bih.in.drugmonitor.entity.PatientDetailsList_Entity;
 import bih.in.drugmonitor.entity.RequisitionListForAdc_Entity;
@@ -63,12 +64,14 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
     String hosp_add="",nodal_off_name="",nodal_cntct="",hosp_type="",total_beds="",_h_req_id="";
     private PopupWindow mPopupWindow;
     RecyclerView rv_recycler_view2;
+    DrugApproval_Entity drugapproval;
+    ArrayList<DrugApproval_Entity> drugarray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_approve_drug_by_adc_);
-
+        drugapproval=new DrugApproval_Entity();
         _encrptor=new Encriptor();
         _req_id=getIntent().getExtras().getString("reqid");
         req_date=getIntent().getExtras().getString("req_date");
@@ -97,7 +100,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
     public void on_Approve(View view)
     {
 
-       // openpatient_popup();
+        // openpatient_popup();
         if (isDistributor_selected && edt_qty_tobe_approved.getText().length()>0)
         {
             if(Integer.parseInt(edt_qty_tobe_approved.getText().toString())<=Integer.parseInt(tv_pending_approve_qty.getText().toString()))
@@ -180,6 +183,30 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
     }
 
+    @Override
+    public void onPatientSelected(int position, PatientDetailsList_Entity data, Boolean isChecked,String apprqty) {
+
+        if (isChecked)
+        {
+            drugapproval.set_HospitalID(Hosp_ID);
+            drugapproval.set_hreqid(_h_req_id);
+            drugapproval.set_pdrid(data.getPdrid());
+            drugapproval.set_UserId(User_Id);
+            drugapproval.set_distributorcode(_distributor_id);
+            drugapproval.set_approvedqty(data.getAllreadyApproved());
+            drugapproval.set_RequstedQty(data.getRequstedQty());
+            drugapproval.set_ApprQty(apprqty);
+
+            drugarray.add(drugapproval);
+        }
+
+    }
+
+    @Override
+    public void onQtyToBeApproved(int position, String quantity) {
+
+    }
+
     private class LoadDistributorMappedWithAdc extends AsyncTask<String, Void, ArrayList<DistributorsListForAdc_Entity>>
     {
         ArrayList<DistributorsListForAdc_Entity> blocklist = new ArrayList<>();
@@ -205,7 +232,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             String _capId = Utiilties.cleanStringForVulnerability(CapId);
             //String _hosp_id = Utiilties.cleanStringForVulnerability(Hosp_ID);
 //            String _date = Utiilties.getCurrentDate();
-          //  String _hosp_id = "597";
+            //  String _hosp_id = "597";
 //            String _userttype = "6";
             String _drug_id = "1";
             String _state_id = "5";
@@ -308,7 +335,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             String _hreq_id = Utiilties.cleanStringForVulnerability(_h_req_id);
 
 //            String _date = Utiilties.getCurrentDate();
-          //  String _hosp_id = "597";
+            //  String _hosp_id = "597";
 //            String _userttype = "6";
             String _drug_id = "1";
             String _state_id = "5";
@@ -403,7 +430,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             String _encptdist = Utiilties.cleanStringForVulnerability(distcode);
             String _capId = Utiilties.cleanStringForVulnerability(CapId);
             String _hosp_id = Utiilties.cleanStringForVulnerability(Hosp_ID);
-           // String _hosp_id = "509";
+            // String _hosp_id = "509";
             String _hreq_id = Utiilties.cleanStringForVulnerability(_h_req_id);
 
 //            String _date = Utiilties.getCurrentDate();
@@ -499,20 +526,26 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
         @Override
         protected String doInBackground(String... param) {
+
+            // CapId= RandomString.randomAlphaNumeric(8);
+            // CapId= "wZWV8HB10WGccFXPUJIyRw==";
+            CapId= "FNX4XDEG";
             //   String _status = Utiilties.cleanStringForVulnerability("Y");
+            String _capId = Utiilties.cleanStringForVulnerability(CapId);
+
             String _distibutor_id = Utiilties.cleanStringForVulnerability(_distributor_id);
             String _approved_qty = Utiilties.cleanStringForVulnerability(edt_qty_tobe_approved.getText().toString());
-      //      String _issued_qty = Utiilties.cleanStringForVulnerability(iss);
-           // String _user_id = Utiilties.cleanStringForVulnerability(User_Id);
+            //      String _issued_qty = Utiilties.cleanStringForVulnerability(iss);
+            // String _user_id = Utiilties.cleanStringForVulnerability(User_Id);
             String _user_id = Utiilties.cleanStringForVulnerability("ADCPATNA");
             String _pass ="Test@1234";
             String _hosp_id = Utiilties.cleanStringForVulnerability(Hosp_ID);
             String _hreq_id = Utiilties.cleanStringForVulnerability(_h_req_id);
-           // String _drug_id = Utiilties.cleanStringForVulnerability(dr);
+            // String _drug_id = Utiilties.cleanStringForVulnerability(dr);
             String _drug_id = "1";
             String _dist_code = "212";
             String _state_code = "5";
-        //    String randomnum = Utiilties.getTimeStamp();
+            //    String randomnum = Utiilties.getTimeStamp();
             String randomnum ="-1049096725";
             String token= PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("TOKENNO", "");
             try {
@@ -526,13 +559,16 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
                 _state_code = _encrptor.Encrypt(_state_code, randomnum);
                 _pass = _encrptor.Encrypt(_pass, randomnum);
                 _hreq_id = _encrptor.Encrypt(_hreq_id, randomnum);
+                _capId = _encrptor.Encrypt(_capId, randomnum);
+
 
                 token=_encrptor.Encrypt(token,randomnum);
             } catch (Exception e) {
                 Log.e("EXCEPTION", "EXCEP while Encription on Login");
             }
 
-            return  WebServiceHelper.ApproveDrugReq(_distibutor_id,_approved_qty,randomnum,token,_user_id,_hosp_id,_drug_id,_dist_code,_state_code,_hreq_id,_pass);
+            // return  WebServiceHelper.ApproveDrugReq(_distibutor_id,_approved_qty,randomnum,token,_user_id,_hosp_id,_drug_id,_dist_code,_state_code,_hreq_id,_pass);
+            return  WebServiceHelper.UploadApprovalData(getApplicationContext(),drugarray,"appVersion","devicetupe",randomnum,_capId,token);
         }
 
         @Override
@@ -580,6 +616,8 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
     public void openpatient_popup()
     {
+
+
         LayoutInflater inflater = (LayoutInflater) ApproveDrugByAdc_Activity.this.getSystemService(LAYOUT_INFLATER_SERVICE);
 
         // Inflate the custom layout/view
@@ -593,15 +631,25 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         if (Build.VERSION.SDK_INT >= 21) { mPopupWindow.setElevation(5.0f); }
 
 
-         rv_recycler_view2 = (RecyclerView) customView.findViewById(R.id.rv_recycler_view2);
+        rv_recycler_view2 = (RecyclerView) customView.findViewById(R.id.rv_recycler_view2);
         Button button_approve = (Button) customView.findViewById(R.id.button_approve);
 
-        try {
-
+        try
+        {
             populatePatientData();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
+
+        button_approve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ApproveDrugRequisition().execute();
+            }
+        });
+
 
         mPopupWindow.setFocusable(true);
         mPopupWindow.update();

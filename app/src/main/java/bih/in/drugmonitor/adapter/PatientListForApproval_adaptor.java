@@ -1,10 +1,13 @@
 package bih.in.drugmonitor.adapter;
 
 import android.app.Activity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -48,7 +51,7 @@ public class PatientListForApproval_adaptor extends RecyclerView.Adapter<Patient
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final PatientDetailsList_Entity info = ThrList.get(position);
         complianceinfo = ThrList.get(position);
 
@@ -60,11 +63,24 @@ public class PatientListForApproval_adaptor extends RecyclerView.Adapter<Patient
         holder.tv_req_qty.setText(ThrList.get(position).getRecdqty());
         holder.tv_already_approved.setText(ThrList.get(position).getAllreadyApproved());
         holder.tv_pending_qty.setText(ThrList.get(position).getPenddingQty());
+        holder.edt_appr_qty.setText(ThrList.get(position).getPenddingQty());
         //  holder.tv_appr_qty.setText(ThrList.get(position).getap());
+
+        holder.chk_patient.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                ((MyInterface) activity).onPatientSelected(position,ThrList.get(position),isChecked,holder.edt_appr_qty.getText().toString());
+
+            }
+        });
 
 
 
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -88,7 +104,7 @@ public class PatientListForApproval_adaptor extends RecyclerView.Adapter<Patient
             tv_pending_qty=(TextView)itemView.findViewById(R.id.tv_pending_qty);
             edt_appr_qty=(EditText) itemView.findViewById(R.id.edt_appr_qty);
             chk_patient=(CheckBox) itemView.findViewById(R.id.chk_patient);
-
+           // chk_patient.addTextChangedListener(inputTextWatcher2);
 
         }
 

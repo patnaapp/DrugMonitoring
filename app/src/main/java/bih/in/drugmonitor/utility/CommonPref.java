@@ -34,18 +34,18 @@ public class CommonPref {
                 Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = prefs.edit();
-
-        editor.putString("UserId", userInfo.getUserID());
-        editor.putString("UserName", userInfo.getName());
-        editor.putString("UserPassword", userInfo.getPassword());
-        editor.putString("Role", userInfo.getUserrole());
-
-        editor.putString("DistCode", userInfo.getDistrictCode());
-        editor.putString("DistName", userInfo.getDistName());
-        editor.putString("BlockCode", userInfo.getBlockCode());
-        editor.putString("BlockName", userInfo.getBlockName());
-        editor.putString("Degignation", userInfo.getDegignation());
-        editor.putString("MobileNo", userInfo.getMobileNo());
+//
+//        editor.putString("UserId", userInfo.getUserID());
+//        editor.putString("UserName", userInfo.getName());
+//        editor.putString("UserPassword", userInfo.getPassword());
+//        editor.putString("Role", userInfo.getUserrole());
+//
+//        editor.putString("DistCode", userInfo.getDistrictCode());
+//        editor.putString("DistName", userInfo.getDistName());
+//        editor.putString("BlockCode", userInfo.getBlockCode());
+//        editor.putString("BlockName", userInfo.getBlockName());
+//        editor.putString("Degignation", userInfo.getDegignation());
+//        editor.putString("MobileNo", userInfo.getMobileNo());
 
 
         editor.commit();
@@ -59,17 +59,17 @@ public class CommonPref {
         SharedPreferences prefs = context.getSharedPreferences(key,
                 Context.MODE_PRIVATE);
 
-        userInfo.setUserID(prefs.getString("UserId", ""));
-        userInfo.setName(prefs.getString("UserName", ""));
-        userInfo.setPassword(prefs.getString("UserPassword", ""));
-        userInfo.setUserrole(prefs.getString("Role", ""));
-
-        userInfo.setDistName(prefs.getString("DistName", ""));
-        userInfo.setDistrictCode(prefs.getString("DistCode", ""));
-        userInfo.setBlockCode(prefs.getString("BlockCode", ""));
-        userInfo.setBlockName(prefs.getString("BlockName", ""));
-        userInfo.setDegignation(prefs.getString("Degignation", ""));
-        userInfo.setMobileNo(prefs.getString("MobileNo", ""));
+//        userInfo.setUserID(prefs.getString("UserId", ""));
+//        userInfo.setName(prefs.getString("UserName", ""));
+//        userInfo.setPassword(prefs.getString("UserPassword", ""));
+//        userInfo.setUserrole(prefs.getString("Role", ""));
+//
+//        userInfo.setDistName(prefs.getString("DistName", ""));
+//        userInfo.setDistrictCode(prefs.getString("DistCode", ""));
+//        userInfo.setBlockCode(prefs.getString("BlockCode", ""));
+//        userInfo.setBlockName(prefs.getString("BlockName", ""));
+//        userInfo.setDegignation(prefs.getString("Degignation", ""));
+//        userInfo.setMobileNo(prefs.getString("MobileNo", ""));
 
         return userInfo;
     }
