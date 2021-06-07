@@ -40,7 +40,7 @@ public class RequisitionListForAdc_Entity implements KvmSerializable, Serializab
 	private String contactno;
 	private String htype;
 	private String totalbeds;
-	 Encriptor _encrptor;
+	Encriptor _encrptor;
 	private String _Skey="";
 	private String CapId="";
 	Context context;
@@ -58,7 +58,7 @@ public class RequisitionListForAdc_Entity implements KvmSerializable, Serializab
 			this._Skey=_encrptor.Decrypt(obj.getProperty("skey").toString(), CommonPref.CIPER_KEY);
 			//this._Skey=_encrptor.Decrypt("T/0e2rl0kHIvBtEas5Dv4g==", CommonPref.CIPER_KEY);
 			Log.d("skey",this.get_Skey());
-			 this.CapId=_encrptor.Decrypt(obj.getProperty("Cap").toString(),_Skey);
+			this.CapId=_encrptor.Decrypt(obj.getProperty("Cap").toString(),_Skey);
 			//this.CapId=_encrptor.Decrypt("wZWV8HB10WGccFXPUJIyRw==",_Skey);
 
 			if(CapId.equalsIgnoreCase(PreferenceManager.getDefaultSharedPreferences(context).getString("CAPID", ""))) {
@@ -79,11 +79,13 @@ public class RequisitionListForAdc_Entity implements KvmSerializable, Serializab
 				this.totalbeds = _encrptor.Decrypt(obj.getProperty("totalbeds").toString(), _Skey);
 			}
 			else {
-				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("UserId","").commit();
-				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("password","").commit();
-				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("Role","").commit();
-				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("District","").commit();
-
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserId","").commit();
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("password","").commit();
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("TOKENNO","").commit();
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("Dist_Code","").commit();
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("state_Code","").commit();
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("mob","").commit();
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("desig","").commit();
 				Intent intent=new Intent(context, LoginActivity.class);
 				context.startActivity(intent);
 				((Activity) context).finish();

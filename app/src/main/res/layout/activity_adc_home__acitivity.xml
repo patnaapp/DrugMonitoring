@@ -41,15 +41,15 @@
 
         <ImageView
             android:id="@+id/id_logout"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:padding="2dp"
-            android:onClick="OnClickLogout"
-            android:src="@drawable/shutdown"
-            android:layout_centerVertical="true"
+            android:layout_width="22dp"
+            android:layout_height="24dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/circular_shape_white"/>
+            android:layout_centerVertical="true"
+            android:layout_marginRight="22dp"
+            android:background="@drawable/circular_shape_white"
+            android:onClick="OnClickLogout"
+            android:padding="2dp"
+            android:src="@drawable/shutdown" />
     </RelativeLayout>
 
     <LinearLayout

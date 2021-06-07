@@ -33,7 +33,7 @@ public class RequisitiionLListPendingForAdc_Activity extends AppCompatActivity
 
     Encriptor _encrptor;
     String CapId="";
-    String distcode="212";
+    String distcode="",state_id="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,6 +44,9 @@ public class RequisitiionLListPendingForAdc_Activity extends AppCompatActivity
         initialise();
 
         _encrptor=new Encriptor();
+        distcode=PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("Dist_Code", "");
+        state_id=PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("state_Code", "");
+
 
         new LoadRequisitionListForApproval().execute();
     }
@@ -72,20 +75,20 @@ public class RequisitiionLListPendingForAdc_Activity extends AppCompatActivity
         @Override
         protected ArrayList<RequisitionListForAdc_Entity> doInBackground(String... param)
         {
-           // CapId= RandomString.randomAlphaNumeric(8);
-           // CapId= "wZWV8HB10WGccFXPUJIyRw==";
-            CapId= "FNX4XDEG";
+            CapId= RandomString.randomAlphaNumeric(8);
+            // CapId= "wZWV8HB10WGccFXPUJIyRw==";
+            // CapId= "FNX4XDEG";
             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("CAPID", CapId).commit();
 
             String _encptdist = Utiilties.cleanStringForVulnerability(distcode);
             String _capId = Utiilties.cleanStringForVulnerability(CapId);
             String _date = Utiilties.getCurrentDate();
-            String _hosp_id = "509";
+            String _hosp_id = "";
             String _userttype = "2";
             String _drug_id = "1";
 
-          //  String randomnum = Utiilties.getTimeStamp();
-            String randomnum ="-1049096725";
+            String randomnum = Utiilties.getTimeStamp();
+            //  String randomnum ="-1049096725";
             try {
                 _encptdist = _encrptor.Encrypt(_encptdist, randomnum);
                 _capId = _encrptor.Encrypt(_capId, randomnum);

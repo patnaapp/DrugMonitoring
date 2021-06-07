@@ -187,7 +187,7 @@ public class LoginActivity extends Activity {
 
             if (result != null)
             {
-                if (result.getIsAuth().equalsIgnoreCase("true"))
+                if (result.getIsAuth().equalsIgnoreCase("true") && result.getUserType().equals("6"))
                 {
                     if(result.getCapId().equalsIgnoreCase(CapId))
                     {
@@ -215,6 +215,8 @@ public class LoginActivity extends Activity {
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("Dist_Code", result.getDistcode().toLowerCase()).commit();
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("state_Code", result.getStatecode().toLowerCase()).commit();
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("mob", result.getMobileno().toLowerCase()).commit();
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("skey", result.getSkey().toLowerCase()).commit();
+                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("desig", result.getDesignation().toLowerCase()).commit();
 
                         }
                         catch (Exception e)

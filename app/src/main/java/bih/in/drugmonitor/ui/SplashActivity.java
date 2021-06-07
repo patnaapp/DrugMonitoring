@@ -556,30 +556,24 @@ public class SplashActivity extends Activity {
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         Intent i;
-//        if(prefs.getBoolean("username", false) && prefs.getBoolean("password",false))
-//        {
-//            String userType = prefs.getString("userType", "");
-//
-//            if (userType.equals("tubewell")){
-//                i = new Intent(getApplicationContext(), TubeWellHomeActivity.class);
-//                startActivity(i);
-//                finish();
-//            }else if (userType.equals("surface")){
-//                i = new Intent(getApplicationContext(), SurfaceHomeActivity.class);
-//                startActivity(i);
-//                finish();
-//            }else{
-//                i = new Intent(getApplicationContext(), MultipleLoginActivity.class);
-//                startActivity(i);
-//                finish();
-//            }
-//        }
-//        else
-//        {
+
+        String userId = prefs.getString("UserId", "");
+
+        if (!userId.equals(""))
+        {
+
+            i = new Intent(getApplicationContext(), AdcHome_Acitivity.class);
+            startActivity(i);
+            finish();
+        }
+
+
+        else
+        {
             i = new Intent(getApplicationContext(),LoginActivity.class);
             startActivity(i);
             finish();
-       // }
+        }
     }
 
     public  boolean hasPermissions(Context context, String... allPermissionNeeded)

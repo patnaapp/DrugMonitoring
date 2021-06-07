@@ -59,21 +59,22 @@ public class UserDetails implements KvmSerializable, Serializable {
                 this.CapId = _encrptor.Decrypt(obj.getProperty("Cap").toString(), skey);
             }
             //  this.setAuthenticated(Boolean.parseBoolean(obj.getProperty("IS_authenticate").toString()));
-            this.setUserid(obj.getProperty("ID").toString());
-            this.setPassword(obj.getProperty("Password").toString());
+         //   this.setUserid(obj.getProperty("ID").toString());
+         //   this.setPassword(obj.getProperty("password").toString());
 
          //   this.setLastVisitedOn(obj.getProperty("Name").toString());
-            this.setUserType(obj.getProperty("UserType").toString());
-            this.setDesignation(obj.getProperty("designation").toString());
-            this.setMobileno(obj.getProperty("mobileno").toString());
-            this.setStatecode(obj.getProperty("statecode").toString());
-            this.setDistcode(obj.getProperty("distcode").toString());
-            this.setChangepassword(obj.getProperty("changepassword").toString());
-            this.setLogin_attempt(obj.getProperty("login_attempt").toString());
-            this.setIsactive(obj.getProperty("isactive").toString());
-            this.set_TOKEN(obj.getProperty("Token").toString());
+            this.setUserType(_encrptor.Decrypt(obj.getProperty("UserType").toString(), skey));
+            this.setDesignation(_encrptor.Decrypt(obj.getProperty("designation").toString(), skey));
+            this.setMobileno(_encrptor.Decrypt(obj.getProperty("mobileno").toString(), skey));
+            this.setStatecode(_encrptor.Decrypt(obj.getProperty("statecode").toString(), skey));
+            this.setDistcode(_encrptor.Decrypt(obj.getProperty("distcode").toString(), skey));
+            this.setChangepassword(_encrptor.Decrypt(obj.getProperty("changepassword").toString(), skey));
+            this.setLogin_attempt(_encrptor.Decrypt(obj.getProperty("login_attempt").toString(), skey));
+            this.setIsactive(_encrptor.Decrypt(obj.getProperty("isactive").toString(), skey));
+            this.set_TOKEN(_encrptor.Decrypt(obj.getProperty("Token").toString(), skey));
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

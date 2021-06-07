@@ -22,12 +22,16 @@ import org.kxml2.kdom.Node;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 
@@ -914,7 +918,7 @@ public class WebServiceHelper {
         SoapObject res1 = null;
         try {
           //  res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey", "District_Code", "cap", _encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY), distCode, capId);
-            res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap", "T/0e2rl0kHIvBtEas5Dv4g==","",hospid,drugid, distCode,usertypeid, "wZWV8HB10WGccFXPUJIyRw==");
+            res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap",  _encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY),"",hospid,drugid, distCode,usertypeid, capId);
            // res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap", "T/0e2rl0kHIvBtEas5Dv4g==","","597","2", "208","6", "wZWV8HB10WGccFXPUJIyRw==");
         }
         catch (Exception e)
@@ -955,7 +959,7 @@ public class WebServiceHelper {
         SoapObject res1 = null;
         try {
             //  res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey", "District_Code", "cap", _encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY), distCode, capId);
-            res1 = getServerData(GetDistributorsMapped_Adc, DistributorsListForAdc_Entity.DISTRIBUTOR_CLASS, "skey","_DistCode","_StateCode","_drugid", "cap", "T/0e2rl0kHIvBtEas5Dv4g==",distCode,stateid,drugid,"wZWV8HB10WGccFXPUJIyRw==");
+            res1 = getServerData(GetDistributorsMapped_Adc, DistributorsListForAdc_Entity.DISTRIBUTOR_CLASS, "skey","_DistCode","_StateCode","_drugid", "cap",  _encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY),distCode,stateid,drugid,capId);
             // res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap", "T/0e2rl0kHIvBtEas5Dv4g==","","597","2", "208","6", "wZWV8HB10WGccFXPUJIyRw==");
         }
         catch (Exception e)
@@ -996,7 +1000,7 @@ public class WebServiceHelper {
         SoapObject res1 = null;
         try {
             //  res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey", "District_Code", "cap", _encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY), distCode, capId);
-            res1 = getServerData(GetIssuedDrugsDetails, DrugIssuedDetailsList_Entity.DRUG_ISSUED_CLASS, "skey","_HospitalID","_hreqid", "cap", "T/0e2rl0kHIvBtEas5Dv4g==",hosp_id,hreqid,"wZWV8HB10WGccFXPUJIyRw==");
+            res1 = getServerData(GetIssuedDrugsDetails, DrugIssuedDetailsList_Entity.DRUG_ISSUED_CLASS, "skey","_HospitalID","_hreqid", "cap",  _encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY),hosp_id,hreqid,capId);
             // res1 = getServerData(GetReqList_Adc, RequisitionListForAdc_Entity.REQ_CLASS, "skey","_datae","_hospitalid","_drugid", "_distcode","_UserTypeId", "cap", "T/0e2rl0kHIvBtEas5Dv4g==","","597","2", "208","6", "wZWV8HB10WGccFXPUJIyRw==");
         }
         catch (Exception e)
@@ -1036,7 +1040,7 @@ public class WebServiceHelper {
         Encriptor _encrptor = new Encriptor();
         SoapObject res1 = null;
         try {
-            res1 = getServerData(GetPatientDetails_List, PatientDetailsList_Entity.PATIENT_CLASS, "skey","_HospitalID","_hreqid", "cap", "T/0e2rl0kHIvBtEas5Dv4g==",hosp_id,hreqid,"wZWV8HB10WGccFXPUJIyRw==");
+            res1 = getServerData(GetPatientDetails_List, PatientDetailsList_Entity.PATIENT_CLASS, "skey","_HospitalID","_hreqid", "cap",_encrptor.Encrypt(randomNo, CommonPref.CIPER_KEY),hosp_id,hreqid,capId);
 
         }
         catch (Exception e)
@@ -1150,7 +1154,7 @@ public class WebServiceHelper {
         doc.setXmlVersion("1.0");
         doc.setXmlStandalone(true);
 
-	/*	org.kxml2.kdom.Element[] header = new org.kxml2.kdom.Element[1];
+		/*org.kxml2.kdom.Element[] header = new org.kxml2.kdom.Element[1];
 		header[0] = new org.kxml2.kdom.Element().createElement(SERVICENAMESPACE, "SecuredTokenWebservice");
 		org.kxml2.kdom.Element uid = new org.kxml2.kdom.Element().createElement(SERVICENAMESPACE, "AuthenticationToken");
 		uid.addChild(Node.TEXT, token);
@@ -1158,7 +1162,7 @@ public class WebServiceHelper {
 
         Element poleElement = doc.getDocumentElement();
         //--------------
-        Element pdlsElement = doc.createElement("UploadStdAttendanceIdValues");
+        Element pdlsElement = doc.createElement("UploadDDCapprovalValues");
         ArrayList<DrugApproval_Entity> poleDetail = checkbox;
         // Upload(poleDetail, res);
         // Element pdElement = doc.getDocumentElement();
@@ -1166,46 +1170,64 @@ public class WebServiceHelper {
         for(int x=0;x<poleDetail.size();x++)
         {
 
-            try {Element pdElement = doc.createElement("LatlongCapturingOne");
+            try {Element pdElement = doc.createElement("approval");
 
 
-
-
-
-
-                Element fid = doc.createElement("MobNo");
-                fid.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_distributorcode(),randomNo)));
+                Element fid = doc.createElement("_DistCode");
+                fid.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_DistCode(),randomNo)));
                 pdElement.appendChild(fid);
-                Element vLebel = doc.createElement("TaskId");
-                vLebel.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_distributorcode(),randomNo)));
+                Element vLebel = doc.createElement("_statecode");
+                vLebel.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_statecode(),randomNo)));
                 //vLebel.appendChild(doc.createTextNode("1234"));
                 pdElement.appendChild(vLebel);
-                Element vLebel2 = doc.createElement("Latitude");
-                vLebel2.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_distributorcode(),randomNo)));
+                Element vLebel2 = doc.createElement("_drugid");
+                vLebel2.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_drugid(),randomNo)));
                 pdElement.appendChild(vLebel2);
-                Element vLebel3 = doc.createElement("Longitude");
-                vLebel3.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_distributorcode(),randomNo)));
+                Element vLebel3 = doc.createElement("_HospitalID");
+                vLebel3.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_HospitalID(),randomNo)));
                 pdElement.appendChild(vLebel3);
-                Element vLebel4 = doc.createElement("EntryDate");
-                vLebel4.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_distributorcode(),randomNo)));
+                Element vLebel4 = doc.createElement("_hreqid");
+                vLebel4.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_hreqid(),randomNo)));
                 pdElement.appendChild(vLebel4);
 
-                Element vLebel5 = doc.createElement("Accuracy");
-                vLebel5.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_distributorcode(),randomNo)));
+                Element vLebel5 = doc.createElement("_pdrid");
+                vLebel5.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_pdrid(),randomNo)));
                 pdElement.appendChild(vLebel5);
 
-                Element vLebel6 = doc.createElement("skey");
-                vLebel6.appendChild(doc.createTextNode(_encrptor.Encrypt(randomNo,CommonPref.CIPER_KEY)));
-                skey=_encrptor.Encrypt(randomNo,CommonPref.CIPER_KEY);
+                Element vLebel6 = doc.createElement("_ApprQty");
+                vLebel6.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_ApprQty(),randomNo)));
                 pdElement.appendChild(vLebel6);
 
-                Element vLebel7 = doc.createElement("cap");
-                vLebel7.appendChild(doc.createTextNode(capId));
+
+                Element vLebel7 = doc.createElement("_UserId");
+                vLebel7.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_UserId(),randomNo)));
                 pdElement.appendChild(vLebel7);
 
-                Element vLebel8 = doc.createElement("Token");
-                vLebel8.appendChild(doc.createTextNode(token));
+                Element vLebel8 = doc.createElement("_distributorcode");
+                vLebel8.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_distributorcode(),randomNo)));
                 pdElement.appendChild(vLebel8);
+
+                Element vLebel9 = doc.createElement("_approvedqty");
+                vLebel9.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_approvedqty(),randomNo)));
+                pdElement.appendChild(vLebel9);
+
+                Element vLebel10 = doc.createElement("_RequstedQty");
+                vLebel10.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_RequstedQty(),randomNo)));
+                pdElement.appendChild(vLebel10);
+
+
+                Element vLebel11 = doc.createElement("skey");
+                vLebel11.appendChild(doc.createTextNode(_encrptor.Encrypt(randomNo,CommonPref.CIPER_KEY)));
+                skey=_encrptor.Encrypt(randomNo,CommonPref.CIPER_KEY);
+                pdElement.appendChild(vLebel11);
+
+                Element vLebel12 = doc.createElement("Cap");
+                vLebel12.appendChild(doc.createTextNode(capId));
+                pdElement.appendChild(vLebel12);
+//
+//                Element vLebel8 = doc.createElement("Token");
+//                vLebel8.appendChild(doc.createTextNode(token));
+//                pdElement.appendChild(vLebel8);
 
                 pdlsElement.appendChild(pdElement);
             } catch (Exception e) {
@@ -1278,12 +1300,18 @@ public class WebServiceHelper {
 
                 String output = _getResponseBody(entity);
                 Log.d("egffgfdg",output);
-                String result1 = output.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><InsertDataNewResponse xmlns=\"http://164.100.251.19/\"><InsertDataNewResult>", "");
-                result1 = result1.replace("</InsertDataNewResult></InsertDataNewResponse></soap:Body></soap:Envelope>","");
 
-                Log.e("Result", result1);
+                res = parseRespnse(output);
+                Log.d("dfggdg",res);
 
-                res = "1";
+
+              ////  String result1 = output.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><DDCApprovalFormResponse xmlns=\"http://164.100.251.52/\"><DDCApprovalFormResult>", "");
+             //   result1 = result1.replace("</DDCApprovalFormResult></DDCApprovalFormResponse></soap:Body></soap:Envelope>","");
+
+                Log.e("Result", res);
+
+               // res = "1";
+             //   res = "1";
             } else {
                 res = "0";
             }
@@ -1345,5 +1373,36 @@ public class WebServiceHelper {
         return buffer.toString();
 
     }
+
+    public static String parseRespnse(String xml)
+    {
+        String result = "Failed to parse";
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+        InputSource is;
+        try
+        {
+            builder = factory.newDocumentBuilder();
+            is = new InputSource(new StringReader(xml));
+            Document doc = builder.parse(is);
+            NodeList list = doc.getElementsByTagName("DDCApprovalFormResult");
+            result = list.item(0).getTextContent();
+            //System.out.println(list.item(0).getTextContent());
+        }
+        catch (ParserConfigurationException e)
+        {
+
+        }
+        catch (SAXException e)
+        {
+
+        }
+        catch (IOException e)
+        {
+
+        }
+        return result;
+    }
+
 
 }

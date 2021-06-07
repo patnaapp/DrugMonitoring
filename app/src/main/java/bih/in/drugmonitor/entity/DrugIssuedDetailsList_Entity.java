@@ -61,10 +61,13 @@ public class DrugIssuedDetailsList_Entity implements KvmSerializable, Serializab
 
 			}
 			else {
-				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("UserId","").commit();
-				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("password","").commit();
-				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("Role","").commit();
-				PreferenceManager.getDefaultSharedPreferences(context).edit().putString("District","").commit();
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("UserId","").commit();
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("password","").commit();
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("TOKENNO","").commit();
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("Dist_Code","").commit();
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("state_Code","").commit();
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("mob","").commit();
+				PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("desig","").commit();
 
 				Intent intent=new Intent(context, LoginActivity.class);
 				context.startActivity(intent);
