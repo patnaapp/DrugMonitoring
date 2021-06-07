@@ -222,8 +222,11 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
     }
 
     @Override
-    public void onQtyToBeApproved(int position, String quantity) {
+    public void onQtyToBeApproved(int position, String quantity)
+    {
+        drugapproval.set_ApprQty(quantity);
 
+        drugarray.set(position,drugapproval);
     }
 
     private class LoadDistributorMappedWithAdc extends AsyncTask<String, Void, ArrayList<DistributorsListForAdc_Entity>>
@@ -242,7 +245,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         @Override
         protected ArrayList<DistributorsListForAdc_Entity> doInBackground(String... param)
         {
-             CapId= RandomString.randomAlphaNumeric(8);
+            CapId= RandomString.randomAlphaNumeric(8);
             // CapId= "wZWV8HB10WGccFXPUJIyRw==";
             //CapId= "FNX4XDEG";
             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("CAPID", CapId).commit();
@@ -254,10 +257,10 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             //  String _hosp_id = "597";
 //            String _userttype = "6";
             String _drug_id = "1";
-         //   String _state_id = "5";
+            //   String _state_id = "5";
             String _state_id =Utiilties.cleanStringForVulnerability(state_id);
 
-             String randomnum = Utiilties.getTimeStamp();
+            String randomnum = Utiilties.getTimeStamp();
             //String randomnum ="-1049096725";
             try {
                 _encptdist = _encrptor.Encrypt(_encptdist, randomnum);
@@ -344,7 +347,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         @Override
         protected ArrayList<DrugIssuedDetailsList_Entity> doInBackground(String... param)
         {
-             CapId= RandomString.randomAlphaNumeric(8);
+            CapId= RandomString.randomAlphaNumeric(8);
             // CapId= "wZWV8HB10WGccFXPUJIyRw==";
             //CapId= "FNX4XDEG";
             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("CAPID", CapId).commit();
@@ -354,7 +357,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             String _hreq_id = Utiilties.cleanStringForVulnerability(_h_req_id);
 
 
-              String randomnum = Utiilties.getTimeStamp();
+            String randomnum = Utiilties.getTimeStamp();
             //String randomnum ="-1049096725";
             try {
                 _capId = _encrptor.Encrypt(_capId, randomnum);
@@ -436,9 +439,9 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         @Override
         protected ArrayList<PatientDetailsList_Entity> doInBackground(String... param)
         {
-             CapId= RandomString.randomAlphaNumeric(8);
+            CapId= RandomString.randomAlphaNumeric(8);
             // CapId= "wZWV8HB10WGccFXPUJIyRw==";
-          //  CapId= "FNX4XDEG";
+            //  CapId= "FNX4XDEG";
             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("CAPID", CapId).commit();
 
             String _encptdist = Utiilties.cleanStringForVulnerability(distcode);
@@ -453,8 +456,8 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             String _drug_id = "1";
             String _state_id = "5";
 
-              String randomnum = Utiilties.getTimeStamp();
-          //  String randomnum ="-1049096725";
+            String randomnum = Utiilties.getTimeStamp();
+            //  String randomnum ="-1049096725";
             try {
                 _capId = _encrptor.Encrypt(_capId, randomnum);
                 _hosp_id = _encrptor.Encrypt(_hosp_id, randomnum);
@@ -541,9 +544,9 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         @Override
         protected String doInBackground(String... param) {
 
-             CapId= RandomString.randomAlphaNumeric(8);
+            CapId= RandomString.randomAlphaNumeric(8);
             // CapId= "wZWV8HB10WGccFXPUJIyRw==";
-          //  CapId= "FNX4XDEG";
+            //  CapId= "FNX4XDEG";
             //   String _status = Utiilties.cleanStringForVulnerability("Y");
             String _capId = Utiilties.cleanStringForVulnerability(CapId);
 
@@ -555,12 +558,13 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             String _pass =pass;
             String _hosp_id = Utiilties.cleanStringForVulnerability(Hosp_ID);
             String _hreq_id = Utiilties.cleanStringForVulnerability(_h_req_id);
+
             // String _drug_id = Utiilties.cleanStringForVulnerability(dr);
             String _drug_id = "1";
             String _dist_code = Utiilties.cleanStringForVulnerability(distcode);
             String _state_code = Utiilties.cleanStringForVulnerability(state_id);
-                String randomnum = Utiilties.getTimeStamp();
-          //  String randomnum ="-1049096725";
+            String randomnum = Utiilties.getTimeStamp();
+            //  String randomnum ="-1049096725";
             String token= PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("TOKENNO", "");
             try {
                 // _status = _encrptor.Encrypt(_status, randomnum);
@@ -590,7 +594,8 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
             if (this.dialog.isShowing()) this.dialog.dismiss();
 
-            if(result.equals("1")){
+            if(result.equals("1,Quantity Approved Sucesfully"))
+            {
 
 
                 new AlertDialog.Builder(ApproveDrugByAdc_Activity.this)

@@ -33,6 +33,7 @@ public class PatientDetailsList_Entity implements KvmSerializable, Serializable 
 	private String issuedqty;
 	private String PenddingQty;
 	private String recdqty;
+	private Boolean ischecked;
 
 	Encriptor _encrptor;
 	private String _Skey="";
@@ -225,5 +226,13 @@ public class PatientDetailsList_Entity implements KvmSerializable, Serializable 
 
 	public void setContext(Context context) {
 		this.context = context;
+	}
+
+	public Boolean getIschecked() {
+		return ischecked;
+	}
+
+	public void setIschecked(Boolean ischecked) {
+		this.ischecked = ischecked;
 	}
 }

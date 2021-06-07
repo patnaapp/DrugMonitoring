@@ -70,13 +70,41 @@ public class PatientListForApproval_adaptor extends RecyclerView.Adapter<Patient
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                ThrList.get(position).setIschecked(isChecked);
                 ((MyInterface) activity).onPatientSelected(position,ThrList.get(position),isChecked,holder.edt_appr_qty.getText().toString());
 
             }
         });
 
 
+        holder.edt_appr_qty.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+               // if(holder.chk_patient.isChecked())
+                if(ThrList.get(position).getIschecked())
+                {
+                    ((MyInterface) activity).onQtyToBeApproved(position,holder.edt_appr_qty.getText().toString());
+
+                }
+
+                //holder.tv_total_amt.setText(calculateAmount(holder));
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+        });
 
     }
 

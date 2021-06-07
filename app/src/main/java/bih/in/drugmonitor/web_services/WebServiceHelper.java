@@ -1173,9 +1173,9 @@ public class WebServiceHelper {
             try {Element pdElement = doc.createElement("approval");
 
 
-                Element fid = doc.createElement("_DistCode");
-                fid.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_DistCode(),randomNo)));
-                pdElement.appendChild(fid);
+//                Element fid = doc.createElement("_DistCode");
+//                fid.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_DistCode(),randomNo)));
+//                pdElement.appendChild(fid);
                 Element vLebel = doc.createElement("_statecode");
                 vLebel.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_statecode(),randomNo)));
                 //vLebel.appendChild(doc.createTextNode("1234"));
@@ -1221,16 +1221,17 @@ public class WebServiceHelper {
                 skey=_encrptor.Encrypt(randomNo,CommonPref.CIPER_KEY);
                 pdElement.appendChild(vLebel11);
 
-                Element vLebel12 = doc.createElement("Cap");
-                vLebel12.appendChild(doc.createTextNode(capId));
-                pdElement.appendChild(vLebel12);
+//                Element vLebel12 = doc.createElement("Cap");
+//                vLebel12.appendChild(doc.createTextNode(capId));
+//                pdElement.appendChild(vLebel12);
 //
 //                Element vLebel8 = doc.createElement("Token");
 //                vLebel8.appendChild(doc.createTextNode(token));
 //                pdElement.appendChild(vLebel8);
 
                 pdlsElement.appendChild(pdElement);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
         }
