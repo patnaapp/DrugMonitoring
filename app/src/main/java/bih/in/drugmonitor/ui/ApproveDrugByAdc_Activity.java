@@ -69,6 +69,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
     RecyclerView rv_recycler_view2;
     DrugApproval_Entity drugapproval;
     ArrayList<DrugApproval_Entity> drugarray;
+    Button btn_approve;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +108,9 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         _h_req_id=getIntent().getExtras().getString("hreqid");
 
         initialise();
+
+        btn_approve.setBackgroundColor(getResources().getColor(R.color.holo_gray_light));
+        btn_approve.setEnabled(false);
         new LoadDistributorMappedWithAdc().execute();
         new LoadIssuedDrugList().execute();
         //  entity=(RequisitionListForAdc_Entity)getIntent().getSerializableExtra("req_data");
@@ -156,7 +160,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
         }
         else {
-            Toast.makeText(getApplicationContext(),"select distributor",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"select distributor and enter quantity to be approved",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -176,6 +180,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         edt_qty_tobe_approved=findViewById(R.id.edt_qty_tobe_approved);
         rv_distributors=findViewById(R.id.rv_distributors);
         rv_issued_medicines=findViewById(R.id.rv_issued_medicines);
+        btn_approve=findViewById(R.id.btn_approve);
     }
 
     public void setdata()
@@ -197,6 +202,8 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
     public void onCheckedDistributor(int position,String distributorid, Boolean isChecked) {
         isDistributor_selected=isChecked;
         _distributor_id=distributorid;
+        btn_approve.setBackground(getResources().getDrawable(R.drawable.buttonshape));
+        btn_approve.setEnabled(true);
 
     }
 
@@ -205,6 +212,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
         if (isChecked)
         {
+
             drugapproval.set_statecode(state_id);
             drugapproval.set_DistCode(distcode);
             drugapproval.set_drugid("1");
