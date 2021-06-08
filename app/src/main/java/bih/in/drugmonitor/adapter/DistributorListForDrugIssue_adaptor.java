@@ -91,8 +91,12 @@ public class DistributorListForDrugIssue_adaptor extends RecyclerView.Adapter<Di
         holder.tv_avlbl_qty.setText(ThrList.get(position).get_AvailableQtyinStock());
         holder.tv_avlvl_qty_to_approve.setText(ThrList.get(position).get_AvailableQtyToApprove());
 
-        holder.chk1.setOnCheckedChangeListener(null);
-        holder.chk1.setChecked(position == mCheckedPosition);
+        if(ThrList.size()>1)
+        {
+            holder.chk1.setOnCheckedChangeListener(null);
+            holder.chk1.setChecked(position == mCheckedPosition);
+        }
+
 
         holder.chk1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -100,15 +104,15 @@ public class DistributorListForDrugIssue_adaptor extends RecyclerView.Adapter<Di
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                // int getPosition = (Integer) buttonView.getTag();
                // if (!isFromView) {
-                mCheckedPosition = position;
+                if(ThrList.size()>1) {
+                    mCheckedPosition = position;
+                }
                 notifyDataSetChanged();
                     ((MyInterface) activity).onCheckedDistributor(position,ThrList.get(position).get_distributorcode(),isChecked);
-
 
              //   }
             }
         });
-
 
     }
 

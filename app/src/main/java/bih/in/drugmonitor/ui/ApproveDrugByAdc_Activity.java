@@ -43,7 +43,8 @@ import bih.in.drugmonitor.utility.CommonPref;
 import bih.in.drugmonitor.utility.Utiilties;
 import bih.in.drugmonitor.web_services.WebServiceHelper;
 
-public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyInterface {
+public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyInterface
+{
 
     TextView tv_hosp_name,tv_hosp_address,tv_nodal_off_name,tv_cntct,tv_govt_pvt,tv_beds,tv_requst_date,tv_drugname,tv_req_qty,tv_already_approve,tv_pending_approve_qty;
     EditText edt_qty_tobe_approved;
@@ -76,12 +77,12 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         drugapproval=new DrugApproval_Entity();
         drugarray=new ArrayList<DrugApproval_Entity>();
         _encrptor=new Encriptor();
-        try {
+        try
+        {
             User_Id= _encrptor.Decrypt(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("UserId", ""), CommonPref.CIPER_KEY);
             pass= _encrptor.Decrypt(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("password", ""), CommonPref.CIPER_KEY);
             distcode=PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("Dist_Code", "");
             state_id=PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("state_Code", "");
-
         }
         catch (Exception e)
         {
@@ -212,9 +213,10 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             drugapproval.set_pdrid(data.getPdrid());
             drugapproval.set_UserId(User_Id);
             drugapproval.set_distributorcode(_distributor_id);
-            drugapproval.set_approvedqty(data.getAllreadyApproved());
+            drugapproval.set_approvedqty(apprqty);
             drugapproval.set_RequstedQty(data.getRequstedQty());
-            drugapproval.set_ApprQty(apprqty);
+          //  drugapproval.set_ApprQty(apprqty);
+            drugapproval.set_ApprQty(data.getAllreadyApproved());
 
             drugarray.add(drugapproval);
         }
@@ -262,14 +264,17 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
             String randomnum = Utiilties.getTimeStamp();
             //String randomnum ="-1049096725";
-            try {
+            try
+            {
                 _encptdist = _encrptor.Encrypt(_encptdist, randomnum);
                 _capId = _encrptor.Encrypt(_capId, randomnum);
                 _drug_id = _encrptor.Encrypt(_drug_id, randomnum);
                 //  _hosp_id = _encrptor.Encrypt(_hosp_id, randomnum);
                 _state_id = _encrptor.Encrypt(_state_id, randomnum);
 
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Log.e("EXCEPTION", "EXCEP while Encription on Login");
             }
             this.blocklist = WebServiceHelper.GetDistributorsMappedWithAdc(ApproveDrugByAdc_Activity.this,_encptdist,_state_id,_drug_id,randomnum,_capId);
@@ -311,7 +316,8 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
     public void populateData()
     {
-        if (data != null && data.size() > 0) {
+        if (data != null && data.size() > 0)
+        {
             Log.e("data", "" + data.size());
 
             // tv_Norecord.setVisibility(View.GONE);
@@ -321,7 +327,9 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             rv_distributors.setLayoutManager(new LinearLayoutManager(this));
             rv_distributors.setAdapter(distributorAdaptor);
 
-        } else {
+        }
+        else
+            {
             rv_distributors.setVisibility(View.GONE);
             // tv_Norecord.setVisibility(View.VISIBLE);
         }
