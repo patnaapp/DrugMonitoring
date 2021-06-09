@@ -35,6 +35,7 @@ public class PatientListForApproval_adaptor extends RecyclerView.Adapter<Patient
     MarshmallowPermission permission;
     String str_compliance="";
 
+
     public PatientListForApproval_adaptor(Activity listViewshowedit, ArrayList<PatientDetailsList_Entity> rlist) {
         this.activity = listViewshowedit;
         this.ThrList = rlist;
@@ -55,6 +56,7 @@ public class PatientListForApproval_adaptor extends RecyclerView.Adapter<Patient
         final PatientDetailsList_Entity info = ThrList.get(position);
         complianceinfo = ThrList.get(position);
 
+        ThrList.get(position).setIschecked(false);
         holder.tv_slno.setText(String.valueOf(position + 1));
 
         holder.tv_patient_name.setText(ThrList.get(position).getPatientname());
@@ -70,6 +72,7 @@ public class PatientListForApproval_adaptor extends RecyclerView.Adapter<Patient
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 ThrList.get(position).setIschecked(isChecked);
                 ((MyInterface) activity).onPatientSelected(position,ThrList.get(position),isChecked,holder.edt_appr_qty.getText().toString());
 
