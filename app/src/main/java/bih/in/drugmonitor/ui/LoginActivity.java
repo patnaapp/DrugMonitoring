@@ -56,8 +56,6 @@ public class LoginActivity extends Activity {
     private SharedPreferences prefs;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +107,8 @@ public class LoginActivity extends Activity {
         }
     }
 
-    private void getUserDetail(){
+    private void getUserDetail()
+    {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String username = prefs.getString("uid", "user");
         String password = prefs.getString("pass", "password");
@@ -117,10 +116,10 @@ public class LoginActivity extends Activity {
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
         //getIMEI();
-
     }
 
 
@@ -158,7 +157,7 @@ public class LoginActivity extends Activity {
             else
             {
                 String _encptuid = Utiilties.cleanStringForVulnerability(username);
-               // String _encptpwd = Utiilties.cleanStringForVulnerability(password);
+                // String _encptpwd = Utiilties.cleanStringForVulnerability(password);
                 String _encptpwd =password;
                 String _capId = Utiilties.cleanStringForVulnerability(CapId);
                 // PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("CAPID", RandomString.randomAlphaNumeric(8)).commit();
@@ -181,8 +180,8 @@ public class LoginActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(final UserDetails result) {
-
+        protected void onPostExecute(final UserDetails result)
+        {
             if (this.dialog.isShowing()) this.dialog.dismiss();
 
             if (result != null)
@@ -191,7 +190,6 @@ public class LoginActivity extends Activity {
                 {
                     if(result.getCapId().equalsIgnoreCase(CapId))
                     {
-
                         DataBaseHelper dataBaseHelper = new DataBaseHelper(getApplicationContext());
                         try
                         {
@@ -208,7 +206,7 @@ public class LoginActivity extends Activity {
 
                             GlobalVariables.LoggedUser.setPassword(_encrptor.Encrypt(password, CommonPref.CIPER_KEY));
                             GlobalVariables.LoggedUser.set_TOKEN(result.get_TOKEN());
-                           // PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("Role", (_encrptor.Encrypt("CSC", CommonPref.CIPER_KEY))).commit();
+                            // PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("Role", (_encrptor.Encrypt("CSC", CommonPref.CIPER_KEY))).commit();
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("UserId", (_encrptor.Encrypt(username, CommonPref.CIPER_KEY))).commit();
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("password", (_encrptor.Encrypt(password, CommonPref.CIPER_KEY))).commit();
                             PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("TOKENNO", result.get_TOKEN().toLowerCase()).commit();
@@ -224,11 +222,13 @@ public class LoginActivity extends Activity {
                             e.printStackTrace();
                         }
 
-                            Intent i = new Intent();
-                            i.setComponent(new ComponentName("bih.in.drugmonitor", "bih.in.drugmonitor.ui.AdcHome_Acitivity"));
-                            startActivity(i);
+                        Intent i = new Intent();
+                        i.setComponent(new ComponentName("bih.in.drugmonitor","bih.in.drugmonitor.ui.AdcHome_Acitivity"));
+                        startActivity(i);
 
-
+//                        Intent intent=new Intent(LoginActivity.this,AdcHome_Acitivity.class);
+//                        startActivity(intent);
+//                        finish();
 
                     }
                     else
@@ -249,14 +249,15 @@ public class LoginActivity extends Activity {
         }
     }
 
-    private long setLoginStatus(UserDetails details) {
+    private long setLoginStatus(UserDetails details)
+    {
         details.setPassword(pass);
         SharedPreferences.Editor editor = SplashActivity.prefs.edit();
         editor.putBoolean("username", true);
         editor.putBoolean("password", true);
         editor.putString("uid", uid.toLowerCase());
         editor.putString("pass", pass);
-       // editor.putString("role", details.getUserrole());
+        // editor.putString("role", details.getUserrole());
         editor.commit();
         //PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("USER_ID", uid).commit();
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString("uid", uid).commit();
@@ -266,7 +267,8 @@ public class LoginActivity extends Activity {
         return 0;
     }
 
-    public void start() {
+    public void start()
+    {
         //getUserDetail();
         //new SyncPanchayatData().execute("");
         Intent iUserHome = new Intent(getApplicationContext(), MainActivity.class);

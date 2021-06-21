@@ -64,7 +64,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
     String distcode="";
     String _distributor_id="",User_Id="",state_id="",pass="";
     Boolean isDistributor_selected=false;
-    String hosp_add="",nodal_off_name="",nodal_cntct="",hosp_type="",total_beds="",_h_req_id="";
+    String hosp_add="",nodal_off_name="",nodal_cntct="",hosp_type="",total_beds="",_h_req_id="",_qtyto_approve="";
     private PopupWindow mPopupWindow;
     RecyclerView rv_recycler_view2;
     DrugApproval_Entity drugapproval;
@@ -72,7 +72,8 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
     Button btn_approve;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_approve_drug_by_adc_);
         drugapproval=new DrugApproval_Entity();
@@ -89,7 +90,6 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         {
             e.printStackTrace();
         }
-
 
         _req_id=getIntent().getExtras().getString("reqid");
         req_date=getIntent().getExtras().getString("req_date");
@@ -116,6 +116,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         //  entity=(RequisitionListForAdc_Entity)getIntent().getSerializableExtra("req_data");
 
         setdata();
+
     }
 
     public void on_Approve(View view)
@@ -126,7 +127,7 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         {
             if(Integer.parseInt(edt_qty_tobe_approved.getText().toString())<=Integer.parseInt(tv_pending_approve_qty.getText().toString()))
             {
-
+                _qtyto_approve=edt_qty_tobe_approved.getText().toString();
                 new LoadPatientList().execute();
 
 //                AlertDialog.Builder builder1 = new AlertDialog.Builder(ApproveDrugByAdc_Activity.this);
@@ -199,12 +200,12 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
     }
 
     @Override
-    public void onCheckedDistributor(int position,String distributorid, Boolean isChecked) {
+    public void onCheckedDistributor(int position,String distributorid, Boolean isChecked)
+    {
         isDistributor_selected=isChecked;
         _distributor_id=distributorid;
         btn_approve.setBackground(getResources().getDrawable(R.drawable.buttonshape));
         btn_approve.setEnabled(true);
-
     }
 
     @Override
@@ -212,7 +213,6 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
         if (isChecked)
         {
-
             drugapproval.set_statecode(state_id);
             drugapproval.set_DistCode(distcode);
             drugapproval.set_drugid("1");
@@ -221,10 +221,11 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             drugapproval.set_pdrid(data.getPdrid());
             drugapproval.set_UserId(User_Id);
             drugapproval.set_distributorcode(_distributor_id);
-            drugapproval.set_approvedqty(apprqty);
+            drugapproval.set_approvedqty(data.getRequstedQty());
             drugapproval.set_RequstedQty(data.getRequstedQty());
-          //  drugapproval.set_ApprQty(apprqty);
-            drugapproval.set_ApprQty(data.getAllreadyApproved());
+            drugapproval.set_QtyToBe_Approved(_qtyto_approve);
+            //  drugapproval.set_ApprQty(apprqty);
+            drugapproval.set_ApprQty(apprqty);
 
             drugarray.add(drugapproval);
         }
@@ -309,12 +310,10 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
                     {
                         populateData();
                     }
-
                 }
                 else
                 {
                     Toast.makeText(getApplicationContext(), "No Distributors Mapped",Toast.LENGTH_LONG).show();
-
                 }
             }
 
@@ -337,15 +336,11 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
         }
         else
-            {
+        {
             rv_distributors.setVisibility(View.GONE);
             // tv_Norecord.setVisibility(View.VISIBLE);
         }
     }
-
-
-    //Issued Drug List
-
 
     private class LoadIssuedDrugList extends AsyncTask<String, Void, ArrayList<DrugIssuedDetailsList_Entity>>
     {
@@ -353,8 +348,8 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         private final ProgressDialog dialog = new ProgressDialog(ApproveDrugByAdc_Activity.this);
 
         @Override
-        protected void onPreExecute() {
-
+        protected void onPreExecute()
+        {
             this.dialog.setCanceledOnTouchOutside(false);
             this.dialog.setMessage("Loading Issued Drugs Details...");
             this.dialog.show();
@@ -412,7 +407,6 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
                 else
                 {
                     Toast.makeText(getApplicationContext(), "No Issued Drug Details",Toast.LENGTH_LONG).show();
-
                 }
             }
 
@@ -422,7 +416,8 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
     public void populateData1()
     {
-        if (data1 != null && data1.size() > 0) {
+        if (data1 != null && data1.size() > 0)
+        {
             Log.e("data", "" + data1.size());
 
             // tv_Norecord.setVisibility(View.GONE);
@@ -432,7 +427,9 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             rv_issued_medicines.setLayoutManager(new LinearLayoutManager(this));
             rv_issued_medicines.setAdapter(drugIssuedAdaptor);
 
-        } else {
+        }
+        else
+        {
             rv_issued_medicines.setVisibility(View.GONE);
             // tv_Norecord.setVisibility(View.VISIBLE);
         }
@@ -445,8 +442,8 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
         private final ProgressDialog dialog = new ProgressDialog(ApproveDrugByAdc_Activity.this);
 
         @Override
-        protected void onPreExecute() {
-
+        protected void onPreExecute()
+        {
             this.dialog.setCanceledOnTouchOutside(false);
             this.dialog.setMessage("Loading Issued Drugs Details...");
             this.dialog.show();
@@ -474,12 +471,14 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
             String randomnum = Utiilties.getTimeStamp();
             //  String randomnum ="-1049096725";
-            try {
+            try
+            {
                 _capId = _encrptor.Encrypt(_capId, randomnum);
                 _hosp_id = _encrptor.Encrypt(_hosp_id, randomnum);
                 _hreq_id = _encrptor.Encrypt(_hreq_id, randomnum);
-
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Log.e("EXCEPTION", "EXCEP while Encription on Login");
             }
             this.blocklist = WebServiceHelper.GetPatientDetails(ApproveDrugByAdc_Activity.this,_hosp_id,randomnum,_capId,_hreq_id);
@@ -493,7 +492,6 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             if (this.dialog.isShowing())
             {
                 this.dialog.dismiss();
-
             }
 
             if (result != null)
@@ -504,17 +502,13 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
                     if (result.size() > 0)
                     {
-
                         openpatient_popup();
-
-
                     }
 
                 }
                 else
                 {
                     Toast.makeText(getApplicationContext(), "No Issued Drug Details",Toast.LENGTH_LONG).show();
-
                 }
             }
 
@@ -524,48 +518,44 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
 
     public void populatePatientData()
     {
-        if (patientdata != null && patientdata.size() > 0) {
+        if (patientdata != null && patientdata.size() > 0)
+        {
             Log.e("data", "" + patientdata.size());
-
             // tv_Norecord.setVisibility(View.GONE);
             rv_issued_medicines.setVisibility(View.VISIBLE);
-
             patientAdaptor = new PatientListForApproval_adaptor(this, patientdata);
             rv_recycler_view2.setLayoutManager(new LinearLayoutManager(this));
             rv_recycler_view2.setAdapter(patientAdaptor);
-
-        } else {
+        }
+        else
+        {
             rv_recycler_view2.setVisibility(View.GONE);
             // tv_Norecord.setVisibility(View.VISIBLE);
         }
     }
 
-
-
-    private class ApproveDrugRequisition extends AsyncTask<String, Void, String> {
-
+    private class ApproveDrugRequisition extends AsyncTask<String, Void, String>
+    {
         private final ProgressDialog dialog = new ProgressDialog(ApproveDrugByAdc_Activity.this);
 
-        private final AlertDialog alertDialog = new AlertDialog.Builder(
-                ApproveDrugByAdc_Activity.this).create();
+        private final AlertDialog alertDialog = new AlertDialog.Builder(ApproveDrugByAdc_Activity.this).create();
 
         @Override
-        protected void onPreExecute() {
-
+        protected void onPreExecute()
+        {
             this.dialog.setCanceledOnTouchOutside(false);
             this.dialog.setMessage("Processing...");
             this.dialog.show();
         }
 
         @Override
-        protected String doInBackground(String... param) {
-
+        protected String doInBackground(String... param)
+        {
             CapId= RandomString.randomAlphaNumeric(8);
             // CapId= "wZWV8HB10WGccFXPUJIyRw==";
             //  CapId= "FNX4XDEG";
             //   String _status = Utiilties.cleanStringForVulnerability("Y");
             String _capId = Utiilties.cleanStringForVulnerability(CapId);
-
             String _distibutor_id = Utiilties.cleanStringForVulnerability(_distributor_id);
             String _approved_qty = Utiilties.cleanStringForVulnerability(edt_qty_tobe_approved.getText().toString());
             //      String _issued_qty = Utiilties.cleanStringForVulnerability(iss);
@@ -582,7 +572,8 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             String randomnum = Utiilties.getTimeStamp();
             //  String randomnum ="-1049096725";
             String token= PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("TOKENNO", "");
-            try {
+            try
+            {
                 // _status = _encrptor.Encrypt(_status, randomnum);
                 _distibutor_id = _encrptor.Encrypt(_distibutor_id, randomnum);
                 _approved_qty = _encrptor.Encrypt(_approved_qty, randomnum);
@@ -595,76 +586,74 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
                 _hreq_id = _encrptor.Encrypt(_hreq_id, randomnum);
                 _capId = _encrptor.Encrypt(_capId, randomnum);
 
-
                 token=_encrptor.Encrypt(token,randomnum);
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Log.e("EXCEPTION", "EXCEP while Encription on Login");
             }
-
             // return  WebServiceHelper.ApproveDrugReq(_distibutor_id,_approved_qty,randomnum,token,_user_id,_hosp_id,_drug_id,_dist_code,_state_code,_hreq_id,_pass);
             return  WebServiceHelper.UploadApprovalData(getApplicationContext(),drugarray,"","",randomnum,_capId,token);
         }
 
         @Override
-        protected void onPostExecute( String result) {
-
+        protected void onPostExecute( String result)
+        {
             if (this.dialog.isShowing()) this.dialog.dismiss();
 
             if(result.equals("1,Quantity Approved Sucesfully"))
             {
 
-
                 new AlertDialog.Builder(ApproveDrugByAdc_Activity.this)
                         .setCancelable(false)
                         .setTitle("Message")
                         .setMessage("Drug Requisition has been approved successfully ")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                        {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
                                 dialog.cancel();
                                 Intent intent=new Intent(getApplicationContext(),RequisitiionLListPendingForAdc_Activity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                                 finish();
-
                             }
                         }).show();
-
-            }else {
-
+            }
+            else
+            {
                 new AlertDialog.Builder(ApproveDrugByAdc_Activity.this)
                         .setCancelable(false)
                         .setTitle("Error")
                         .setMessage("Requisition Not Uploaded!")
-                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Exit", new DialogInterface.OnClickListener()
+                        {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
                                 dialog.cancel();
-
                             }
                         })
                         .show();
             }
-
         }
     }
 
     public void openpatient_popup()
     {
-
-
         LayoutInflater inflater = (LayoutInflater) ApproveDrugByAdc_Activity.this.getSystemService(LAYOUT_INFLATER_SERVICE);
-
         // Inflate the custom layout/view
         View customView = inflater.inflate(R.layout.dialog_details, null);
-
         // Initialize a new instance of popup window
         mPopupWindow = new PopupWindow(customView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         // Set an elevation value for popup window
         // Call requires API level 21
-        if (Build.VERSION.SDK_INT >= 21) { mPopupWindow.setElevation(5.0f); }
-
+        if (Build.VERSION.SDK_INT >= 21)
+        {
+            mPopupWindow.setElevation(5.0f);
+        }
 
         rv_recycler_view2 = (RecyclerView) customView.findViewById(R.id.rv_recycler_view2);
         Button button_approve = (Button) customView.findViewById(R.id.button_approve);
@@ -678,17 +667,32 @@ public class ApproveDrugByAdc_Activity extends AppCompatActivity implements MyIn
             e.printStackTrace();
         }
 
-        button_approve.setOnClickListener(new View.OnClickListener() {
+        button_approve.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-                new ApproveDrugRequisition().execute();
+            public void onClick(View v)
+            {
+                if (calculateTotalQtyToBeApproved()<=Integer.parseInt(pendinng_approvfed))
+                {
+                    new ApproveDrugRequisition().execute();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Sum of quantity to be approved should be less than pending quantity to be approved",Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
 
         mPopupWindow.setFocusable(true);
         mPopupWindow.update();
         mPopupWindow.showAtLocation(rv_recycler_view2, Gravity.CENTER, 0, 0);
+    }
 
+    public Integer calculateTotalQtyToBeApproved()
+    {
+        Integer sum = 0;
+        for(DrugApproval_Entity d : drugarray)
+            sum += Integer.parseInt(d.get_ApprQty());
+        return sum;
     }
 }

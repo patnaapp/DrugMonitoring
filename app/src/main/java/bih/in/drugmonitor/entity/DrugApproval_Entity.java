@@ -34,6 +34,7 @@ public class DrugApproval_Entity implements KvmSerializable, Serializable {
 	private String _approvedqty="";
 	private String _RequstedQty="";
 	private String _ApprQty="";
+	private String _QtyToBe_Approved="";
 
 	Encriptor _encrptor;
 	private String _Skey="";
@@ -189,5 +190,13 @@ public class DrugApproval_Entity implements KvmSerializable, Serializable {
 
 	public void setContext(Context context) {
 		this.context = context;
+	}
+
+	public String get_QtyToBe_Approved() {
+		return _QtyToBe_Approved;
+	}
+
+	public void set_QtyToBe_Approved(String _QtyToBe_Approved) {
+		this._QtyToBe_Approved = _QtyToBe_Approved;
 	}
 }

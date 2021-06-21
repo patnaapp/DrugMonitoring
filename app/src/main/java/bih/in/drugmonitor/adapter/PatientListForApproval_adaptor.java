@@ -22,7 +22,8 @@ import bih.in.drugmonitor.entity.PatientDetailsList_Entity;
 import bih.in.drugmonitor.utility.MarshmallowPermission;
 
 
-public class PatientListForApproval_adaptor extends RecyclerView.Adapter<PatientListForApproval_adaptor.ViewHolder> {
+public class PatientListForApproval_adaptor extends RecyclerView.Adapter<PatientListForApproval_adaptor.ViewHolder>
+{
 
     Activity activity;
     LayoutInflater mInflater;
@@ -36,7 +37,8 @@ public class PatientListForApproval_adaptor extends RecyclerView.Adapter<Patient
     String str_compliance="";
 
 
-    public PatientListForApproval_adaptor(Activity listViewshowedit, ArrayList<PatientDetailsList_Entity> rlist) {
+    public PatientListForApproval_adaptor(Activity listViewshowedit, ArrayList<PatientDetailsList_Entity> rlist)
+    {
         this.activity = listViewshowedit;
         this.ThrList = rlist;
         mInflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -83,27 +85,26 @@ public class PatientListForApproval_adaptor extends RecyclerView.Adapter<Patient
         holder.edt_appr_qty.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
                // if(holder.chk_patient.isChecked())
                 if(ThrList.get(position).getIschecked())
                 {
                     ((MyInterface) activity).onQtyToBeApproved(position,holder.edt_appr_qty.getText().toString());
-
                 }
 
                 //holder.tv_total_amt.setText(calculateAmount(holder));
-
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void afterTextChanged(Editable editable)
+            {
 
             }
 
@@ -114,16 +115,19 @@ public class PatientListForApproval_adaptor extends RecyclerView.Adapter<Patient
 
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return ThrList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    {
         TextView tv_slno,tv_patient_name,tv_age,tv_gender,tv_req_qty,tv_already_approved,tv_pending_qty,tv_appr_qty;
         CheckBox chk_patient;
         EditText edt_appr_qty;
 
-        ViewHolder(View itemView) {
+        ViewHolder(View itemView)
+        {
             super(itemView);
 
             tv_slno=(TextView)itemView.findViewById(R.id.tv_slno);
@@ -140,7 +144,8 @@ public class PatientListForApproval_adaptor extends RecyclerView.Adapter<Patient
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View v)
+        {
 
         }
 

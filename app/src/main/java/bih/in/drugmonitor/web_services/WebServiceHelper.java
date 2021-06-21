@@ -1207,19 +1207,23 @@ public class WebServiceHelper {
                 vLebel8.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_distributorcode(),randomNo)));
                 pdElement.appendChild(vLebel8);
 
-                Element vLebel9 = doc.createElement("_approvedqty");
-                vLebel9.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_approvedqty(),randomNo)));
+                Element vLebel9 = doc.createElement("_Qtytobeapproved");
+                vLebel9.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_QtyToBe_Approved(),randomNo)));
                 pdElement.appendChild(vLebel9);
 
-                Element vLebel10 = doc.createElement("_RequstedQty");
-                vLebel10.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_RequstedQty(),randomNo)));
+                Element vLebel10 = doc.createElement("_approvedqty");
+                vLebel10.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_approvedqty(),randomNo)));
                 pdElement.appendChild(vLebel10);
 
-
-                Element vLebel11 = doc.createElement("skey");
-                vLebel11.appendChild(doc.createTextNode(_encrptor.Encrypt(randomNo,CommonPref.CIPER_KEY)));
-                skey=_encrptor.Encrypt(randomNo,CommonPref.CIPER_KEY);
+                Element vLebel11 = doc.createElement("_RequstedQty");
+                vLebel11.appendChild(doc.createTextNode(_encrptor.Encrypt(poleDetail.get(x).get_RequstedQty(),randomNo)));
                 pdElement.appendChild(vLebel11);
+
+
+                Element vLebel12 = doc.createElement("skey");
+                vLebel12.appendChild(doc.createTextNode(_encrptor.Encrypt(randomNo,CommonPref.CIPER_KEY)));
+                skey=_encrptor.Encrypt(randomNo,CommonPref.CIPER_KEY);
+                pdElement.appendChild(vLebel12);
 
 //                Element vLebel12 = doc.createElement("Cap");
 //                vLebel12.appendChild(doc.createTextNode(capId));

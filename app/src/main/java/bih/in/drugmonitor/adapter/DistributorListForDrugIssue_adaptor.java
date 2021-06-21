@@ -97,19 +97,19 @@ public class DistributorListForDrugIssue_adaptor extends RecyclerView.Adapter<Di
             holder.chk1.setChecked(position == mCheckedPosition);
         }
 
-
-        holder.chk1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
+        holder.chk1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
                // int getPosition = (Integer) buttonView.getTag();
                // if (!isFromView) {
-                if(ThrList.size()>1) {
+                if(ThrList.size()>1)
+                {
                     mCheckedPosition = position;
                 }
                 notifyDataSetChanged();
                     ((MyInterface) activity).onCheckedDistributor(position,ThrList.get(position).get_distributorcode(),isChecked);
-
              //   }
             }
         });
@@ -117,18 +117,20 @@ public class DistributorListForDrugIssue_adaptor extends RecyclerView.Adapter<Di
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return ThrList.size();
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    {
         TextView tv_slno,tv_distributor_name,tv_cntct_perrson,tv_cntct_no,tv_pending_issue,tv_avlbl_qty,tv_avlvl_qty_to_approve;
         CheckBox chk1;
 
-        ViewHolder(View itemView) {
+        ViewHolder(View itemView)
+        {
             super(itemView);
-
 
             tv_slno=(TextView)itemView.findViewById(R.id.tv_slno);
             tv_distributor_name=(TextView)itemView.findViewById(R.id.tv_distributor_name);
@@ -142,12 +144,12 @@ public class DistributorListForDrugIssue_adaptor extends RecyclerView.Adapter<Di
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View v)
+        {
 
         }
 
     }
-
 
 }
 

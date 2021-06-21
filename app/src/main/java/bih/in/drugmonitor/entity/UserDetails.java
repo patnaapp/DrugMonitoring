@@ -79,33 +79,39 @@ public class UserDetails implements KvmSerializable, Serializable {
         }
     }
 
-    public static Class<UserDetails> getUserClass() {
+    public static Class<UserDetails> getUserClass()
+    {
         return USER_CLASS;
     }
 
-    public static void setUserClass(Class<UserDetails> userClass) {
+    public static void setUserClass(Class<UserDetails> userClass)
+    {
         USER_CLASS = userClass;
     }
 
 
     @Override
-    public Object getProperty(int i) {
+    public Object getProperty(int i)
+    {
         return null;
     }
 
     @Override
-    public int getPropertyCount() {
+    public int getPropertyCount()
+    {
         // TODO Auto-generated method stub
         return 8;
     }
 
     @Override
-    public void setProperty(int i, Object o) {
+    public void setProperty(int i, Object o)
+    {
 
     }
 
     @Override
-    public void getPropertyInfo(int i, Hashtable hashtable, PropertyInfo propertyInfo) {
+    public void getPropertyInfo(int i, Hashtable hashtable, PropertyInfo propertyInfo)
+    {
 
     }
 

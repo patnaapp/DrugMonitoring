@@ -93,7 +93,7 @@
     <string name="uploading_failed">प्रेषण फेल !</string>
     <string name="Error_in_Network">अपने इंटरनेट कनेक्शन की जाँच करें और पुन: प्रयास करें</string>
     <string name="Error_in_Server">सर्वर बहुत व्यस्त हैं कुछ समय बाद कोशिश करें</string>
-    <string name="authenticating">सत्यापन हो रहा है ...</string>
+    <string name="authenticating">Authenticating ...</string>
     <string name="failed">फेल !</string>
     <string name="authentication_failed">सत्यापन फेल हो गया !</string>
     <string name="server_down_title">इंटरनेट/सर्वर डाउन  !</string>
